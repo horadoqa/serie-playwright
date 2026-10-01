@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Playwright — Configuração</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <main class="page">
+
+        <!-- =========================
+             HEADER
+        ========================= -->
+
+        <header>
+
+            <div class="logo" aria-label="Espaço reservado para o logo">
+                <img src="logo.png" alt="Logo Hora do QA">
+            </div>
+
+            <div class="brand">
+
+                <span class="eyebrow">
+                    Software Quality / Automation
+                </span>
+
+                <span class="brand-name">
+                    Hora do QA
+                </span>
+
+            </div>
+
+            <div class="status">
+
+                <span class="status-indicator"></span>
+
+                <span>
+                    PLAYWRIGHT / READY
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             HERO
+        ========================= -->
+
+        <section class="hero">
+
+            <div class="hero-label">
+                Playwright
+            </div>
+
+            <h1>
+                Configuração
+            </h1>
+
+            <p class="hero-description">
+                Como configurar o comportamento dos testes através do
+                arquivo <strong>playwright.config.ts</strong>, definindo
+                diretórios, browsers, URL base, evidências, retries,
+                paralelismo e relatórios.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             CONCEITO 19
+        ========================= -->
+
+        <article class="concept">
+
+            <div class="concept-top">
+
+                <span class="concept-number">
+                    CONCEITO / 19
+                </span>
+
+                <span class="concept-status">
+                    CONFIG
+                </span>
+
+            </div>
+
+
+            <h2>
+                Configuração
+            </h2>
+
+            <div class="concept-subtitle">
+                playwright.config.ts
+            </div>
+
+
+            <!-- =========================
+                 CONFIGURAÇÃO BÁSICA
+            ========================= -->
+
+            <h3>
+                Configuração básica
+            </h3>
+
+            <p class="concept-description">
+                O arquivo <strong>playwright.config.ts</strong> centraliza
+                diversas configurações utilizadas durante a execução dos testes.
+            </p>
+
+            <pre class="concept-code"><code>import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './tests',
+
+  use: {
+    baseURL: 'https://example.com',
+    headless: true,
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+    trace: 'on-first-retry'
+  },
+
+  retries: 2,
+
+  workers: 4,
+
+  reporter: 'html'
+});</code></pre>
+
+
+            <!-- =========================
+                 TEST DIR
+            ========================= -->
+
+            <h3>
+                Diretório dos testes
+            </h3>
+
+            <p class="concept-description">
+                A propriedade <strong>testDir</strong> define onde o Playwright
+                deve procurar os arquivos de teste.
+            </p>
+
+            <pre class="concept-code"><code>export default defineConfig({
+  testDir: './tests'
+});</code></pre>
+
+
+            <!-- =========================
+                 BASE URL
+            ========================= -->
+
+            <h3>
+                URL base
+            </h3>
+
+            <p class="concept-description">
+                Com <strong>baseURL</strong>, os testes podem utilizar caminhos
+                relativos em vez de repetir a URL completa da aplicação.
+            </p>
+
+            <pre class="concept-code"><code>use: {
+  baseURL: 'https://example.com'
+}</code></pre>
+
+            <p class="concept-description">
+                Com essa configuração, é possível navegar utilizando:
+            </p>
+
+            <pre class="concept-code"><code>await page.goto('/login');
+
+await page.goto('/dashboard');</code></pre>
+
+
+            <!-- =========================
+                 HEADLESS
+            ========================= -->
+
+            <h3>
+                Headless
+            </h3>
+
+            <p class="concept-description">
+                A propriedade <strong>headless</strong> controla se o navegador
+                será executado com ou sem interface visual.
+            </p>
+
+            <pre class="concept-code"><code>use: {
+  headless: true
+}</code></pre>
+
+
+            <!-- =========================
+                 SCREENSHOT
+            ========================= -->
+
+            <h3>
+                Screenshots
+            </h3>
+
+            <p class="concept-description">
+                A configuração <strong>screenshot</strong> determina quando
+                screenshots devem ser capturados.
+            </p>
+
+            <pre class="concept-code"><code>use: {
+  screenshot: 'only-on-failure'
+}</code></pre>
+
+            <p class="concept-description">
+                Também é possível capturar screenshots sempre:
+            </p>
+
+            <pre class="concept-code"><code>use: {
+  screenshot: 'on'
+}</code></pre>
+
+
+            <!-- =========================
+                 VIDEO
+            ========================= -->
+
+            <h3>
+                Gravação de vídeo
+            </h3>
+
+            <p class="concept-description">
+                A propriedade <strong>video</strong> controla a gravação
+                da execução dos testes.
+            </p>
+
+            <pre class="concept-code"><code>use: {
+  video: 'retain-on-failure'
+}</code></pre>
+
+
+            <!-- =========================
+                 TRACE
+            ========================= -->
+
+            <h3>
+                Trace
+            </h3>
+
+            <p class="concept-description">
+                O Trace permite registrar informações detalhadas da execução,
+                sendo especialmente útil para investigar falhas.
+            </p>
+
+            <pre class="concept-code"><code>use: {
+  trace: 'on-first-retry'
+}</code></pre>
+
+
+            <!-- =========================
+                 RETRIES
+            ========================= -->
+
+            <h3>
+                Retries
+            </h3>
+
+            <p class="concept-description">
+                A propriedade <strong>retries</strong> define quantas vezes
+                um teste que falhou pode ser repetido.
+            </p>
+
+            <pre class="concept-code"><code>retries: 2</code></pre>
+
+
+            <!-- =========================
+                 WORKERS
+            ========================= -->
+
+            <h3>
+                Workers
+            </h3>
+
+            <p class="concept-description">
+                A propriedade <strong>workers</strong> controla a quantidade
+                de workers utilizados para executar os testes em paralelo.
+            </p>
+
+            <pre class="concept-code"><code>workers: 4</code></pre>
+
+
+            <!-- =========================
+                 REPORTER
+            ========================= -->
+
+            <h3>
+                Reporter
+            </h3>
+
+            <p class="concept-description">
+                O <strong>reporter</strong> define como os resultados dos
+                testes serão apresentados ou armazenados.
+            </p>
+
+            <pre class="concept-code"><code>reporter: 'html'</code></pre>
+
+
+            <!-- =========================
+                 PROJETOS
+            ========================= -->
+
+            <h3>
+                Configurar múltiplos projetos
+            </h3>
+
+            <p class="concept-description">
+                A propriedade <strong>projects</strong> permite configurar
+                diferentes browsers ou ambientes dentro da mesma suíte.
+            </p>
+
+            <pre class="concept-code"><code>import { defineConfig, devices } from '@playwright/test';
+
+export default defineConfig({
+
+  projects: [
+
+    {
+      name: 'chromium',
+      use: {
+        ...devices['Desktop Chrome']
+      }
+    },
+
+    {
+      name: 'firefox',
+      use: {
+        ...devices['Desktop Firefox']
+      }
+    },
+
+    {
+      name: 'webkit',
+      use: {
+        ...devices['Desktop Safari']
+      }
+    }
+
+  ]
+
+});</code></pre>
+
+
+            <!-- =========================
+                 TIMEOUT
+            ========================= -->
+
+            <h3>
+                Timeout global
+            </h3>
+
+            <p class="concept-description">
+                O <strong>timeout</strong> pode definir o tempo máximo permitido
+                para a execução de cada teste.
+            </p>
+
+            <pre class="concept-code"><code>timeout: 30 * 1000</code></pre>
+
+
+            <!-- =========================
+                 EXPECT TIMEOUT
+            ========================= -->
+
+            <h3>
+                Timeout das assertions
+            </h3>
+
+            <p class="concept-description">
+                A propriedade <strong>expect.timeout</strong> define o tempo
+                máximo de espera das assertions.
+            </p>
+
+            <pre class="concept-code"><code>expect: {
+  timeout: 5000
+}</code></pre>
+
+
+            <!-- =========================
+                 CONFIGURAÇÃO COMPLETA
+            ========================= -->
+
+            <h3>
+                Exemplo completo
+            </h3>
+
+            <p class="concept-description">
+                Um exemplo reunindo as principais configurações apresentadas:
+            </p>
+
+            <pre class="concept-code"><code>import { defineConfig, devices } from '@playwright/test';
+
+export default defineConfig({
+
+  testDir: './tests',
+
+  timeout: 30 * 1000,
+
+  expect: {
+    timeout: 5000
+  },
+
+  retries: 2,
+
+  workers: 4,
+
+  reporter: 'html',
+
+  use: {
+    baseURL: 'https://example.com',
+
+    headless: true,
+
+    screenshot: 'only-on-failure',
+
+    video: 'retain-on-failure',
+
+    trace: 'on-first-retry'
+  },
+
+  projects: [
+
+    {
+      name: 'chromium',
+      use: {
+        ...devices['Desktop Chrome']
+      }
+    },
+
+    {
+      name: 'firefox',
+      use: {
+        ...devices['Desktop Firefox']
+      }
+    },
+
+    {
+      name: 'webkit',
+      use: {
+        ...devices['Desktop Safari']
+      }
+    }
+
+  ]
+
+});</code></pre>
+
+
+            <!-- =========================
+                 NOTA
+            ========================= -->
+
+            <div class="note">
+
+                <span class="note-label">
+                    QA Note
+                </span>
+
+                <p>
+                    O arquivo <strong>playwright.config.ts</strong> deve concentrar
+                    as configurações compartilhadas da suíte. Isso evita repetir
+                    configurações em cada teste e facilita alterações de ambiente,
+                    browsers, evidências, retries, paralelismo e relatórios.
+                    Para projetos maiores, a configuração também pode ser organizada
+                    utilizando diferentes <strong>projects</strong>.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- =========================
+             FOOTER
+        ========================= -->
+
+        <footer>
+
+            <div class="footer-brand">
+                Hora do QA
+            </div>
+
+            <div class="footer-meta">
+
+                <span>
+                    PLAYWRIGHT / REF-019
+                </span>
+
+                <span>
+                    QUALITY NOTES
+                </span>
+
+                <span class="footer-pass">
+                    READY
+                </span>
+
+            </div>
+
+        </footer>
+
+    </main>
+
+</body>
+
+</html>

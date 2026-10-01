@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Playwright — Frames</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <main class="page">
+
+        <!-- =========================
+        HEADER
+        ========================= -->
+
+        <header>
+
+            <div class="logo" aria-label="Espaço reservado para o logo">
+
+                <img src="logo.png" alt="Logo Hora do QA">
+
+            </div>
+
+            <div class="brand">
+
+                <span class="eyebrow">
+                    Software Quality / Automation
+                </span>
+
+                <span class="brand-name">
+                    Hora do QA
+                </span>
+
+            </div>
+
+            <div class="status">
+
+                <span class="status-indicator"></span>
+
+                <span>
+                    PLAYWRIGHT / READY
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+        HERO
+        ========================= -->
+
+        <section class="hero">
+
+            <div class="hero-label">
+                Playwright
+            </div>
+
+            <h1>
+                Frames
+            </h1>
+
+            <p class="hero-description">
+                Como acessar e interagir com elementos que estão dentro
+                de iframes utilizando o Playwright. O frameLocator permite
+                localizar elementos diretamente dentro de um frame de forma
+                simples e segura, sem precisar recuperar manualmente o objeto
+                Frame na maioria dos cenários.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+        CONCEITO 08
+        ========================= -->
+
+        <article class="concept">
+
+            <div class="concept-top">
+
+                <span class="concept-number">
+                    CONCEITO / 08
+                </span>
+
+                <span class="concept-status">
+                    FRAMES / IFRAME
+                </span>
+
+            </div>
+
+
+            <h2>
+                Frames
+            </h2>
+
+
+            <div class="concept-subtitle">
+                FrameLocator / Frame / iframe
+            </div>
+
+
+            <!-- =========================
+            FRAME LOCATOR
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Localizar um iframe
+                </div>
+
+                <pre class="concept-code"><code>const frame =
+    page.frameLocator('#payment-frame');</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            INTERAGIR COM FRAME
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Interagir com elementos do frame
+                </div>
+
+                <pre class="concept-code"><code>const frame =
+    page.frameLocator('#payment-frame');
+
+await frame
+    .getByRole('button', {
+        name: 'Enviar'
+    })
+    .click();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            PREENCHER CAMPO
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Preencher campos dentro do frame
+                </div>
+
+                <pre class="concept-code"><code>const frame =
+    page.frameLocator('#payment-frame');
+
+await frame
+    .getByLabel('Nome')
+    .fill('João');</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            LOCALIZAR POR TEXTO
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Localizar texto dentro do frame
+                </div>
+
+                <pre class="concept-code"><code>const frame =
+    page.frameLocator('#payment-frame');
+
+await expect(
+    frame.getByText('Pagamento aprovado')
+).toBeVisible();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            FRAME ANINHADO
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Trabalhar com frames aninhados
+                </div>
+
+                <pre class="concept-code"><code>const nestedFrame =
+    page
+        .frameLocator('#iframe-principal')
+        .frameLocator('#iframe-interno');
+
+await nestedFrame
+    .getByRole('button', {
+        name: 'Confirmar'
+    })
+    .click();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            FRAME POR TITLE
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Localizar iframe pelo atributo title
+                </div>
+
+                <pre class="concept-code"><code>const frame =
+    page.frameLocator(
+        'iframe[title="Pagamento"]'
+    );
+
+await frame
+    .getByRole('button', {
+        name: 'Pagar'
+    })
+    .click();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            FRAME POR URL
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Localizar frame pela URL
+                </div>
+
+                <pre class="concept-code"><code>const frame =
+    page.frame({
+        url: /payment/
+    });
+
+await frame
+    ?.getByRole('button', {
+        name: 'Pagar'
+    })
+    .click();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            CONTENT FRAME
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Obter o objeto Frame
+                </div>
+
+                <pre class="concept-code"><code>const iframe =
+    page.locator('#payment-frame');
+
+const frame =
+    await iframe.contentFrame();
+
+await frame
+    ?.getByLabel('Nome')
+    .fill('João');</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            LISTAR FRAMES
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Listar frames da página
+                </div>
+
+                <pre class="concept-code"><code>const frames =
+    page.frames();
+
+for (const frame of frames) {
+
+    console.log(
+        frame.url()
+    );
+
+}</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            FRAME PRINCIPAL
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Acessar o frame principal
+                </div>
+
+                <pre class="concept-code"><code>const mainFrame =
+    page.mainFrame();
+
+console.log(
+    mainFrame.url()
+);</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            EXEMPLO PRÁTICO
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Exemplo prático
+                </div>
+
+                <pre class="concept-code"><code>test('interagir com iframe', async ({ page }) =&gt; {
+
+    await page.goto('https://example.com');
+
+    const frame =
+        page.frameLocator('#payment-frame');
+
+    await frame
+        .getByLabel('Número do cartão')
+        .fill('4111111111111111');
+
+    await frame
+        .getByLabel('Nome')
+        .fill('João da Silva');
+
+    await frame
+        .getByRole('button', {
+            name: 'Pagar'
+        })
+        .click();
+
+    await expect(
+        frame.getByText('Pagamento aprovado')
+    ).toBeVisible();
+
+});</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            EXEMPLO COM CONTENT FRAME
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Exemplo usando contentFrame()
+                </div>
+
+                <pre class="concept-code"><code>test('acessar Frame diretamente', async ({ page }) =&gt; {
+
+    await page.goto('https://example.com');
+
+    const iframe =
+        page.locator('#payment-frame');
+
+    const frame =
+        await iframe.contentFrame();
+
+    await frame
+        ?.getByLabel('Nome')
+        .fill('João');
+
+});</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            NOTA
+            ========================= -->
+
+            <div class="note">
+
+                <span class="note-label">
+                    QA Note
+                </span>
+
+                <p>
+                    Para a maioria dos testes que precisam interagir com
+                    elementos dentro de um iframe, prefira
+                    <strong>frameLocator()</strong>. Ele permite encadear
+                    locators diretamente dentro do frame e mantém o código
+                    simples. Quando for necessário trabalhar com o objeto
+                    <strong>Frame</strong>, utilize métodos como
+                    <strong>page.frame()</strong>,
+                    <strong>locator.contentFrame()</strong>,
+                    <strong>page.frames()</strong> ou
+                    <strong>page.mainFrame()</strong>.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- =========================
+        FOOTER
+        ========================= -->
+
+        <footer>
+
+            <div class="footer-brand">
+                Hora do QA
+            </div>
+
+            <div class="footer-meta">
+
+                <span>
+                    PLAYWRIGHT / REF-008
+                </span>
+
+                <span>
+                    QUALITY NOTES
+                </span>
+
+                <span class="footer-pass">
+                    READY
+                </span>
+
+            </div>
+
+        </footer>
+
+    </main>
+
+</body>
+
+</html>

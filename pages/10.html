@@ -1,0 +1,388 @@
+<!DOCTYPE html> <html lang="pt-BR"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Playwright — Screenshots</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link rel="stylesheet" href="style.css">
+
+<link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
+    rel="stylesheet"
+>
+
+</head> <body>
+<main class="page">
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header>
+
+        <div class="logo" aria-label="Espaço reservado para o logo">
+            <img src="logo.png" alt="Logo Hora do QA">
+        </div>
+
+        <div class="brand">
+
+            <span class="eyebrow">
+                Software Quality / Automation
+            </span>
+
+            <span class="brand-name">
+                Hora do QA
+            </span>
+
+        </div>
+
+        <div class="status">
+
+            <span class="status-indicator"></span>
+
+            <span>
+                PLAYWRIGHT / READY
+            </span>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <section class="hero">
+
+        <div class="hero-label">
+            Playwright
+        </div>
+
+        <h1>
+            Screenshots
+        </h1>
+
+        <p class="hero-description">
+            Como capturar imagens durante a execução dos testes
+            utilizando o Playwright. Screenshots podem ser usados
+            para evidências, investigação de falhas, documentação
+            e análise visual da aplicação.
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         CONCEITO 10
+    ========================== -->
+
+    <article class="concept">
+
+        <div class="concept-top">
+
+            <span class="concept-number">
+                CONCEITO / 10
+            </span>
+
+            <span class="concept-status">
+                VISUAL / SCREENSHOT
+            </span>
+
+        </div>
+
+        <h2>
+            Screenshots
+        </h2>
+
+        <div class="concept-subtitle">
+            Page Screenshot / Full Page / Element
+        </div>
+
+
+        <!-- =========================
+             SCREENSHOT BÁSICO
+        ========================== -->
+
+        <div class="code-section">
+
+            <div class="concept-subtitle">
+                Screenshot básico
+            </div>
+
+            <pre class="concept-code"><code>await page.screenshot({
+path: 'screenshot.png'
+
+});</code></pre>
+
+        </div>
+
+
+        <!-- =========================
+             PÁGINA INTEIRA
+        ========================== -->
+
+        <div class="code-section">
+
+            <div class="concept-subtitle">
+                Capturar página inteira
+            </div>
+
+            <pre class="concept-code"><code>await page.screenshot({
+path: 'full.png',
+fullPage: true
+
+});</code></pre>
+
+        </div>
+
+
+        <!-- =========================
+             ELEMENTO
+        ========================== -->
+
+        <div class="code-section">
+
+            <div class="concept-subtitle">
+                Capturar um elemento
+            </div>
+
+            <pre class="concept-code"><code>await page
+.getByRole('main')
+.screenshot({
+    path: 'main.png'
+});</code></pre>
+
+        </div>
+
+
+        <!-- =========================
+             FORMATO JPEG
+        ========================== -->
+
+        <div class="code-section">
+
+            <div class="concept-subtitle">
+                Salvar como JPEG
+            </div>
+
+            <pre class="concept-code"><code>await page.screenshot({
+path: 'screenshot.jpg',
+type: 'jpeg',
+quality: 80
+
+});</code></pre>
+
+        </div>
+
+
+        <!-- =========================
+             FUNDO TRANSPARENTE
+        ========================== -->
+
+        <div class="code-section">
+
+            <div class="concept-subtitle">
+                Fundo transparente
+            </div>
+
+            <pre class="concept-code"><code>await page.screenshot({
+path: 'screenshot.png',
+omitBackground: true
+
+});</code></pre>
+
+        </div>
+
+
+        <!-- =========================
+             SCREENSHOT APÓS AÇÃO
+        ========================== -->
+
+        <div class="code-section">
+
+            <div class="concept-subtitle">
+                Capturar após uma ação
+            </div>
+
+            <pre class="concept-code"><code>await page
+.getByRole('button', { name: 'Salvar' })
+.click();
+
+await page.screenshot({
+path: 'after-save.png'
+});</code></pre>
+
+        </div>
+
+
+        <!-- =========================
+             SCREENSHOT DE ELEMENTO APÓS AÇÃO
+        ========================== -->
+
+        <div class="code-section">
+
+            <div class="concept-subtitle">
+                Capturar elemento após uma ação
+            </div>
+
+            <pre class="concept-code"><code>await page
+.getByRole('button', { name: 'Salvar' })
+.click();
+
+await page
+.getByRole('main')
+.screenshot({
+path: 'main-after-save.png'
+});</code></pre>
+
+        </div>
+
+
+        <!-- =========================
+             EXEMPLO PRÁTICO
+        ========================== -->
+
+        <div class="code-section">
+
+            <div class="concept-subtitle">
+                Exemplo prático
+            </div>
+
+            <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
+
+test('capturar evidência', async ({ page }) => {
+
+await page.goto('https://example.com');
+
+await page
+    .getByRole('button', { name: 'Login' })
+    .click();
+
+await page
+    .getByLabel('Email')
+    .fill('user@example.com');
+
+await page
+    .getByLabel('Senha')
+    .fill('123456');
+
+await page
+    .getByRole('button', { name: 'Entrar' })
+    .click();
+
+await expect(
+    page.getByText('Login realizado com sucesso')
+).toBeVisible();
+
+await page.screenshot({
+    path: 'login-success.png',
+    fullPage: true
+});
+
+});</code></pre>
+
+        </div>
+
+
+        <!-- =========================
+             SCREENSHOT AUTOMÁTICO
+        ========================== -->
+
+        <div class="code-section">
+
+            <div class="concept-subtitle">
+                Screenshot automático no config
+            </div>
+
+            <pre class="concept-code"><code>import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+
+use: {
+    screenshot: 'only-on-failure'
+}
+
+});</code></pre>
+
+        </div>
+
+
+        <!-- =========================
+             SCREENSHOT AUTOMÁTICO
+        ========================== -->
+
+        <div class="code-section">
+
+            <div class="concept-subtitle">
+                Outras opções de screenshot automático
+            </div>
+
+            <pre class="concept-code"><code>export default defineConfig({
+
+use: {
+    screenshot: 'on'
+}
+
+});</code></pre>
+
+        </div>
+
+
+        <!-- =========================
+             NOTA
+        ========================== -->
+
+        <div class="note">
+
+            <span class="note-label">
+                QA Note
+            </span>
+
+            <p>
+                Screenshots são especialmente úteis como evidência de execução
+                e investigação de falhas. Para evitar arquivos desnecessários,
+                uma estratégia comum é configurar
+                <strong>screenshot: 'only-on-failure'</strong>.
+                Para capturar uma página inteira manualmente, utilize
+                <strong>fullPage: true</strong>. Também é possível capturar
+                elementos específicos utilizando o método
+                <strong>locator.screenshot()</strong>.
+            </p>
+
+        </div>
+
+    </article>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-brand">
+            Hora do QA
+        </div>
+
+        <div class="footer-meta">
+
+            <span>
+                PLAYWRIGHT / REF-010
+            </span>
+
+            <span>
+                QUALITY NOTES
+            </span>
+
+            <span class="footer-pass">
+                READY
+            </span>
+
+        </div>
+
+    </footer>
+
+</main>
+
+</body> </html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playwright — Expect e Assertions</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <main class="page">
+
+        <!-- =========================
+         HEADER
+    ========================== -->
+
+        <header>
+
+            <div class="logo" aria-label="Espaço reservado para o logo">
+                <img src="logo.png" alt="Logo Hora do QA">
+            </div>
+
+            <div class="brand">
+
+                <span class="eyebrow">
+                    Software Quality / Automation
+                </span>
+
+                <span class="brand-name">
+                    Hora do QA
+                </span>
+
+            </div>
+
+            <div class="status">
+
+                <span class="status-indicator"></span>
+
+                <span>
+                    PLAYWRIGHT / READY
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+         HERO
+    ========================== -->
+
+        <section class="hero">
+
+            <div class="hero-label">
+                Playwright
+            </div>
+
+            <h1>
+                Expect<br>
+                &amp; Assertions
+            </h1>
+
+            <p class="hero-description">
+                Como validar o comportamento esperado da aplicação
+                utilizando as assertions do Playwright para verificar
+                páginas, elementos, textos, estados e quantidade
+                de elementos.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+         CONCEITO 06
+    ========================== -->
+
+        <article class="concept">
+
+            <div class="concept-top">
+
+                <span class="concept-number">
+                    CONCEITO / 06
+                </span>
+
+                <span class="concept-status">
+                    ASSERTIONS
+                </span>
+
+            </div>
+
+
+            <h2>
+                Expect &amp; Assertions
+            </h2>
+
+            <div class="concept-subtitle">
+                Test / Validate / Expect
+            </div>
+
+
+            <!-- =========================
+             EXEMPLO BÁSICO
+        ========================== -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Exemplo básico
+                </div>
+
+                <pre class="concept-code"><code>await expect(page)
+.toHaveTitle('Página inicial');
+
+await expect(page)
+.toHaveURL(/dashboard/);
+
+await expect(
+page.getByText('Sucesso')
+).toBeVisible();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+             NOTA
+        ========================== -->
+
+            <div class="note">
+
+                <span class="note-label">
+                    QA Note
+                </span>
+
+                <p>
+                    Assertions representam aquilo que o teste espera
+                    encontrar como resultado. O
+                    <strong>expect()</strong> recebe o elemento ou valor
+                    que será validado, enquanto o matcher, como
+                    <strong>toBeVisible()</strong>,
+                    <strong>toHaveText()</strong> ou
+                    <strong>toHaveURL()</strong>, define a condição esperada.
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+             PRINCIPAIS ASSERTIONS
+        ========================== -->
+
+            <div class="concept-subtitle">
+                Principais assertions
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Assertion</th>
+                            <th>Função</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>
+                                <code>toHaveTitle()</code>
+                            </td>
+
+                            <td>
+                                Verifica o título atual da página.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <code>toHaveURL()</code>
+                            </td>
+
+                            <td>
+                                Verifica se a URL atual corresponde
+                                ao valor ou padrão esperado.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <code>toBeVisible()</code>
+                            </td>
+
+                            <td>
+                                Verifica se o elemento está visível
+                                para o usuário.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <code>toBeEnabled()</code>
+                            </td>
+
+                            <td>
+                                Verifica se o elemento está habilitado
+                                para interação.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <code>toBeDisabled()</code>
+                            </td>
+
+                            <td>
+                                Verifica se o elemento está desabilitado.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <code>toHaveText()</code>
+                            </td>
+
+                            <td>
+                                Verifica o texto de um elemento.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <code>toHaveCount()</code>
+                            </td>
+
+                            <td>
+                                Verifica a quantidade de elementos
+                                encontrados por um locator.
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- =========================
+             TO HAVE TITLE
+        ========================== -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    toHaveTitle()
+                </div>
+
+                <pre class="concept-code"><code>await expect(page)
+.toHaveTitle('Página inicial');
+
+await expect(page)
+.toHaveTitle(/Página/);</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+             TO HAVE URL
+        ========================== -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    toHaveURL()
+                </div>
+
+                <pre class="concept-code"><code>await expect(page)
+.toHaveURL('https://example.com/dashboard');
+
+await expect(page)
+.toHaveURL(/dashboard/);</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+             TO BE VISIBLE
+        ========================== -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    toBeVisible()
+                </div>
+
+                <pre class="concept-code"><code>await expect(
+page.getByText('Sucesso')
+
+).toBeVisible();
+
+await expect(
+page.getByRole('heading', {
+name: 'Dashboard'
+})
+).toBeVisible();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+             ENABLED / DISABLED
+        ========================== -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    toBeEnabled() / toBeDisabled()
+                </div>
+
+                <pre class="concept-code"><code>await expect(
+page.getByRole('button', {
+    name: 'Enviar'
+})
+
+).toBeEnabled();
+
+await expect(
+page.getByRole('button', {
+name: 'Enviar'
+})
+).toBeDisabled();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+             TO HAVE TEXT
+        ========================== -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    toHaveText()
+                </div>
+
+                <pre class="concept-code"><code>await expect(
+page.getByRole('heading')
+
+).toHaveText('Dashboard');
+
+await expect(
+page.getByTestId('mensagem')
+).toHaveText('Olá, João');</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+             TO HAVE COUNT
+        ========================== -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    toHaveCount()
+                </div>
+
+                <pre class="concept-code"><code>await expect(
+page.locator('.item')
+
+).toHaveCount(5);
+
+await expect(
+page.getByRole('listitem')
+).toHaveCount(3);</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+             ASSERTIONS NEGATIVAS
+        ========================== -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Assertions negativas
+                </div>
+
+                <pre class="concept-code"><code>await expect(
+page.getByText('Erro')
+
+).not.toBeVisible();
+
+await expect(
+page.getByRole('button', {
+name: 'Enviar'
+})
+).not.toBeDisabled();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+             OUTROS ESTADOS
+        ========================== -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Validar estados de elementos
+                </div>
+
+                <pre class="concept-code"><code>await expect(
+page.getByRole('checkbox', {
+    name: 'Aceitar termos'
+})
+
+).toBeChecked();
+
+await expect(
+page.getByRole('textbox', {
+name: 'Email'
+})
+).toHaveValue('user@example.com');</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+             FLUXO COMPLETO
+        ========================== -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Fluxo completo
+                </div>
+
+                <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
+
+test('validar login', async ({ page }) => {
+
+await page.goto('https://example.com/login');
+
+await page.getByLabel('Email')
+    .fill('user@example.com');
+
+await page.getByLabel('Senha')
+    .fill('123456');
+
+await page.getByRole('button', {
+    name: 'Entrar'
+}).click();
+
+await expect(page)
+    .toHaveURL(/dashboard/);
+
+await expect(
+    page.getByRole('heading', {
+        name: 'Dashboard'
+    })
+).toBeVisible();
+
+});</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+             BOA PRÁTICA
+        ========================== -->
+
+            <div class="note">
+
+                <span class="note-label">
+                    QA Note
+                </span>
+
+                <p>
+                    Prefira assertions que representem o comportamento
+                    que realmente precisa ser validado. Em vez de verificar
+                    detalhes internos da implementação, valide aquilo que
+                    o usuário deveria observar, como
+                    <strong>URL</strong>,
+                    <strong>texto</strong>,
+                    <strong>visibilidade</strong>,
+                    <strong>estado dos elementos</strong>
+                    e <strong>quantidade de elementos</strong>.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- =========================
+         FOOTER
+    ========================== -->
+
+        <footer>
+
+            <div class="footer-brand">
+                Hora do QA
+            </div>
+
+            <div class="footer-meta">
+
+                <span>
+                    PLAYWRIGHT / REF-006
+                </span>
+
+                <span>
+                    QUALITY NOTES
+                </span>
+
+                <span class="footer-pass">
+                    READY
+                </span>
+
+            </div>
+
+        </footer>
+
+    </main>
+
+</body>
+
+</html>

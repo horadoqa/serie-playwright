@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playwright — Navegação</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <main class="page">
+
+        <!-- =========================
+         HEADER
+    ========================= -->
+
+        <header>
+
+            <div class="logo" aria-label="Espaço reservado para o logo">
+
+                <img src="logo.png" alt="Logo Hora do QA">
+
+            </div>
+
+
+            <div class="brand">
+
+                <span class="eyebrow">
+                    Software Quality / Automation
+                </span>
+
+                <span class="brand-name">
+                    Hora do QA
+                </span>
+
+            </div>
+
+
+            <div class="status">
+
+                <span class="status-indicator"></span>
+
+                <span>
+                    PLAYWRIGHT / READY
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+         HERO
+    ========================= -->
+
+        <section class="hero">
+
+            <div class="hero-label">
+                Playwright
+            </div>
+
+
+            <h1>
+                Navegação
+            </h1>
+
+
+            <p class="hero-description">
+                Os principais recursos do Playwright para navegar entre
+                páginas, avançar e voltar no histórico, recarregar a aplicação
+                e aguardar mudanças de URL durante a execução dos testes.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+         CONCEITO 03
+    ========================= -->
+
+        <article class="concept">
+
+
+            <div class="concept-top">
+
+                <span class="concept-number">
+                    CONCEITO / 03
+                </span>
+
+                <span class="concept-status">
+                    NAVIGATION
+                </span>
+
+            </div>
+
+
+            <h2>
+                Navegação
+            </h2>
+
+
+            <div class="concept-subtitle">
+                Page / Navigation Commands
+            </div>
+
+
+            <!-- =========================
+             NAVEGAÇÃO BÁSICA
+        ========================= -->
+
+            <pre class="concept-code"><code>await page.goto('https://example.com');
+
+await page.goBack();
+
+await page.goForward();
+
+await page.reload();</code></pre>
+
+            <!-- =========================
+             NOTA
+        ========================= -->
+
+            <div class="note">
+
+                <span class="note-label">
+                    QA Note
+                </span>
+
+                <p>
+                    O objeto <strong>page</strong> representa uma página
+                    do navegador. Através dele, podemos controlar a navegação
+                    e aguardar estados importantes da aplicação durante o teste.
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+             PRINCIPAIS COMANDOS
+        ========================= -->
+
+            <div class="concept-subtitle">
+                Principais comandos
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Comando
+                            </th>
+
+                            <th>
+                                Função
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>
+                                <code>page.goto()</code>
+                            </td>
+
+                            <td>
+                                Navega para uma URL específica.
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <code>page.goBack()</code>
+                            </td>
+
+                            <td>
+                                Retorna para a página anterior no histórico
+                                do navegador.
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <code>page.goForward()</code>
+                            </td>
+
+                            <td>
+                                Avança para a próxima página disponível
+                                no histórico do navegador.
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <code>page.reload()</code>
+                            </td>
+
+                            <td>
+                                Recarrega a página atual.
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <code>page.waitForURL()</code>
+                            </td>
+
+                            <td>
+                                Aguarda a página navegar para uma URL
+                                que corresponda ao padrão informado.
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <code>page.waitForLoadState()</code>
+                            </td>
+
+                            <td>
+                                Aguarda um estado específico de carregamento
+                                da página, como <code>load</code>,
+                                <code>domcontentloaded</code> ou
+                                <code>networkidle</code>.
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <!-- =========================
+             GOTO
+        ========================= -->
+
+            <div class="concept-subtitle">
+                goto()
+            </div>
+
+
+            <pre class="concept-code"><code>await page.goto('https://example.com');
+
+await page.goto('https://example.com/login');
+
+await page.goto('https://example.com/dashboard');</code></pre>
+
+            <!-- =========================
+             GO BACK
+        ========================= -->
+
+            <div class="concept-subtitle">
+                goBack()
+            </div>
+
+
+            <pre class="concept-code"><code>await page.goto('https://example.com');
+
+await page.goto('https://example.com/login');
+
+await page.goBack();</code></pre>
+
+            <!-- =========================
+             GO FORWARD
+        ========================= -->
+
+            <div class="concept-subtitle">
+                goForward()
+            </div>
+
+
+            <pre class="concept-code"><code>await page.goto('https://example.com');
+
+await page.goto('https://example.com/login');
+
+await page.goBack();
+
+await page.goForward();</code></pre>
+
+            <!-- =========================
+             RELOAD
+        ========================= -->
+
+            <div class="concept-subtitle">
+                reload()
+            </div>
+
+
+            <pre class="concept-code"><code>await page.goto('https://example.com');
+
+await page.reload();</code></pre>
+
+            <!-- =========================
+             WAIT FOR URL
+        ========================= -->
+
+            <div class="concept-subtitle">
+                waitForURL()
+            </div>
+
+
+            <pre class="concept-code"><code>await page.getByRole('button', {
+name: 'Login'
+
+}).click();
+
+await page.waitForURL('**/dashboard');</code></pre>
+
+            <!-- =========================
+             WAIT FOR LOAD STATE
+        ========================= -->
+
+            <div class="concept-subtitle">
+                waitForLoadState()
+            </div>
+
+
+            <pre class="concept-code"><code>await page.goto('https://example.com');
+
+await page.waitForLoadState('domcontentloaded');
+
+await page.waitForLoadState('load');</code></pre>
+
+            <!-- =========================
+             VALIDAÇÃO DA URL
+        ========================= -->
+
+            <div class="concept-subtitle">
+                Validar a URL
+            </div>
+
+
+            <pre class="concept-code"><code>await expect(page)
+.toHaveURL(/dashboard/);</code></pre>
+
+
+            <!-- =========================
+             EXEMPLO COMPLETO
+        ========================= -->
+
+            <div class="concept-subtitle">
+                Exemplo completo
+            </div>
+
+
+            <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
+
+test('navegação para dashboard', async ({ page }) => {
+
+// Acessa a aplicação
+await page.goto('https://example.com');
+
+// Executa uma ação que provoca navegação
+await page.getByRole('link', {
+    name: 'Dashboard'
+}).click();
+
+// Aguarda a URL esperada
+await page.waitForURL('**/dashboard');
+
+// Valida a URL
+await expect(page)
+    .toHaveURL(/dashboard/);
+
+});</code></pre>
+
+            <!-- =========================
+             NOTA FINAL
+        ========================= -->
+
+            <div class="note">
+
+                <span class="note-label">
+                    QA Note
+                </span>
+
+                <p>
+                    Quando uma ação provoca uma navegação, prefira aguardar
+                    uma condição observável, como <strong>waitForURL()</strong>,
+                    e validar o resultado com <strong>expect()</strong>.
+                    Evite utilizar esperas fixas como
+                    <strong>waitForTimeout()</strong> para sincronizar
+                    a navegação.
+                </p>
+
+            </div>
+
+
+        </article>
+
+
+        <!-- =========================
+         FOOTER
+    ========================= -->
+
+        <footer>
+
+            <div class="footer-brand">
+                Hora do QA
+            </div>
+
+
+            <div class="footer-meta">
+
+                <span>
+                    PLAYWRIGHT / REF-003
+                </span>
+
+                <span>
+                    QUALITY NOTES
+                </span>
+
+                <span class="footer-pass">
+                    READY
+                </span>
+
+            </div>
+
+        </footer>
+
+    </main>
+
+</body>
+
+</html>

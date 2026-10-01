@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playwright — Debug</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <main class="page">
+        <!-- =========================
+     HEADER
+========================= -->
+
+        <header>
+
+            <div class="logo" aria-label="Espaço reservado para o logo">
+
+                <img src="logo.png" alt="Logo Hora do QA">
+
+            </div>
+
+
+            <div class="brand">
+
+                <span class="eyebrow">
+                    Software Quality / Automation
+                </span>
+
+                <span class="brand-name">
+                    Hora do QA
+                </span>
+
+            </div>
+
+
+            <div class="status">
+
+                <span class="status-indicator"></span>
+
+                <span>
+                    PLAYWRIGHT / READY
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+     HERO
+========================= -->
+
+        <section class="hero">
+
+            <div class="hero-label">
+                Playwright
+            </div>
+
+
+            <h1>
+                Debug
+            </h1>
+
+
+            <p class="hero-description">
+                Ferramentas e comandos para investigar falhas,
+                acompanhar a execução dos testes, inspecionar elementos
+                e entender o comportamento da aplicação durante a automação.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+     CONCEITO 17
+========================= -->
+
+        <article class="concept">
+
+
+            <div class="concept-top">
+
+                <span class="concept-number">
+                    CONCEITO / 17
+                </span>
+
+                <span class="concept-status">
+                    DEBUG
+                </span>
+
+            </div>
+
+
+            <h2>
+                Debug
+            </h2>
+
+
+            <div class="concept-subtitle">
+                Debugging / Inspection / Codegen
+            </div>
+
+
+            <!-- =========================
+       DEBUG MODE
+  ========================= -->
+
+            <h3>
+                Executar no modo debug
+            </h3>
+
+
+            <p class="concept-description">
+                O modo <strong>--debug</strong> inicia os testes com recursos
+                de depuração que permitem acompanhar a execução passo a passo.
+            </p>
+
+
+            <pre class="concept-code"><code>npx playwright test --debug</code></pre>
+
+
+            <!-- =========================
+       HEADED
+  ========================= -->
+
+            <h3>
+                Executar com o navegador visível
+            </h3>
+
+
+            <p class="concept-description">
+                O parâmetro <strong>--headed</strong> executa o teste exibindo
+                a janela do navegador.
+            </p>
+
+
+            <pre class="concept-code"><code>npx playwright test --headed</code></pre>
+
+
+            <!-- =========================
+       UI MODE
+  ========================= -->
+
+            <h3>
+                Utilizar o UI Mode
+            </h3>
+
+
+            <p class="concept-description">
+                O <strong>--ui</strong> abre a interface gráfica do Playwright,
+                permitindo executar, acompanhar e investigar os testes de forma
+                interativa.
+            </p>
+
+
+            <pre class="concept-code"><code>npx playwright test --ui</code></pre>
+
+
+            <!-- =========================
+       PAGE PAUSE
+  ========================= -->
+
+            <h3>
+                Pausar a execução
+            </h3>
+
+
+            <p class="concept-description">
+                O método <strong>page.pause()</strong> interrompe a execução
+                naquele ponto para permitir a inspeção da página e dos elementos.
+            </p>
+
+
+            <pre class="concept-code"><code>import { test } from '@playwright/test';
+
+
+test('debug do formulário', async ({ page }) => {
+
+await page.goto('https://example.com');
+
+await page.pause();
+
+await page.getByRole('button', {
+name: 'Login'
+}).click();
+
+});</code></pre>
+
+            <!-- =========================
+       CODEGEN
+  ========================= -->
+
+            <h3>
+                Gerar código automaticamente
+            </h3>
+
+
+            <p class="concept-description">
+                O <strong>codegen</strong> abre o navegador e permite realizar
+                ações manualmente enquanto o Playwright gera o código
+                correspondente às interações.
+            </p>
+
+
+            <pre class="concept-code"><code>npx playwright codegen https://example.com</code></pre>
+
+
+            <!-- =========================
+       CODEGEN COM DEVICE
+  ========================= -->
+
+            <h3>
+                Codegen com projeto específico
+            </h3>
+
+
+            <p class="concept-description">
+                Também é possível utilizar o codegen com configurações
+                específicas do projeto.
+            </p>
+
+
+            <pre class="concept-code"><code>npx playwright codegen --browser chromium https://example.com</code></pre>
+
+
+            <!-- =========================
+       DEBUG COM INSPECTOR
+  ========================= -->
+
+            <h3>
+                Utilizar o Playwright Inspector
+            </h3>
+
+
+            <p class="concept-description">
+                O Inspector permite acompanhar a execução, selecionar elementos,
+                visualizar locators e avançar pelas etapas do teste.
+            </p>
+
+
+            <pre class="concept-code"><code>PWDEBUG=1 npx playwright test</code></pre>
+
+
+            <!-- =========================
+       DEBUG COM TESTE ESPECÍFICO
+  ========================= -->
+
+            <h3>
+                Depurar um teste específico
+            </h3>
+
+
+            <p class="concept-description">
+                Para investigar uma falha específica, combine o modo debug
+                com o arquivo ou teste que deseja executar.
+            </p>
+
+
+            <pre class="concept-code"><code>npx playwright test tests/login.spec.ts --debug</code></pre>
+
+
+            <!-- =========================
+       DEBUG POR NOME
+  ========================= -->
+
+            <h3>
+                Depurar pelo nome do teste
+            </h3>
+
+
+            <pre class="concept-code"><code>npx playwright test -g "login" --debug</code></pre>
+
+
+            <!-- =========================
+       TRACE
+  ========================= -->
+
+            <h3>
+                Investigação com Trace
+            </h3>
+
+
+            <p class="concept-description">
+                O Trace permite analisar posteriormente uma execução,
+                incluindo ações realizadas, screenshots, informações de rede
+                e outros detalhes da execução.
+            </p>
+
+
+            <pre class="concept-code"><code>npx playwright show-trace trace.zip</code></pre>
+
+
+            <!-- =========================
+       NOTA
+  ========================= -->
+
+            <div class="note">
+
+                <span class="note-label">
+                    QA Note
+                </span>
+
+                <p>
+                    Para investigar uma falha rapidamente, uma sequência prática
+                    é começar com <strong>--headed</strong> ou
+                    <strong>--debug</strong>. Quando for necessário acompanhar
+                    visualmente a execução, utilize o <strong>--ui</strong> ou
+                    <strong>page.pause()</strong>. Para investigar uma execução
+                    já concluída, o <strong>Trace Viewer</strong> pode fornecer
+                    informações adicionais sobre as etapas realizadas.
+                </p>
+
+            </div>
+
+
+        </article>
+
+
+        <!-- =========================
+     FOOTER
+========================= -->
+
+        <footer>
+
+            <div class="footer-brand">
+                Hora do QA
+            </div>
+
+
+            <div class="footer-meta">
+
+                <span>
+                    PLAYWRIGHT / REF-017
+                </span>
+
+                <span>
+                    QUALITY NOTES
+                </span>
+
+                <span class="footer-pass">
+                    READY
+                </span>
+
+            </div>
+
+        </footer>
+
+    </main>
+</body>
+
+</html>

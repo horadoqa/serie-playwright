@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Playwright — Locators avançados</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <main class="page">
+
+        <!-- =========================
+        HEADER
+        ========================= -->
+
+        <header>
+
+            <div class="logo" aria-label="Espaço reservado para o logo">
+                <img src="logo.png" alt="Logo Hora do QA">
+            </div>
+
+            <div class="brand">
+
+                <span class="eyebrow">
+                    Software Quality / Automation
+                </span>
+
+                <span class="brand-name">
+                    Hora do QA
+                </span>
+
+            </div>
+
+            <div class="status">
+
+                <span class="status-indicator"></span>
+
+                <span>
+                    PLAYWRIGHT / READY
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+        HERO
+        ========================= -->
+
+        <section class="hero">
+
+            <div class="hero-label">
+                Playwright
+            </div>
+
+            <h1>
+                Locators<br>
+                avançados
+            </h1>
+
+            <p class="hero-description">
+                Técnicas para combinar, filtrar e selecionar elementos
+                de forma mais precisa utilizando os locators do Playwright.
+                Esses recursos são úteis quando um locator simples não é
+                suficiente para identificar o elemento desejado.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+        CONCEITO 07
+        ========================= -->
+
+        <article class="concept">
+
+            <div class="concept-top">
+
+                <span class="concept-number">
+                    CONCEITO / 07
+                </span>
+
+                <span class="concept-status">
+                    ADVANCED / LOCATORS
+                </span>
+
+            </div>
+
+
+            <h2>
+                Locators avançados
+            </h2>
+
+
+            <div class="concept-subtitle">
+                Filter / Has / First / Last / Nth / And / Or
+            </div>
+
+
+            <!-- =========================
+            FILTRO POR TEXTO
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Filtrar por texto
+                </div>
+
+                <pre class="concept-code"><code>const salvar =
+    page
+        .getByRole('button')
+        .filter({
+            hasText: 'Salvar'
+        });
+
+await salvar.click();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            FILTRO POR ELEMENTO
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Filtrar por elemento interno
+                </div>
+
+                <pre class="concept-code"><code>const card =
+    page
+        .locator('.card')
+        .filter({
+            has: page.getByRole('heading', {
+                name: 'Notebook'
+            })
+        });
+
+await expect(card).toBeVisible();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            FILTRO POR TEXTO EXATO
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Filtrar usando expressão regular
+                </div>
+
+                <pre class="concept-code"><code>const produto =
+    page
+        .locator('.card')
+        .filter({
+            hasText: /Notebook/i
+        });
+
+await expect(produto).toBeVisible();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            PRIMEIRO ELEMENTO
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Primeiro elemento
+                </div>
+
+                <pre class="concept-code"><code>const primeiro =
+    page.locator('.item').first();
+
+await primeiro.click();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            ÚLTIMO ELEMENTO
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Último elemento
+                </div>
+
+                <pre class="concept-code"><code>const ultimo =
+    page.locator('.item').last();
+
+await ultimo.click();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            ELEMENTO POR ÍNDICE
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Elemento por índice
+                </div>
+
+                <pre class="concept-code"><code>const terceiro =
+    page.locator('.item').nth(2);
+
+await terceiro.click();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            CONTAR ELEMENTOS
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Contar elementos encontrados
+                </div>
+
+                <pre class="concept-code"><code>const quantidade =
+    await page.locator('.item').count();
+
+console.log(quantidade);</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            COMBINAR LOCATORS
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Combinar locators com AND
+                </div>
+
+                <pre class="concept-code"><code>const botao =
+    page
+        .getByRole('button')
+        .and(
+            page.getByText('Salvar')
+        );
+
+await botao.click();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            ALTERNATIVAS COM OR
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Trabalhar com alternativas usando OR
+                </div>
+
+                <pre class="concept-code"><code>const mensagem =
+    page
+        .getByText('Sucesso')
+        .or(page.getByText('Concluído'));
+
+await expect(mensagem.first())
+    .toBeVisible();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            FILTRAR E LOCALIZAR
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Filtrar e localizar um elemento interno
+                </div>
+
+                <pre class="concept-code"><code>const produto =
+    page
+        .locator('.card')
+        .filter({
+            hasText: 'Notebook'
+        });
+
+await produto
+    .getByRole('button', {
+        name: 'Comprar'
+    })
+    .click();</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            EXEMPLO PRÁTICO
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Exemplo prático
+                </div>
+
+                <pre class="concept-code"><code>test('selecionar produto específico', async ({ page }) =&gt; {
+
+    await page.goto('https://example.com');
+
+    const produto =
+        page
+            .locator('.card')
+            .filter({
+                hasText: 'Notebook'
+            });
+
+    await expect(produto)
+        .toBeVisible();
+
+    await produto
+        .getByRole('button', {
+            name: 'Comprar'
+        })
+        .click();
+
+    await expect(
+        page.getByText('Produto adicionado')
+    ).toBeVisible();
+
+});</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            EXEMPLO COM HAS
+            ========================= -->
+
+            <div class="code-section">
+
+                <div class="concept-subtitle">
+                    Exemplo usando has
+                </div>
+
+                <pre class="concept-code"><code>test('localizar card pelo conteúdo interno', async ({ page }) =&gt; {
+
+    const produto =
+        page
+            .locator('.card')
+            .filter({
+                has: page.getByRole('heading', {
+                    name: 'Notebook'
+                })
+            });
+
+    await expect(produto)
+        .toBeVisible();
+
+    await produto
+        .getByRole('button', {
+            name: 'Comprar'
+        })
+        .click();
+
+});</code></pre>
+
+            </div>
+
+
+            <!-- =========================
+            NOTA
+            ========================= -->
+
+            <div class="note">
+
+                <span class="note-label">
+                    QA Note
+                </span>
+
+                <p>
+                    Locators avançados são úteis quando existem vários elementos
+                    semelhantes na página. Prefira começar com locators semânticos
+                    como <strong>getByRole</strong>, <strong>getByLabel</strong>
+                    e <strong>getByText</strong>. Quando necessário, utilize
+                    <strong>filter()</strong> para restringir a seleção,
+                    <strong>has</strong> para procurar conteúdo interno,
+                    <strong>first()</strong>, <strong>last()</strong> e
+                    <strong>nth()</strong> para selecionar uma posição específica,
+                    e <strong>and()</strong> ou <strong>or()</strong> para combinar
+                    locators.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <!-- =========================
+        FOOTER
+        ========================= -->
+
+        <footer>
+
+            <div class="footer-brand">
+                Hora do QA
+            </div>
+
+            <div class="footer-meta">
+
+                <span>
+                    PLAYWRIGHT / REF-007
+                </span>
+
+                <span>
+                    QUALITY NOTES
+                </span>
+
+                <span class="footer-pass">
+                    READY
+                </span>
+
+            </div>
+
+        </footer>
+
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Playwright — Comandos essenciais para decorar</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <main class="page">
+
+        <!-- =========================
+             HEADER
+        ========================= -->
+
+        <header>
+
+            <div class="logo" aria-label="Espaço reservado para o logo">
+                <img src="logo.png" alt="Logo Hora do QA">
+            </div>
+
+            <div class="brand">
+
+                <span class="eyebrow">
+                    Software Quality / Automation
+                </span>
+
+                <span class="brand-name">
+                    Hora do QA
+                </span>
+
+            </div>
+
+            <div class="status">
+
+                <span class="status-indicator"></span>
+
+                <span>
+                    PLAYWRIGHT / READY
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             HERO
+        ========================= -->
+
+        <section class="hero">
+
+            <div class="hero-label">
+                Playwright
+            </div>
+
+            <h1>
+                Comandos<br>
+                essenciais
+            </h1>
+
+            <p class="hero-description">
+                Os principais comandos do Playwright que você deve conhecer
+                para navegar, localizar elementos, interagir com a aplicação,
+                aguardar estados e validar resultados durante a automação
+                de testes.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             CONCEITO 20
+        ========================= -->
+
+        <article class="concept">
+
+            <div class="concept-top">
+
+                <span class="concept-number">
+                    CONCEITO / 20
+                </span>
+
+                <span class="concept-status">
+                    ESSENTIALS
+                </span>
+
+            </div>
+
+
+            <h2>
+                Comandos essenciais para decorar
+            </h2>
+
+            <div class="concept-subtitle">
+                Playwright / Quick Reference
+            </div>
+
+
+            <!-- =========================
+                 NAVEGAÇÃO
+            ========================= -->
+
+            <h3>
+                Navegação
+            </h3>
+
+            <p class="concept-description">
+                Comandos utilizados para navegar entre páginas e acompanhar
+                mudanças de URL ou estados de carregamento.
+            </p>
+
+            <pre class="concept-code"><code>page.goto('https://example.com');
+
+await page.waitForURL('**/dashboard');
+
+await page.waitForLoadState('networkidle');</code></pre>
+
+
+            <!-- =========================
+                 LOCATORS
+            ========================= -->
+
+            <h3>
+                Locators
+            </h3>
+
+            <p class="concept-description">
+                Os locators permitem encontrar elementos de forma semântica
+                e realizar interações com eles durante os testes.
+            </p>
+
+            <pre class="concept-code"><code>page.getByRole('button', {
+  name: 'Login'
+});
+
+page.getByText('Entrar');
+
+page.getByLabel('E-mail');
+
+page.getByTestId('login-button');
+
+page.locator('#email');</code></pre>
+
+
+            <!-- =========================
+                 AÇÕES
+            ========================= -->
+
+            <h3>
+                Ações
+            </h3>
+
+            <p class="concept-description">
+                Comandos utilizados para interagir com os elementos da aplicação,
+                como clicar, preencher campos, selecionar opções e fazer upload.
+            </p>
+
+            <pre class="concept-code"><code>await page.getByRole('button').click();
+
+await page.getByLabel('Nome').fill('João');
+
+await page.getByLabel('Senha').press('Enter');
+
+await page.getByRole('checkbox').check();
+
+await page.getByRole('checkbox').uncheck();
+
+await page.getByLabel('Estado').selectOption('SP');
+
+await page.getByLabel('Arquivo').setInputFiles('arquivo.pdf');</code></pre>
+
+
+            <!-- =========================
+                 ASSERTIONS
+            ========================= -->
+
+            <h3>
+                Assertions
+            </h3>
+
+            <p class="concept-description">
+                As assertions verificam se o comportamento observado corresponde
+                ao resultado esperado pelo teste.
+            </p>
+
+            <pre class="concept-code"><code>await expect(page).toHaveTitle('Example');
+
+await expect(page).toHaveURL(/dashboard/);
+
+await expect(page.getByRole('button')).toBeVisible();
+
+await expect(page.getByRole('button')).toBeEnabled();
+
+await expect(page.getByRole('button')).toBeDisabled();
+
+await expect(page.getByText('Sucesso')).toHaveText('Sucesso');
+
+await expect(page.locator('.item')).toHaveCount(3);</code></pre>
+
+
+            <!-- =========================
+                 DEBUG E EVIDÊNCIAS
+            ========================= -->
+
+            <h3>
+                Debug e evidências
+            </h3>
+
+            <p class="concept-description">
+                Comandos úteis para investigar falhas, inspecionar a execução
+                e registrar evidências durante os testes.
+            </p>
+
+            <pre class="concept-code"><code>await page.screenshot({
+  path: 'example.png'
+});
+
+await page.pause();</code></pre>
+
+
+            <!-- =========================
+                 EXEMPLO
+            ========================= -->
+
+            <h3>
+                Exemplo de utilização
+            </h3>
+
+            <p class="concept-description">
+                Um fluxo simples combinando navegação, localização,
+                validação e captura de evidência.
+            </p>
+
+            <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
+
+test('fluxo básico', async ({ page }) => {
+
+  // Navegação
+  await page.goto('https://example.com');
+
+  // Localização
+  const titulo = page.getByRole('heading', {
+    name: 'Example Domain'
+  });
+
+  // Validação
+  await expect(titulo).toBeVisible();
+
+  // Screenshot
+  await page.screenshot({
+    path: 'example.png'
+  });
+
+});</code></pre>
+
+
+            <!-- =========================
+                 NOTA
+            ========================= -->
+
+            <div class="note">
+
+                <span class="note-label">
+                    QA Note
+                </span>
+
+                <p>
+                    Para memorizar os comandos, pense no fluxo:
+                    <strong>
+                        navegar → localizar → interagir → aguardar → validar
+                    </strong>.
+                    Na maioria dos testes E2E, esses cinco passos formam
+                    a base da automação com Playwright.
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+                 RESUMO
+            ========================= -->
+
+            <h3>
+                Resumo rápido
+            </h3>
+
+            <p class="concept-description">
+                Os principais comandos reunidos em uma única referência.
+            </p>
+
+            <pre class="concept-code"><code>page.goto()
+
+page.getByRole()
+page.getByText()
+page.getByLabel()
+page.getByTestId()
+page.locator()
+
+click()
+fill()
+press()
+check()
+uncheck()
+selectOption()
+setInputFiles()
+
+waitForURL()
+waitForLoadState()
+
+expect()
+toHaveTitle()
+toHaveURL()
+toBeVisible()
+toBeEnabled()
+toBeDisabled()
+toHaveText()
+toHaveCount()
+
+screenshot()
+page.pause()</code></pre>
+
+        </article>
+
+
+        <!-- =========================
+             FOOTER
+        ========================= -->
+
+        <footer>
+
+            <div class="footer-brand">
+                Hora do QA
+            </div>
+
+            <div class="footer-meta">
+
+                <span>
+                    PLAYWRIGHT / REF-020
+                </span>
+
+                <span>
+                    QUALITY NOTES
+                </span>
+
+                <span class="footer-pass">
+                    READY
+                </span>
+
+            </div>
+
+        </footer>
+
+    </main>
+
+</body>
+
+</html>
