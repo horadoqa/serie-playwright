@@ -1,4 +1,7 @@
-<!DOCTYPE html> <html lang="pt-BR"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!DOCTYPE html> <html lang="pt-BR"> <head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>Playwright — Mock de API</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -8,133 +11,247 @@
 
 <link
     href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
-    rel="stylesheet">
+    rel="stylesheet"
+>
 
-</head> <body>
-<main class="page">
+</head> <body> <main class="page">
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="logo" aria-label="Espaço reservado para o logo">
+
+        <img
+            src="logo.png"
+            alt="Logo Hora do QA"
+        >
+
+    </div>
+
+    <div class="brand">
+
+        <span class="eyebrow">
+            Software Quality / Automation
+        </span>
+
+        <span class="brand-name">
+            Hora do QA
+        </span>
+
+    </div>
+
+    <div class="status">
+
+        <span class="status-indicator"></span>
+
+        <span>
+            PLAYWRIGHT / READY
+        </span>
+
+    </div>
+
+</header>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-label">
+        Playwright
+    </div>
+
+    <h1>
+        Mock<br>
+        de API
+    </h1>
+
+    <p class="hero-description">
+
+        Como substituir respostas reais da API por dados controlados
+        durante os testes. O mock permite criar cenários previsíveis,
+        testar diferentes respostas do backend e validar o comportamento
+        da interface sem depender diretamente dos serviços externos.
+
+    </p>
+
+</section>
+
+<!-- =========================
+     CONCEITO 14
+========================= -->
+
+<article class="concept">
+
+    <div class="concept-top">
+
+        <span class="concept-number">
+            CONCEITO / 14
+        </span>
+
+        <span class="concept-status">
+            MOCK
+        </span>
+
+    </div>
 
     <!-- =========================
-         HEADER
+         TITLE
     ========================= -->
 
-    <header>
+    <h2>
+        Mock de API
+    </h2>
 
-        <div class="logo" aria-label="Espaço reservado para o logo">
-            <img src="logo.png" alt="Logo Hora do QA">
-        </div>
-
-        <div class="brand">
-
-            <span class="eyebrow">
-                Software Quality / Automation
-            </span>
-
-            <span class="brand-name">
-                Hora do QA
-            </span>
-
-        </div>
-
-        <div class="status">
-
-            <span class="status-indicator"></span>
-
-            <span>
-                PLAYWRIGHT / READY
-            </span>
-
-        </div>
-
-    </header>
-
+    <div class="concept-subtitle">
+        Route / Fulfill / Mock Data
+    </div>
 
     <!-- =========================
-         HERO
+         CONCEITO
     ========================= -->
 
-    <section class="hero">
+    <div class="concept-subtitle">
+        Conceito
+    </div>
 
-        <div class="hero-label">
-            Playwright
-        </div>
+    <pre class="concept-code"><code>REQUISIÇÃO
 
-        <h1>
-            Mock<br>
-            de API
-        </h1>
+↓
 
-        <p class="hero-description">
-            Como substituir respostas reais da API por dados controlados
-            durante os testes. O mock permite criar cenários previsíveis,
-            testar diferentes respostas do backend e validar o comportamento
-            da interface sem depender diretamente dos serviços externos.
-        </p>
+INTERCEPTAR ROTA
 
-    </section>
+↓
 
+CRIAR RESPOSTA CONTROLADA
+
+↓
+
+MOCK / ERRO / DADOS VAZIOS
+
+↓
+
+APLICAÇÃO RECEBE RESPOSTA
+
+↓
+
+VALIDAR COMPORTAMENTO</code></pre>
 
     <!-- =========================
-         CONCEITO 14
+         FLUXO DE MOCK
     ========================= -->
 
-    <article class="concept">
+    <div class="concept-subtitle">
+        Fluxo de mock
+    </div>
 
-        <div class="concept-top">
+    <div class="mermaid-wrapper">
 
-            <span class="concept-number">
-                CONCEITO / 14
-            </span>
+        <div class="mermaid">
 
-            <span class="concept-status">
-                MOCK
-            </span>
+flowchart TD
+
+A["Aplicação realiza requisição"]
+B{"Rota foi interceptada?"}
+
+C["Backend real"]
+D["page.route()"]
+
+E["Criar resposta controlada"]
+
+F["Sucesso"]
+G["Erro 4xx / 5xx"]
+H["Lista vazia"]
+I["Dados específicos"]
+J["Resposta modificada"]
+
+K["route.fulfill()"]
+L["Aplicação recebe resposta"]
+M["Validar comportamento"]
+N["Teste continua"]
+
+A --> B
+
+B -->|Não| C
+C --> L
+
+B -->|Sim| D
+D --> E
+
+E --> F
+E --> G
+E --> H
+E --> I
+E --> J
+
+F --> K
+G --> K
+H --> K
+I --> K
+J --> K
+
+K --> L
+L --> M
+M --> N
 
         </div>
 
+    </div>
 
-        <h2>
-            Mock de API
-        </h2>
+    <!-- =========================
+         MOCK BÁSICO
+    ========================= -->
 
-        <div class="concept-subtitle">
-            Route / Fulfill / Mock Data
-        </div>
-
-
-        <!-- =========================
-             MOCK BÁSICO
-        ========================= -->
+    <section class="concept-section">
 
         <h3 class="concept-subtitle">
             Mock básico
         </h3>
 
-        <pre class="concept-code"><code>await page.route(
-'**/api/users',
-async route => {
+        <p class="concept-description">
 
-    await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify([
-            {
-                id: 1,
-                name: 'João'
-            }
-        ])
-    });
+            O método <strong>page.route()</strong> permite interceptar
+            uma requisição e usar <strong>route.fulfill()</strong>
+            para fornecer uma resposta controlada pelo teste.
 
-}
+        </p>
 
-);</code></pre>
+        <pre class="concept-code"><code>await page.route('**/api/users', async route =&gt; {
 
-        <!-- =========================
-             MOCK DE OBJETO
-        ========================= -->
+await route.fulfill({
+    status: 200,
+    contentType: 'application/json',
+    body: JSON.stringify([
+        {
+            id: 1,
+            name: 'João'
+        }
+    ])
+});
+
+});</code></pre>
+
+    </section>
+
+    <!-- =========================
+         MOCK DE OBJETO
+    ========================= -->
+
+    <section class="concept-section">
 
         <h3 class="concept-subtitle">
             Mock de objeto JSON
         </h3>
+
+        <p class="concept-description">
+
+            O teste pode criar um objeto JavaScript e transformá-lo
+            em JSON para simular a resposta de uma API.
+
+        </p>
 
         <pre class="concept-code"><code>const user = {
 id: 1,
@@ -143,27 +260,34 @@ email: 'joao@example.com'
 
 };
 
-await page.route(
-'**/api/user',
-async route => {
+await page.route('**/api/user', async route => {
 
-    await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify(user)
-    });
+await route.fulfill({
+    status: 200,
+    contentType: 'application/json',
+    body: JSON.stringify(user)
+});
 
-}
+});</code></pre>
 
-);</code></pre>
+    </section>
 
-        <!-- =========================
-             MOCK DE LISTA
-        ========================= -->
+    <!-- =========================
+         MOCK DE LISTA
+    ========================= -->
+
+    <section class="concept-section">
 
         <h3 class="concept-subtitle">
             Mock de lista
         </h3>
+
+        <p class="concept-description">
+
+            Uma lista de objetos pode representar uma resposta
+            contendo vários registros retornados pela API.
+
+        </p>
 
         <pre class="concept-code"><code>const users = [
 {
@@ -181,111 +305,173 @@ async route => {
 
 ];
 
-await page.route(
-'**/api/users',
-async route => {
+await page.route('**/api/users', async route => {
 
-    await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify(users)
-    });
+await route.fulfill({
+    status: 200,
+    contentType: 'application/json',
+    body: JSON.stringify(users)
+});
 
-}
+});</code></pre>
 
-);</code></pre>
+    </section>
 
-        <!-- =========================
-             MOCK DE LOGIN
-        ========================= -->
+    <!-- =========================
+         MOCK DE LOGIN
+    ========================= -->
+
+    <section class="concept-section">
 
         <h3 class="concept-subtitle">
             Mock de login
         </h3>
 
-        <pre class="concept-code"><code>await page.route(
-'**/api/login',
-async route => {
+        <p class="concept-description">
 
-    await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
+            O mock também pode simular respostas de autenticação,
+            permitindo controlar o token e os dados do usuário
+            retornados pela API.
 
-        body: JSON.stringify({
-            token: 'abc123',
+        </p>
 
-            user: {
-                id: 1,
-                name: 'João'
-            }
-        })
-    });
+        <pre class="concept-code"><code>await page.route('**/api/login', async route =&gt; {
 
-}
+await route.fulfill({
+    status: 200,
+    contentType: 'application/json',
 
-);</code></pre>
+    body: JSON.stringify({
+        token: 'abc123',
 
-        <!-- =========================
-             MOCK DE ERRO 400
-        ========================= -->
+        user: {
+            id: 1,
+            name: 'João'
+        }
+    })
+});
+
+});</code></pre>
+
+    </section>
+
+    <!-- =========================
+         MOCK ERRO 400
+    ========================= -->
+
+    <section class="concept-section">
 
         <h3 class="concept-subtitle">
             Simular erro 400
         </h3>
 
-        <pre class="concept-code"><code>await page.route(
-'**/api/login',
-async route => {
+        <p class="concept-description">
 
-    await route.fulfill({
-        status: 400,
-        contentType: 'application/json',
+            Respostas de validação podem ser simuladas para verificar
+            como a interface reage quando a API rejeita uma operação.
 
-        body: JSON.stringify({
-            error: 'Credenciais inválidas'
-        })
-    });
+        </p>
 
-}
+        <pre class="concept-code"><code>await page.route('**/api/login', async route =&gt; {
 
-);</code></pre>
+await route.fulfill({
+    status: 400,
+    contentType: 'application/json',
 
-        <!-- =========================
-             MOCK DE ERRO 500
-        ========================= -->
+    body: JSON.stringify({
+        error: 'Credenciais inválidas'
+    })
+});
+
+});</code></pre>
+
+    </section>
+
+    <!-- =========================
+         MOCK ERRO 500
+    ========================= -->
+
+    <section class="concept-section">
 
         <h3 class="concept-subtitle">
             Simular erro 500
         </h3>
 
-        <pre class="concept-code"><code>await page.route(
-'**/api/users',
-async route => {
+        <p class="concept-description">
 
-    await route.fulfill({
-        status: 500,
-        contentType: 'application/json',
+            Um erro 500 pode ser simulado para validar o comportamento
+            da aplicação diante de uma falha inesperada no backend.
 
-        body: JSON.stringify({
-            error: 'Erro interno do servidor'
-        })
-    });
+        </p>
 
-}
+        <pre class="concept-code"><code>await page.route('**/api/users', async route =&gt; {
 
-);</code></pre>
+await route.fulfill({
+    status: 500,
+    contentType: 'application/json',
 
-        <!-- =========================
-             MOCK VAZIO
-        ========================= -->
+    body: JSON.stringify({
+        error: 'Erro interno do servidor'
+    })
+});
+
+});</code></pre>
+
+    </section>
+
+    <!-- =========================
+         MOCK VAZIO
+    ========================= -->
+
+    <section class="concept-section">
 
         <h3 class="concept-subtitle">
             Simular lista vazia
         </h3>
 
-        <pre class="concept-code"><code>await page.route(
-'**/api/users',
-async route => {
+        <p class="concept-description">
+
+            Uma resposta vazia é útil para validar estados da interface
+            como tabelas sem registros, mensagens informativas e
+            estados de ausência de dados.
+
+        </p>
+
+        <pre class="concept-code"><code>await page.route('**/api/users', async route =&gt; {
+
+await route.fulfill({
+    status: 200,
+    contentType: 'application/json',
+    body: JSON.stringify([])
+});
+
+});</code></pre>
+
+    </section>
+
+    <!-- =========================
+         MOCK CONDICIONAL
+    ========================= -->
+
+    <section class="concept-section">
+
+        <h3 class="concept-subtitle">
+            Mock condicional
+        </h3>
+
+        <p class="concept-description">
+
+            A resposta pode variar de acordo com a URL ou outros dados
+            da requisição, permitindo criar diferentes cenários dentro
+            da mesma rota.
+
+        </p>
+
+        <pre class="concept-code"><code>await page.route('**/api/users', async route =&gt; {
+
+const url = route.request().url();
+
+if (url.includes('empty=true')) {
 
     await route.fulfill({
         status: 200,
@@ -293,148 +479,145 @@ async route => {
         body: JSON.stringify([])
     });
 
+    return;
 }
 
-);</code></pre>
+await route.fulfill({
+    status: 200,
+    contentType: 'application/json',
 
-        <!-- =========================
-             MOCK CONDICIONAL
-        ========================= -->
+    body: JSON.stringify([
+        {
+            id: 1,
+            name: 'João'
+        }
+    ])
+});
 
-        <h3 class="concept-subtitle">
-            Mock condicional
-        </h3>
+});</code></pre>
 
-        <pre class="concept-code"><code>await page.route(
-'**/api/users',
-async route => {
+    </section>
 
-    const url = route.request().url();
+    <!-- =========================
+         MOCK COM HEADERS
+    ========================= -->
 
-    if (url.includes('empty=true')) {
-
-        await route.fulfill({
-            status: 200,
-            contentType: 'application/json',
-            body: JSON.stringify([])
-        });
-
-        return;
-    }
-
-    await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-
-        body: JSON.stringify([
-            {
-                id: 1,
-                name: 'João'
-            }
-        ])
-    });
-
-}
-
-);</code></pre>
-
-        <!-- =========================
-             MOCK COM HEADERS
-        ========================= -->
+    <section class="concept-section">
 
         <h3 class="concept-subtitle">
             Mock com headers
         </h3>
 
-        <pre class="concept-code"><code>await page.route(
-'**/api/users',
-async route => {
+        <p class="concept-description">
+
+            É possível adicionar headers à resposta mockada para
+            reproduzir comportamentos específicos da aplicação.
+
+        </p>
+
+        <pre class="concept-code"><code>await page.route('**/api/users', async route =&gt; {
+
+await route.fulfill({
+
+    status: 200,
+
+    headers: {
+        'x-test': 'mocked'
+    },
+
+    contentType: 'application/json',
+
+    body: JSON.stringify([
+        {
+            id: 1,
+            name: 'João'
+        }
+    ])
+});
+
+});</code></pre>
+
+    </section>
+
+    <!-- =========================
+         MOCK PARCIAL
+    ========================= -->
+
+    <section class="concept-section">
+
+        <h3 class="concept-subtitle">
+            Modificar resposta real
+        </h3>
+
+        <p class="concept-description">
+
+            Quando apenas parte da resposta precisa ser alterada,
+            <strong>route.fetch()</strong> permite obter a resposta real
+            antes de modificá-la com <strong>route.fulfill()</strong>.
+
+        </p>
+
+        <pre class="concept-code"><code>await page.route('**/api/users', async route =&gt; {
+
+const response =
+    await route.fetch();
+
+const json =
+    await response.json();
+
+json.users.push({
+    id: 99,
+    name: 'Usuário Mock'
+});
+
+await route.fulfill({
+    response,
+    json
+});
+
+});</code></pre>
+
+    </section>
+
+    <!-- =========================
+         EXEMPLO PRÁTICO
+    ========================= -->
+
+    <section class="concept-example">
+
+        <h3 class="concept-example-title">
+            Exemplo prático
+        </h3>
+
+        <p class="concept-description">
+
+            Neste exemplo, a API de usuários é interceptada antes
+            do carregamento da página. O teste fornece dados
+            controlados e valida que eles aparecem na interface.
+
+        </p>
+
+        <pre class="concept-code"><code>test('exibir usuários mockados', async ({ page }) =&gt; {
+
+await page.route('**/api/users', async route =&gt; {
 
     await route.fulfill({
         status: 200,
-
-        headers: {
-            'x-test': 'mocked'
-        },
-
         contentType: 'application/json',
 
         body: JSON.stringify([
             {
                 id: 1,
                 name: 'João'
+            },
+            {
+                id: 2,
+                name: 'Maria'
             }
         ])
     });
 
-}
-
-);</code></pre>
-
-        <!-- =========================
-             MOCK PARCIAL
-        ========================= -->
-
-        <h3 class="concept-subtitle">
-            Modificar resposta real
-        </h3>
-
-        <pre class="concept-code"><code>await page.route(
-'**/api/users',
-async route => {
-
-    const response =
-        await route.fetch();
-
-    const json =
-        await response.json();
-
-    json.users.push({
-        id: 99,
-        name: 'Usuário Mock'
-    });
-
-    await route.fulfill({
-        response,
-        json
-    });
-
-}
-
-);</code></pre>
-
-        <!-- =========================
-             EXEMPLO PRÁTICO
-        ========================= -->
-
-        <h3 class="concept-subtitle">
-            Exemplo prático
-        </h3>
-
-        <pre class="concept-code"><code>test('exibir usuários mockados', async ({ page }) => {
-
-await page.route(
-    '**/api/users',
-    async route => {
-
-        await route.fulfill({
-            status: 200,
-            contentType: 'application/json',
-
-            body: JSON.stringify([
-                {
-                    id: 1,
-                    name: 'João'
-                },
-                {
-                    id: 2,
-                    name: 'Maria'
-                }
-            ])
-        });
-
-    }
-);
+});
 
 await page.goto('https://example.com');
 
@@ -452,59 +635,182 @@ await expect(
 
 });</code></pre>
 
-        <!-- =========================
-             NOTA
-        ========================= -->
-
-        <div class="note">
-
-            <span class="note-label">
-                QA Note
-            </span>
-
-            <p>
-                O mock permite controlar completamente o cenário de teste.
-                Você pode simular <strong>sucesso, erro, lista vazia,
-                dados específicos e respostas inesperadas</strong> sem
-                precisar alterar o backend. Para alterar apenas parte de
-                uma resposta real, utilize <strong>route.fetch()</strong>
-                e depois <strong>route.fulfill()</strong> com os dados
-                modificados.
-            </p>
-
-        </div>
-
-    </article>
-
+    </section>
 
     <!-- =========================
-         FOOTER
+         EXEMPLO COM ERRO
     ========================= -->
 
-    <footer>
+    <section class="concept-example">
 
-        <div class="footer-brand">
-            Hora do QA
-        </div>
+        <h3 class="concept-example-title">
+            Exemplo simulando erro
+        </h3>
 
-        <div class="footer-meta">
+        <p class="concept-description">
 
-            <span>
-                PLAYWRIGHT / REF-014
-            </span>
+            O mesmo mecanismo pode ser utilizado para validar
+            mensagens de erro sem depender de uma falha real
+            no backend.
 
-            <span>
-                QUALITY NOTES
-            </span>
+        </p>
 
-            <span class="footer-pass">
-                READY
-            </span>
+        <pre class="concept-code"><code>test('exibir erro da API', async ({ page }) =&gt; {
 
-        </div>
+await page.route('**/api/users', async route =&gt; {
 
-    </footer>
+    await route.fulfill({
+        status: 500,
+        contentType: 'application/json',
 
-</main>
+        body: JSON.stringify({
+            error: 'Erro interno do servidor'
+        })
+    });
 
-</body> </html>
+});
+
+await page.goto('https://example.com');
+
+await page.getByRole('button', {
+    name: 'Carregar usuários'
+}).click();
+
+await expect(
+    page.getByText('Não foi possível carregar os usuários')
+).toBeVisible();
+
+});</code></pre>
+
+    </section>
+
+    <!-- =========================
+         NOTA
+    ========================= -->
+
+    <div class="note">
+
+        <span class="note-label">
+            QA Note
+        </span>
+
+        <p>
+
+            O mock permite controlar o cenário de teste.
+            Você pode simular <strong>sucesso, erro, lista vazia,
+            dados específicos e respostas inesperadas</strong> sem
+            precisar alterar o backend.
+
+            Para alterar apenas parte de uma resposta real,
+            utilize <strong>route.fetch()</strong> e depois
+            <strong>route.fulfill()</strong> com os dados modificados.
+
+        </p>
+
+    </div>
+
+</article>
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="footer-brand">
+        Hora do QA
+    </div>
+
+    <div class="footer-meta">
+
+        <span>
+            PLAYWRIGHT / REF-014
+        </span>
+
+        <span>
+            QUALITY NOTES
+        </span>
+
+        <span class="footer-pass">
+            READY
+        </span>
+
+    </div>
+
+</footer>
+
+</main> <!-- ========================= MERMAID ========================= --> <script type="module">
+import mermaid from
+    'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+mermaid.initialize({
+
+    startOnLoad: true,
+
+    theme: 'base',
+
+    themeVariables: {
+
+        background: '#102D23',
+
+        primaryColor: '#0F3D2E',
+
+        primaryTextColor: '#F3EFE6',
+
+        primaryBorderColor: '#8FE3B0',
+
+        lineColor: '#8FE3B0',
+
+        secondaryColor: '#124A38',
+
+        tertiaryColor: '#102D23',
+
+        fontFamily: 'Manrope, sans-serif'
+
+    }
+
+});
+
+</script> <!-- ========================= CODE LINE NUMBERS ========================= --> <script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const codeBlocks =
+        document.querySelectorAll(
+            ".concept pre.concept-code code"
+        );
+
+    codeBlocks.forEach((code) => {
+
+        const text = code.textContent;
+
+        const lines = text.split("\n");
+
+        code.innerHTML = "";
+
+        lines.forEach((line, index) => {
+
+            const lineElement =
+                document.createElement("span");
+
+            lineElement.className =
+                "code-line";
+
+            lineElement.setAttribute(
+                "data-line",
+                index + 1
+            );
+
+            lineElement.textContent =
+                line || " ";
+
+            code.appendChild(
+                lineElement
+            );
+
+        });
+
+    });
+
+});
+
+</script> </body> </html>

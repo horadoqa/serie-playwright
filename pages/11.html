@@ -1,4 +1,7 @@
-<!DOCTYPE html> <html lang="pt-BR"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!DOCTYPE html> <html lang="pt-BR"> <head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>Playwright — Seletores CSS / XPath</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -8,20 +11,21 @@
 
 <link
     href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
-    rel="stylesheet"
->
+    rel="stylesheet">
 
 </head> <body>
 <main class="page">
 
     <!-- =========================
-         HEADER
-    ========================== -->
+    HEADER
+    ========================= -->
 
     <header>
 
         <div class="logo" aria-label="Espaço reservado para o logo">
+
             <img src="logo.png" alt="Logo Hora do QA">
+
         </div>
 
         <div class="brand">
@@ -48,10 +52,9 @@
 
     </header>
 
-
     <!-- =========================
-         HERO
-    ========================== -->
+    HERO
+    ========================= -->
 
     <section class="hero">
 
@@ -65,17 +68,18 @@
         </h1>
 
         <p class="hero-description">
+
             Como utilizar seletores CSS e XPath para localizar elementos
             durante os testes. Esses seletores oferecem flexibilidade
             adicional quando os locators semânticos não atendem ao cenário.
+
         </p>
 
     </section>
 
-
     <!-- =========================
-         CONCEITO 11
-    ========================== -->
+    CONCEITO 11
+    ========================= -->
 
     <article class="concept">
 
@@ -91,207 +95,371 @@
 
         </div>
 
+        <!-- =========================
+        TITLE
+        ========================= -->
+
         <h2>
             Seletores CSS / XPath
         </h2>
 
         <div class="concept-subtitle">
-            CSS Selector / XPath
+            CSS Selector / XPath / Locator
         </div>
 
+        <!-- =========================
+        CONCEITO
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Conceito
+        </div>
+
+        <pre class="concept-code"><code>ELEMENTO
+
+↓
+
+LOCATOR
+
+↓
+
+SELETOR
+
+↓
+
+CSS / XPATH
+
+↓
+
+ELEMENTO ENCONTRADO
+
+↓
+
+AÇÃO / VALIDAÇÃO</code></pre>
 
         <!-- =========================
-             ID
-        ========================== -->
+        NOTA
+        ========================= -->
 
-        <div class="code-section">
+        <div class="note">
 
-            <div class="concept-subtitle">
-                Selecionar por ID
-            </div>
+            <span class="note-label">
+                QA Note
+            </span>
 
-            <pre class="concept-code"><code>await page.locator('#login').click();</code></pre>
+            <p>
+
+                CSS e XPath são mecanismos de seleção utilizados pelo
+                <strong>locator()</strong> para identificar elementos
+                na página. Sempre que possível, prefira locators baseados
+                em comportamento e acessibilidade, como
+                <strong>getByRole()</strong>, <strong>getByLabel()</strong>
+                e <strong>getByText()</strong>. CSS e XPath são úteis
+                quando esses locators não são suficientes para o cenário.
+
+            </p>
 
         </div>
 
-
         <!-- =========================
-             CLASSE
-        ========================== -->
+        FLUXO DE SELEÇÃO
+        ========================= -->
 
-        <div class="code-section">
+        <div class="concept-subtitle">
+            Fluxo de localização
+        </div>
 
-            <div class="concept-subtitle">
-                Selecionar por classe
+        <div class="mermaid-wrapper">
+
+            <div class="mermaid">
+
+flowchart TD
+
+A["Elemento na página"]
+B{"Qual estratégia?"}
+
+C["Locator semântico"]
+D["CSS Selector"]
+E["XPath"]
+
+F["locator()"]
+G["Elemento localizado"]
+
+H["Ação"]
+I["Assertion"]
+
+A --> B
+
+B -->|Role / Label / Text| C
+B -->|CSS| D
+B -->|XPath| E
+
+C --> F
+D --> F
+E --> F
+
+F --> G
+
+G --> H
+G --> I
+
             </div>
-
-            <pre class="concept-code"><code>await page.locator('.btn-primary').click();</code></pre>
 
         </div>
 
+        <!-- =========================
+        CSS
+        ========================= -->
+
+        <div class="concept-subtitle">
+            CSS Selector
+        </div>
+
+        <pre class="concept-code"><code>await page
+.locator('#login')
+.click();</code></pre>
 
         <!-- =========================
-             ATRIBUTO
-        ========================== -->
+        ID
+        ========================= -->
 
-        <div class="code-section">
+        <div class="concept-subtitle">
+            CSS — Selecionar por ID
+        </div>
 
-            <div class="concept-subtitle">
-                Selecionar por atributo
-            </div>
+        <pre class="concept-code"><code>await page
+.locator('#login')
+.click();</code></pre>
 
-            <pre class="concept-code"><code>await page
+        <!-- =========================
+        CLASSE
+        ========================= -->
+
+        <div class="concept-subtitle">
+            CSS — Selecionar por classe
+        </div>
+
+        <pre class="concept-code"><code>await page
+.locator('.btn-primary')
+.click();</code></pre>
+
+        <!-- =========================
+        ATRIBUTO
+        ========================= -->
+
+        <div class="concept-subtitle">
+            CSS — Selecionar por atributo
+        </div>
+
+        <pre class="concept-code"><code>await page
 .locator('input[name="email"]')
 .fill('teste@email.com');</code></pre>
 
+        <!-- =========================
+        FILHO DIRETO
+        ========================= -->
+
+        <div class="concept-subtitle">
+            CSS — Selecionar filho direto
         </div>
 
+        <pre class="concept-code"><code>await page
+.locator('.menu > li')
+.click();</code></pre>
 
         <!-- =========================
-             FILHO DIRETO
-        ========================== -->
+        DESCENDENTE
+        ========================= -->
 
-        <div class="code-section">
-
-            <div class="concept-subtitle">
-                Selecionar filho direto
-            </div>
-
-            <pre class="concept-code"><code>await page.locator('.menu > li').click();</code></pre>
-
+        <div class="concept-subtitle">
+            CSS — Selecionar elemento descendente
         </div>
 
-
-        <!-- =========================
-             DESCENDENTE
-        ========================== -->
-
-        <div class="code-section">
-
-            <div class="concept-subtitle">
-                Selecionar elemento descendente
-            </div>
-
-            <pre class="concept-code"><code>await page
+        <pre class="concept-code"><code>await page
 .locator('.form input')
 .fill('João');</code></pre>
 
+        <!-- =========================
+        CSS COMBINADO
+        ========================= -->
+
+        <div class="concept-subtitle">
+            CSS — Combinar seletores
         </div>
 
-
-        <!-- =========================
-             CSS COMBINADO
-        ========================== -->
-
-        <div class="code-section">
-
-            <div class="concept-subtitle">
-                Combinar seletores CSS
-            </div>
-
-            <pre class="concept-code"><code>await page
+        <pre class="concept-code"><code>await page
 .locator('form.login input[name="email"]')
 .fill('teste@email.com');</code></pre>
 
+        <!-- =========================
+        CSS COM ATRIBUTO PARCIAL
+        ========================= -->
+
+        <div class="concept-subtitle">
+            CSS — Atributo com correspondência parcial
         </div>
 
+        <pre class="concept-code"><code>await page
+.locator('button[class*="primary"]')
+.click();</code></pre>
 
         <!-- =========================
-             XPATH BÁSICO
-        ========================== -->
+        XPATH
+        ========================= -->
 
-        <div class="code-section">
+        <div class="concept-subtitle">
+            XPath
+        </div>
 
-            <div class="concept-subtitle">
-                XPath básico
-            </div>
-
-            <pre class="concept-code"><code>await page
+        <pre class="concept-code"><code>await page
 .locator('xpath=//button')
 .click();</code></pre>
 
+        <!-- =========================
+        XPATH TEXTO
+        ========================= -->
+
+        <div class="concept-subtitle">
+            XPath — Selecionar por texto
         </div>
 
-
-        <!-- =========================
-             XPATH POR TEXTO
-        ========================== -->
-
-        <div class="code-section">
-
-            <div class="concept-subtitle">
-                XPath por texto
-            </div>
-
-            <pre class="concept-code"><code>await page
-.locator('xpath=//button[normalize-space()="Enviar"]')
+        <pre class="concept-code"><code>await page
+.locator(
+    'xpath=//button[normalize-space()="Enviar"]'
+)
 .click();</code></pre>
 
+        <!-- =========================
+        XPATH ATRIBUTO
+        ========================= -->
+
+        <div class="concept-subtitle">
+            XPath — Selecionar por atributo
         </div>
 
-
-        <!-- =========================
-             XPATH POR ATRIBUTO
-        ========================== -->
-
-        <div class="code-section">
-
-            <div class="concept-subtitle">
-                XPath por atributo
-            </div>
-
-            <pre class="concept-code"><code>await page
-.locator('xpath=//input[@name="email"]')
+        <pre class="concept-code"><code>await page
+.locator(
+    'xpath=//input[@name="email"]'
+)
 .fill('teste@email.com');</code></pre>
 
+        <!-- =========================
+        XPATH DESCENDENTE
+        ========================= -->
+
+        <div class="concept-subtitle">
+            XPath — Relação entre elementos
         </div>
 
-
-        <!-- =========================
-             XPATH DESCENDENTE
-        ========================== -->
-
-        <div class="code-section">
-
-            <div class="concept-subtitle">
-                XPath com relação entre elementos
-            </div>
-
-            <pre class="concept-code"><code>await page
-.locator('xpath=//div[@class="form"]//input')
+        <pre class="concept-code"><code>await page
+.locator(
+    'xpath=//div[@class="form"]//input'
+)
 .fill('João');</code></pre>
 
+        <!-- =========================
+        XPATH TEXTO PARCIAL
+        ========================= -->
+
+        <div class="concept-subtitle">
+            XPath — Texto parcial
         </div>
 
-
-        <!-- =========================
-             XPATH COM CONTEÚDO PARCIAL
-        ========================== -->
-
-        <div class="code-section">
-
-            <div class="concept-subtitle">
-                XPath com texto parcial
-            </div>
-
-            <pre class="concept-code"><code>await page
-.locator('xpath=//button[contains(normalize-space(), "Enviar")]')
+        <pre class="concept-code"><code>await page
+.locator(
+    'xpath=//button[contains(normalize-space(), "Enviar")]'
+)
 .click();</code></pre>
 
+        <!-- =========================
+        XPATH CLASSE
+        ========================= -->
+
+        <div class="concept-subtitle">
+            XPath — Classe contendo valor
         </div>
 
+        <pre class="concept-code"><code>await page
+.locator(
+    'xpath=//div[contains(@class, "success")]'
+)
+.click();</code></pre>
 
         <!-- =========================
-             EXEMPLO PRÁTICO
-        ========================== -->
+        CSS X XPATH
+        ========================= -->
 
-        <div class="code-section">
+        <div class="concept-subtitle">
+            CSS x XPath
+        </div>
 
-            <div class="concept-subtitle">
-                Exemplo prático
-            </div>
+        <pre class="concept-code"><code>// CSS
 
-            <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
+await page
+.locator('input[name="email"]')
+.fill('user@example.com');
+
+// XPath
+
+await page
+.locator(
+'xpath=//input[@name="email"]'
+)
+.fill('user@example.com');</code></pre>
+
+        <!-- =========================
+        LOCATOR SEMÂNTICO
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Locator semântico
+        </div>
+
+        <pre class="concept-code"><code>await page
+.getByRole('button', {
+    name: 'Entrar'
+})
+.click();</code></pre>
+
+        <!-- =========================
+        COMPARAÇÃO
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Comparando estratégias
+        </div>
+
+        <pre class="concept-code"><code>// Preferencial
+
+await page
+.getByRole('button', {
+name: 'Entrar'
+})
+.click();
+
+// CSS
+
+await page
+.locator('button[type="submit"]')
+.click();
+
+// XPath
+
+await page
+.locator(
+'xpath=//button[@type="submit"]'
+)
+.click();</code></pre>
+
+        <!-- =========================
+        EXEMPLO PRÁTICO CSS
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Exemplo prático com CSS
+        </div>
+
+        <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
 
 test('usar seletores CSS', async ({ page }) => {
 
@@ -315,45 +483,113 @@ await expect(
 
 });</code></pre>
 
+        <!-- =========================
+        EXEMPLO XPATH
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Exemplo prático com XPath
         </div>
 
-
-        <!-- =========================
-             EXEMPLO XPATH
-        ========================== -->
-
-        <div class="code-section">
-
-            <div class="concept-subtitle">
-                Exemplo com XPath
-            </div>
-
-            <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
+        <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
 
 test('usar XPath', async ({ page }) => {
 
 await page.goto('https://example.com');
 
 await page
-    .locator('xpath=//input[@name="email"]')
+    .locator(
+        'xpath=//input[@name="email"]'
+    )
     .fill('user@example.com');
 
 await page
-    .locator('xpath=//button[normalize-space()="Entrar"]')
+    .locator(
+        'xpath=//button[normalize-space()="Entrar"]'
+    )
     .click();
 
 await expect(
-    page.locator('xpath=//div[contains(@class, "success")]')
+    page.locator(
+        'xpath=//div[contains(@class, "success")]'
+    )
 ).toBeVisible();
 
 });</code></pre>
 
+        <!-- =========================
+        EXEMPLO COM ASSERTION
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Selecionar e validar
         </div>
 
+        <pre class="concept-code"><code>const mensagem =
+page.locator('.success-message');
+
+await expect(mensagem)
+.toBeVisible();
+
+await expect(mensagem)
+.toHaveText(
+'Login realizado com sucesso'
+);</code></pre>
 
         <!-- =========================
-             PREFERÊNCIA
-        ========================== -->
+        BOAS PRÁTICAS
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Boas práticas
+        </div>
+
+        <pre class="concept-code"><code>// Prefira locators semânticos
+
+await page
+.getByRole('button', {
+name: 'Entrar'
+})
+.click();
+
+// Use CSS quando houver um seletor estável
+
+await page
+.locator('[data-testid="login-button"]')
+.click();
+
+// Use XPath quando a relação entre elementos
+// exigir uma expressão mais específica
+
+await page
+.locator(
+'xpath=//div[@class="form"]//input'
+)
+.fill('João');</code></pre>
+
+        <!-- =========================
+        EVITAR SELETORES FRÁGEIS
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Evitar seletores frágeis
+        </div>
+
+        <pre class="concept-code"><code>// Evite depender de classes geradas
+
+await page
+.locator('.css-1a2b3c')
+.click();
+
+// Prefira atributos estáveis
+
+await page
+.locator('[data-testid="login-button"]')
+.click();</code></pre>
+
+        <!-- =========================
+        NOTA FINAL
+        ========================= -->
 
         <div class="note">
 
@@ -362,23 +598,27 @@ await expect(
             </span>
 
             <p>
+
                 Prefira locators baseados em comportamento e acessibilidade,
-                como <strong>getByRole</strong>, <strong>getByLabel</strong>,
-                <strong>getByText</strong> e <strong>getByTestId</strong>.
-                Use seletores CSS ou XPath quando forem necessários para
-                localizar elementos que não possuem uma identificação
-                semântica adequada. Evite seletores excessivamente frágeis
-                e dependentes da estrutura interna da página.
+                como <strong>getByRole()</strong>,
+                <strong>getByLabel()</strong>,
+                <strong>getByText()</strong> e
+                <strong>getByTestId()</strong>. Use seletores CSS ou
+                XPath quando forem necessários para localizar elementos
+                que não possuem uma identificação semântica adequada.
+                Evite seletores excessivamente frágeis, como classes
+                geradas automaticamente ou caminhos XPath dependentes
+                de muitos níveis da estrutura do DOM.
+
             </p>
 
         </div>
 
     </article>
 
-
     <!-- =========================
-         FOOTER
-    ========================== -->
+    FOOTER
+    ========================= -->
 
     <footer>
 
@@ -406,4 +646,90 @@ await expect(
 
 </main>
 
-</body> </html>
+<!-- =========================
+MERMAID
+========================= -->
+
+<script type="module">
+
+    import mermaid from
+        'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+    mermaid.initialize({
+
+        startOnLoad: true,
+
+        theme: 'base',
+
+        themeVariables: {
+
+            background: '#102D23',
+
+            primaryColor: '#0F3D2E',
+
+            primaryTextColor: '#F3EFE6',
+
+            primaryBorderColor: '#8FE3B0',
+
+            lineColor: '#8FE3B0',
+
+            secondaryColor: '#124A38',
+
+            tertiaryColor: '#102D23',
+
+            fontFamily: 'Manrope, sans-serif'
+
+        }
+
+    });
+
+</script>
+
+<!-- =========================
+CODE LINE NUMBERS
+========================= -->
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const codeBlocks =
+            document.querySelectorAll(
+                ".concept pre.concept-code code"
+            );
+
+        codeBlocks.forEach((code) => {
+
+            const text = code.textContent;
+
+            const lines = text.split("\n");
+
+            code.innerHTML = "";
+
+            lines.forEach((line, index) => {
+
+                const lineElement =
+                    document.createElement("span");
+
+                lineElement.className =
+                    "code-line";
+
+                lineElement.setAttribute(
+                    "data-line",
+                    index + 1
+                );
+
+                lineElement.textContent =
+                    line || " ";
+
+                code.appendChild(
+                    lineElement
+                );
+
+            });
+
+        });
+
+    });
+
+</script>

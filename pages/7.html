@@ -15,6 +15,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
         rel="stylesheet">
+
 </head>
 
 <body>
@@ -28,7 +29,9 @@
         <header>
 
             <div class="logo" aria-label="Espaço reservado para o logo">
+
                 <img src="logo.png" alt="Logo Hora do QA">
+
             </div>
 
             <div class="brand">
@@ -72,10 +75,12 @@
             </h1>
 
             <p class="hero-description">
+
                 Técnicas para combinar, filtrar e selecionar elementos
                 de forma mais precisa utilizando os locators do Playwright.
                 Esses recursos são úteis quando um locator simples não é
                 suficiente para identificar o elemento desejado.
+
             </p>
 
         </section>
@@ -86,6 +91,10 @@
         ========================= -->
 
         <article class="concept">
+
+            <!-- =========================
+            CONCEPT TOP
+            ========================= -->
 
             <div class="concept-top">
 
@@ -100,10 +109,13 @@
             </div>
 
 
+            <!-- =========================
+            TITLE
+            ========================= -->
+
             <h2>
                 Locators avançados
             </h2>
-
 
             <div class="concept-subtitle">
                 Filter / Has / First / Last / Nth / And / Or
@@ -111,16 +123,133 @@
 
 
             <!-- =========================
+            CONCEITO
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Conceito
+            </div>
+
+            <pre class="concept-code"><code>LOCATOR
+
+↓
+FILTRAR
+↓
+COMBINAR
+↓
+SELECIONAR
+↓
+INTERAGIR
+↓
+VALIDAR</code></pre>
+
+
+            <!-- =========================
+            NOTA
+            ========================= -->
+
+            <div class="note">
+
+                <span class="note-label">
+                    QA Note
+                </span>
+
+                <p>
+
+                    Locators avançados permitem refinar uma seleção quando
+                    existem vários elementos semelhantes na página.
+                    O Playwright oferece recursos como
+                    <strong>filter()</strong>, <strong>has</strong>,
+                    <strong>first()</strong>, <strong>last()</strong>,
+                    <strong>nth()</strong>, <strong>and()</strong> e
+                    <strong>or()</strong> para tornar a localização
+                    mais específica.
+
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+            FLUXO DOS LOCATORS
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Fluxo de localização
+            </div>
+
+            <div class="mermaid-wrapper">
+
+                <div class="mermaid">
+
+flowchart TD
+
+    A["Localizar elementos"]
+    B{"Precisa refinar?"}
+
+    C["filter()"]
+    D["has"]
+    E["hasText"]
+
+    F{"Precisa selecionar posição?"}
+
+    G["first()"]
+    H["last()"]
+    I["nth()"]
+
+    J{"Precisa combinar?"}
+
+    K["and()"]
+    L["or()"]
+
+    M["Elemento desejado"]
+    N["Interação"]
+    O["Assertion"]
+
+    A --> B
+
+    B -->|Sim| C
+    B -->|Não| F
+
+    C --> D
+    C --> E
+
+    D --> F
+    E --> F
+
+    F -->|Sim| G
+    F -->|Sim| H
+    F -->|Sim| I
+    F -->|Não| J
+
+    G --> J
+    H --> J
+    I --> J
+
+    J -->|Sim| K
+    J -->|Sim| L
+    J -->|Não| M
+
+    K --> M
+    L --> M
+
+    M --> N
+    N --> O
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
             FILTRO POR TEXTO
             ========================= -->
 
-            <div class="code-section">
+            <div class="concept-subtitle">
+                Filtrar por texto
+            </div>
 
-                <div class="concept-subtitle">
-                    Filtrar por texto
-                </div>
-
-                <pre class="concept-code"><code>const salvar =
+            <pre class="concept-code"><code>const salvar =
     page
         .getByRole('button')
         .filter({
@@ -129,20 +258,16 @@
 
 await salvar.click();</code></pre>
 
-            </div>
-
 
             <!-- =========================
             FILTRO POR ELEMENTO
             ========================= -->
 
-            <div class="code-section">
+            <div class="concept-subtitle">
+                Filtrar por elemento interno
+            </div>
 
-                <div class="concept-subtitle">
-                    Filtrar por elemento interno
-                </div>
-
-                <pre class="concept-code"><code>const card =
+            <pre class="concept-code"><code>const card =
     page
         .locator('.card')
         .filter({
@@ -153,20 +278,16 @@ await salvar.click();</code></pre>
 
 await expect(card).toBeVisible();</code></pre>
 
-            </div>
-
 
             <!-- =========================
-            FILTRO POR TEXTO EXATO
+            FILTRO POR EXPRESSÃO REGULAR
             ========================= -->
 
-            <div class="code-section">
+            <div class="concept-subtitle">
+                Filtrar usando expressão regular
+            </div>
 
-                <div class="concept-subtitle">
-                    Filtrar usando expressão regular
-                </div>
-
-                <pre class="concept-code"><code>const produto =
+            <pre class="concept-code"><code>const produto =
     page
         .locator('.card')
         .filter({
@@ -175,135 +296,109 @@ await expect(card).toBeVisible();</code></pre>
 
 await expect(produto).toBeVisible();</code></pre>
 
-            </div>
-
 
             <!-- =========================
             PRIMEIRO ELEMENTO
             ========================= -->
 
-            <div class="code-section">
+            <div class="concept-subtitle">
+                Primeiro elemento
+            </div>
 
-                <div class="concept-subtitle">
-                    Primeiro elemento
-                </div>
-
-                <pre class="concept-code"><code>const primeiro =
+            <pre class="concept-code"><code>const primeiro =
     page.locator('.item').first();
 
 await primeiro.click();</code></pre>
-
-            </div>
 
 
             <!-- =========================
             ÚLTIMO ELEMENTO
             ========================= -->
 
-            <div class="code-section">
+            <div class="concept-subtitle">
+                Último elemento
+            </div>
 
-                <div class="concept-subtitle">
-                    Último elemento
-                </div>
-
-                <pre class="concept-code"><code>const ultimo =
+            <pre class="concept-code"><code>const ultimo =
     page.locator('.item').last();
 
 await ultimo.click();</code></pre>
-
-            </div>
 
 
             <!-- =========================
             ELEMENTO POR ÍNDICE
             ========================= -->
 
-            <div class="code-section">
+            <div class="concept-subtitle">
+                Elemento por índice
+            </div>
 
-                <div class="concept-subtitle">
-                    Elemento por índice
-                </div>
-
-                <pre class="concept-code"><code>const terceiro =
+            <pre class="concept-code"><code>const terceiro =
     page.locator('.item').nth(2);
 
 await terceiro.click();</code></pre>
-
-            </div>
 
 
             <!-- =========================
             CONTAR ELEMENTOS
             ========================= -->
 
-            <div class="code-section">
+            <div class="concept-subtitle">
+                Contar elementos encontrados
+            </div>
 
-                <div class="concept-subtitle">
-                    Contar elementos encontrados
-                </div>
-
-                <pre class="concept-code"><code>const quantidade =
+            <pre class="concept-code"><code>const quantidade =
     await page.locator('.item').count();
 
 console.log(quantidade);</code></pre>
 
-            </div>
-
 
             <!-- =========================
-            COMBINAR LOCATORS
+            COMBINAR COM AND
             ========================= -->
 
-            <div class="code-section">
+            <div class="concept-subtitle">
+                Combinar locators com AND
+            </div>
 
-                <div class="concept-subtitle">
-                    Combinar locators com AND
-                </div>
-
-                <pre class="concept-code"><code>const botao =
+            <pre class="concept-code"><code>const botao =
     page
         .getByRole('button')
         .and(
-            page.getByText('Salvar')
+            page.getByTitle('Salvar')
         );
 
 await botao.click();</code></pre>
 
-            </div>
-
 
             <!-- =========================
-            ALTERNATIVAS COM OR
+            COMBINAR COM OR
             ========================= -->
 
-            <div class="code-section">
+            <div class="concept-subtitle">
+                Trabalhar com alternativas usando OR
+            </div>
 
-                <div class="concept-subtitle">
-                    Trabalhar com alternativas usando OR
-                </div>
-
-                <pre class="concept-code"><code>const mensagem =
+            <pre class="concept-code"><code>const mensagem =
     page
         .getByText('Sucesso')
-        .or(page.getByText('Concluído'));
+        .or(
+            page.getByText('Concluído')
+        );
 
 await expect(mensagem.first())
     .toBeVisible();</code></pre>
-
-            </div>
 
 
             <!-- =========================
             FILTRAR E LOCALIZAR
             ========================= -->
 
-            <div class="code-section">
+            <div class="concept-subtitle">
+                Filtrar e localizar um elemento interno
+            </div>
 
-                <div class="concept-subtitle">
-                    Filtrar e localizar um elemento interno
-                </div>
-
-                <pre class="concept-code"><code>const produto =
+            <pre class="concept-code"><code>const produto =
     page
         .locator('.card')
         .filter({
@@ -316,20 +411,81 @@ await produto
     })
     .click();</code></pre>
 
+
+            <!-- =========================
+            FILTER + HAS
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Combinar filter() com has
             </div>
+
+            <pre class="concept-code"><code>const produto =
+    page
+        .locator('.card')
+        .filter({
+            has: page.getByRole('heading', {
+                name: 'Notebook'
+            })
+        });
+
+await produto
+    .getByRole('button', {
+        name: 'Comprar'
+    })
+    .click();</code></pre>
+
+
+            <!-- =========================
+            FIRST / LAST / NTH
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Selecionar posição específica
+            </div>
+
+            <pre class="concept-code"><code>const itens =
+    page.locator('.item');
+
+await itens.first().click();
+
+await itens.last().click();
+
+await itens.nth(2).click();</code></pre>
+
+
+            <!-- =========================
+            AND / OR
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Combinar condições
+            </div>
+
+            <pre class="concept-code"><code>const salvar =
+    page
+        .getByRole('button')
+        .and(
+            page.getByText('Salvar')
+        );
+
+const mensagem =
+    page
+        .getByText('Sucesso')
+        .or(
+            page.getByText('Concluído')
+        );</code></pre>
 
 
             <!-- =========================
             EXEMPLO PRÁTICO
             ========================= -->
 
-            <div class="code-section">
+            <div class="concept-subtitle">
+                Exemplo prático
+            </div>
 
-                <div class="concept-subtitle">
-                    Exemplo prático
-                </div>
-
-                <pre class="concept-code"><code>test('selecionar produto específico', async ({ page }) =&gt; {
+            <pre class="concept-code"><code>test('selecionar produto específico', async ({ page }) =&gt; {
 
     await page.goto('https://example.com');
 
@@ -355,20 +511,16 @@ await produto
 
 });</code></pre>
 
-            </div>
-
 
             <!-- =========================
             EXEMPLO COM HAS
             ========================= -->
 
-            <div class="code-section">
+            <div class="concept-subtitle">
+                Exemplo usando has
+            </div>
 
-                <div class="concept-subtitle">
-                    Exemplo usando has
-                </div>
-
-                <pre class="concept-code"><code>test('localizar card pelo conteúdo interno', async ({ page }) =&gt; {
+            <pre class="concept-code"><code>test('localizar card pelo conteúdo interno', async ({ page }) =&gt; {
 
     const produto =
         page
@@ -390,11 +542,111 @@ await produto
 
 });</code></pre>
 
+
+            <!-- =========================
+            EXEMPLO COM FIRST / LAST / NTH
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Exemplo usando first(), last() e nth()
             </div>
+
+            <pre class="concept-code"><code>const itens =
+    page.locator('.produto');
+
+await itens.first().click();
+
+await itens.last().click();
+
+await itens.nth(2).click();</code></pre>
 
 
             <!-- =========================
-            NOTA
+            EXEMPLO COM AND
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Exemplo usando and()
+            </div>
+
+            <pre class="concept-code"><code>const botao =
+    page
+        .getByRole('button')
+        .and(
+            page.getByTitle('Salvar')
+        );
+
+await expect(botao)
+    .toBeVisible();
+
+await botao.click();</code></pre>
+
+
+            <!-- =========================
+            EXEMPLO COM OR
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Exemplo usando or()
+            </div>
+
+            <pre class="concept-code"><code>const resultado =
+    page
+        .getByText('Sucesso')
+        .or(
+            page.getByText('Concluído')
+        );
+
+await expect(resultado.first())
+    .toBeVisible();</code></pre>
+
+
+            <!-- =========================
+            BOAS PRÁTICAS
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Boas práticas
+            </div>
+
+            <pre class="concept-code"><code>// Prefira locators semânticos
+
+page.getByRole('button', {
+    name: 'Salvar'
+});
+
+// Use filter() quando houver
+// elementos semelhantes
+
+page
+    .locator('.card')
+    .filter({
+        hasText: 'Notebook'
+    });
+
+// Use has quando o elemento
+// depender de conteúdo interno
+
+page
+    .locator('.card')
+    .filter({
+        has: page.getByRole('heading', {
+            name: 'Notebook'
+        })
+    });
+
+// Use first(), last() e nth()
+// quando a posição fizer sentido
+
+page.locator('.item').first();
+
+page.locator('.item').last();
+
+page.locator('.item').nth(2);</code></pre>
+
+
+            <!-- =========================
+            NOTA FINAL
             ========================= -->
 
             <div class="note">
@@ -404,16 +656,21 @@ await produto
                 </span>
 
                 <p>
-                    Locators avançados são úteis quando existem vários elementos
-                    semelhantes na página. Prefira começar com locators semânticos
-                    como <strong>getByRole</strong>, <strong>getByLabel</strong>
-                    e <strong>getByText</strong>. Quando necessário, utilize
-                    <strong>filter()</strong> para restringir a seleção,
-                    <strong>has</strong> para procurar conteúdo interno,
-                    <strong>first()</strong>, <strong>last()</strong> e
-                    <strong>nth()</strong> para selecionar uma posição específica,
-                    e <strong>and()</strong> ou <strong>or()</strong> para combinar
-                    locators.
+
+                    Locators avançados devem ser utilizados para tornar
+                    a seleção mais precisa, e não apenas para contornar
+                    um locator mal definido. Comece por locators
+                    semânticos como <strong>getByRole()</strong>,
+                    <strong>getByLabel()</strong> e
+                    <strong>getByText()</strong>. Quando houver elementos
+                    semelhantes, utilize <strong>filter()</strong> e
+                    <strong>has</strong> para restringir o contexto.
+                    Use <strong>first()</strong>, <strong>last()</strong>
+                    e <strong>nth()</strong> quando a posição for
+                    realmente relevante para o cenário. Para combinar
+                    alternativas ou condições, utilize
+                    <strong>or()</strong> e <strong>and()</strong>.
+
                 </p>
 
             </div>
@@ -450,6 +707,96 @@ await produto
         </footer>
 
     </main>
+
+
+    <!-- =========================
+    MERMAID
+    ========================= -->
+
+    <script type="module">
+
+        import mermaid from
+            'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+        mermaid.initialize({
+
+            startOnLoad: true,
+
+            theme: 'base',
+
+            themeVariables: {
+
+                background: '#102D23',
+
+                primaryColor: '#0F3D2E',
+
+                primaryTextColor: '#F3EFE6',
+
+                primaryBorderColor: '#8FE3B0',
+
+                lineColor: '#8FE3B0',
+
+                secondaryColor: '#124A38',
+
+                tertiaryColor: '#102D23',
+
+                fontFamily: 'Manrope, sans-serif'
+
+            }
+
+        });
+
+    </script>
+
+
+    <!-- =========================
+    CODE LINE NUMBERS
+    ========================= -->
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const codeBlocks =
+                document.querySelectorAll(
+                    ".concept pre.concept-code code"
+                );
+
+            codeBlocks.forEach((code) => {
+
+                const text = code.textContent;
+
+                const lines = text.split("\n");
+
+                code.innerHTML = "";
+
+                lines.forEach((line, index) => {
+
+                    const lineElement =
+                        document.createElement("span");
+
+                    lineElement.className =
+                        "code-line";
+
+                    lineElement.setAttribute(
+                        "data-line",
+                        index + 1
+                    );
+
+                    lineElement.textContent =
+                        line || " ";
+
+                    code.appendChild(
+                        lineElement
+                    );
+
+                });
+
+            });
+
+        });
+
+    </script>
 
 </body>
 

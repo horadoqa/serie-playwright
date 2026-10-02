@@ -2,28 +2,47 @@
 <html lang="pt-BR">
 
 <head>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Playwright — Locators</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link rel="stylesheet" href="style.css">
+
   <link
     href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
     rel="stylesheet">
+
 </head>
 
+
 <body>
+
   <main class="page">
+
+
     <!-- =========================
-     HEADER
-========================= -->
+         HEADER
+    ========================= -->
 
     <header>
 
-      <div class="logo" aria-label="Espaço reservado para o logo">
-        <img src="logo.png" alt="Logo Hora do QA">
+      <div
+        class="logo"
+        aria-label="Espaço reservado para o logo"
+      >
+
+        <img
+          src="logo.png"
+          alt="Logo Hora do QA"
+        >
+
       </div>
+
 
       <div class="brand">
 
@@ -36,6 +55,7 @@
         </span>
 
       </div>
+
 
       <div class="status">
 
@@ -51,8 +71,8 @@
 
 
     <!-- =========================
-     HERO
-========================= -->
+         HERO
+    ========================= -->
 
     <section class="hero">
 
@@ -60,24 +80,33 @@
         Playwright
       </div>
 
+
       <h1>
         Locators
       </h1>
 
+
       <p class="hero-description">
+
         Como localizar elementos de forma confiável no Playwright
-        utilizando locators baseados em acessibilidade, texto,
-        labels, placeholders, identificadores de teste e seletores.
+        utilizando acessibilidade, texto, labels, placeholders,
+        identificadores de teste e seletores.
+
       </p>
 
     </section>
 
 
     <!-- =========================
-     CONCEITO 04
-========================= -->
+         CONCEITO 04
+    ========================= -->
 
     <article class="concept">
+
+
+      <!-- =========================
+           CONCEPT TOP
+      ========================= -->
 
       <div class="concept-top">
 
@@ -92,6 +121,10 @@
       </div>
 
 
+      <!-- =========================
+           TITLE
+      ========================= -->
+
       <h2>
         Locators
       </h2>
@@ -103,12 +136,11 @@
 
 
       <!-- =========================
-       LOCATORS PRINCIPAIS
-  ========================= -->
+           LOCATORS PRINCIPAIS
+      ========================= -->
 
       <pre class="concept-code"><code>page.getByRole('button', {
-
-name: 'Login'
+    name: 'Login'
 });
 
 page.getByText('Bem-vindo');
@@ -119,9 +151,10 @@ page.getByPlaceholder('Digite seu email');
 
 page.getByTestId('submit-button');</code></pre>
 
+
       <!-- =========================
-       NOTA
-  ========================= -->
+           NOTA
+      ========================= -->
 
       <div class="note">
 
@@ -130,18 +163,20 @@ page.getByTestId('submit-button');</code></pre>
         </span>
 
         <p>
+
           Locators são a forma utilizada pelo Playwright para
           encontrar elementos na página. Sempre que possível,
-          prefira locators que representem como o usuário
+          prefira estratégias que representem como o usuário
           realmente encontra ou utiliza o elemento.
+
         </p>
 
       </div>
 
 
       <!-- =========================
-       PRINCIPAIS LOCATORS
-  ========================= -->
+           PRINCIPAIS LOCATORS
+      ========================= -->
 
       <div class="concept-subtitle">
         Principais locators
@@ -155,8 +190,15 @@ page.getByTestId('submit-button');</code></pre>
           <thead>
 
             <tr>
-              <th>Locator</th>
-              <th>Quando utilizar</th>
+
+              <th>
+                Locator
+              </th>
+
+              <th>
+                Quando utilizar
+              </th>
+
             </tr>
 
           </thead>
@@ -241,9 +283,8 @@ page.getByTestId('submit-button');</code></pre>
               </td>
 
               <td>
-                Cria um locator utilizando um seletor ou
-                estratégia de localização quando os locators
-                semânticos não são suficientes.
+                Permite criar locators utilizando seletores
+                CSS ou outras estratégias quando necessário.
               </td>
 
             </tr>
@@ -256,8 +297,8 @@ page.getByTestId('submit-button');</code></pre>
 
 
       <!-- =========================
-       GET BY ROLE
-  ========================= -->
+           GET BY ROLE
+      ========================= -->
 
       <div class="concept-subtitle">
         getByRole()
@@ -265,25 +306,25 @@ page.getByTestId('submit-button');</code></pre>
 
 
       <pre class="concept-code"><code>await page.getByRole('button', {
-
-name: 'Login'
+    name: 'Login'
 }).click();
 
 await page.getByRole('link', {
-name: 'Produtos'
+    name: 'Produtos'
 }).click();
 
 await page.getByRole('heading', {
-name: 'Dashboard'
+    name: 'Dashboard'
 });
 
 await page.getByRole('checkbox', {
-name: 'Aceito os termos'
+    name: 'Aceito os termos'
 });</code></pre>
 
+
       <!-- =========================
-       GET BY LABEL
-  ========================= -->
+           GET BY LABEL
+      ========================= -->
 
       <div class="concept-subtitle">
         getByLabel()
@@ -291,30 +332,34 @@ name: 'Aceito os termos'
 
 
       <pre class="concept-code"><code>await page.getByLabel('Email')
-
-.fill('user@example.com');
+    .fill('user@example.com');
 
 await page.getByLabel('Senha')
-.fill('123456');</code></pre>
+    .fill('123456');</code></pre>
+
 
       <!-- =========================
-       GET BY TEXT
-  ========================= -->
+           GET BY TEXT
+      ========================= -->
 
       <div class="concept-subtitle">
         getByText()
       </div>
 
 
-      <pre class="concept-code"><code>await page.getByText('Bem-vindo').click();
+      <pre class="concept-code"><code>await page.getByText('Bem-vindo')
+    .click();
 
 await expect(
-page.getByText('Cadastro realizado com sucesso')
+    page.getByText(
+        'Cadastro realizado com sucesso'
+    )
 ).toBeVisible();</code></pre>
 
+
       <!-- =========================
-       GET BY PLACEHOLDER
-  ========================= -->
+           GET BY PLACEHOLDER
+      ========================= -->
 
       <div class="concept-subtitle">
         getByPlaceholder()
@@ -322,17 +367,17 @@ page.getByText('Cadastro realizado com sucesso')
 
 
       <pre class="concept-code"><code>await page.getByPlaceholder(
-
-'Digite seu email'
+    'Digite seu email'
 ).fill('user@example.com');
 
 await page.getByPlaceholder(
-'Pesquisar'
+    'Pesquisar'
 ).fill('Playwright');</code></pre>
 
+
       <!-- =========================
-       GET BY TEST ID
-  ========================= -->
+           GET BY TEST ID
+      ========================= -->
 
       <div class="concept-subtitle">
         getByTestId()
@@ -340,17 +385,17 @@ await page.getByPlaceholder(
 
 
       <pre class="concept-code"><code>await page.getByTestId(
-
-'submit-button'
+    'submit-button'
 ).click();
 
 await expect(
-page.getByTestId('success-message')
+    page.getByTestId('success-message')
 ).toBeVisible();</code></pre>
 
+
       <!-- =========================
-       LOCATOR
-  ========================= -->
+           LOCATOR
+      ========================= -->
 
       <div class="concept-subtitle">
         locator()
@@ -358,19 +403,69 @@ page.getByTestId('success-message')
 
 
       <pre class="concept-code"><code>await page.locator('#username')
-
-.fill('usuario');
+    .fill('usuario');
 
 await page.locator('.btn-primary')
-.click();
+    .click();
 
 await page.locator(
-'input[name="email"]'
+    'input[name="email"]'
 ).fill('user@example.com');</code></pre>
 
+
       <!-- =========================
-       COMPARAÇÃO
-  ========================= -->
+           FLUXO DE ESCOLHA
+      ========================= -->
+
+      <div class="concept-subtitle">
+        Estratégia de escolha
+      </div>
+
+
+      <div class="mermaid-wrapper">
+
+        <div class="mermaid">
+
+          flowchart TD
+
+          A["Preciso localizar um elemento"]
+          B{"Possui papel<br/>acessível?"}
+          C["getByRole()"]
+          D{"Possui label?"}
+          E["getByLabel()"]
+          F{"Possui texto visível?"}
+          G["getByText()"]
+          H{"Possui placeholder?"}
+          I["getByPlaceholder()"]
+          J{"Possui test ID?"}
+          K["getByTestId()"]
+          L["locator()"]
+
+          A --> B
+
+          B -->|Sim| C
+          B -->|Não| D
+
+          D -->|Sim| E
+          D -->|Não| F
+
+          F -->|Sim| G
+          F -->|Não| H
+
+          H -->|Sim| I
+          H -->|Não| J
+
+          J -->|Sim| K
+          J -->|Não| L
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           COMPARAÇÃO
+      ========================= -->
 
       <div class="concept-subtitle">
         Exemplos de escolha
@@ -384,8 +479,15 @@ await page.locator(
           <thead>
 
             <tr>
-              <th>Situação</th>
-              <th>Locator recomendado</th>
+
+              <th>
+                Situação
+              </th>
+
+              <th>
+                Locator recomendado
+              </th>
+
             </tr>
 
           </thead>
@@ -461,7 +563,7 @@ await page.locator(
             <tr>
 
               <td>
-                Elemento sem locator semântico adequado
+                Elemento sem estratégia semântica adequada
               </td>
 
               <td>
@@ -478,8 +580,48 @@ await page.locator(
 
 
       <!-- =========================
-       PREFERÊNCIA
-  ========================= -->
+           BOA PRÁTICA
+      ========================= -->
+
+      <div class="concept-subtitle">
+        Boa prática
+      </div>
+
+
+      <pre class="concept-code"><code>// Preferir
+await page.getByRole('button', {
+    name: 'Salvar'
+}).click();
+
+// Em vez de
+await page.locator('#btnSalvar').click();</code></pre>
+
+
+      <!-- =========================
+           LOCATOR COM FILTRO
+      ========================= -->
+
+      <div class="concept-subtitle">
+        Locator com filtro
+      </div>
+
+
+      <pre class="concept-code"><code>const produto = page
+    .getByRole('listitem')
+    .filter({
+        hasText: 'Playwright'
+    });
+
+await produto
+    .getByRole('button', {
+        name: 'Comprar'
+    })
+    .click();</code></pre>
+
+
+      <!-- =========================
+           NOTA FINAL
+      ========================= -->
 
       <div class="note">
 
@@ -488,32 +630,34 @@ await page.locator(
         </span>
 
         <p>
-          Como regra geral, prefira
-          <strong>getByRole()</strong>,
-          <strong>getByLabel()</strong>,
-          <strong>getByText()</strong>,
-          <strong>getByPlaceholder()</strong>
-          e <strong>getByTestId()</strong>
-          quando forem adequados ao elemento.
-          Use <strong>locator()</strong> quando os locators
-          mais semânticos não forem suficientes para identificar
+
+          Prefira locators que expressem a intenção do usuário.
+          Em geral, estratégias baseadas em acessibilidade e
+          elementos visíveis tornam os testes mais legíveis e
+          menos dependentes da implementação interna da página.
+
+          Use <strong>locator()</strong> quando as estratégias
+          mais específicas não forem suficientes para identificar
           o elemento de maneira clara.
+
         </p>
 
       </div>
+
 
     </article>
 
 
     <!-- =========================
-     FOOTER
-========================= -->
+         FOOTER
+    ========================= -->
 
     <footer>
 
       <div class="footer-brand">
         Hora do QA
       </div>
+
 
       <div class="footer-meta">
 
@@ -533,7 +677,107 @@ await page.locator(
 
     </footer>
 
+
   </main>
+
+
+  <!-- =========================
+       MERMAID
+  ========================= -->
+
+  <script type="module">
+
+    import mermaid from
+      'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+
+    mermaid.initialize({
+
+      startOnLoad: true,
+
+      theme: 'base',
+
+      themeVariables: {
+
+        background: '#102D23',
+
+        primaryColor: '#0F3D2E',
+
+        primaryTextColor: '#F3EFE6',
+
+        primaryBorderColor: '#8FE3B0',
+
+        lineColor: '#8FE3B0',
+
+        secondaryColor: '#124A38',
+
+        tertiaryColor: '#102D23',
+
+        fontFamily: 'Manrope, sans-serif'
+
+      }
+
+    });
+
+  </script>
+
+
+  <!-- =========================
+       CODE LINE NUMBERS
+  ========================= -->
+
+  <script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+      const codeBlocks =
+        document.querySelectorAll(
+          ".concept pre.concept-code code"
+        );
+
+
+      codeBlocks.forEach((code) => {
+
+        const text = code.textContent;
+
+        const lines = text.split("\n");
+
+        code.innerHTML = "";
+
+
+        lines.forEach((line, index) => {
+
+          const lineElement =
+            document.createElement("span");
+
+
+          lineElement.className =
+            "code-line";
+
+
+          lineElement.setAttribute(
+            "data-line",
+            index + 1
+          );
+
+
+          lineElement.textContent =
+            line || " ";
+
+
+          code.appendChild(
+            lineElement
+          );
+
+        });
+
+      });
+
+    });
+
+  </script>
+
+
 </body>
 
 </html>

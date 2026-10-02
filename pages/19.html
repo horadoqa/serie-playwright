@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Playwright — Configuração</title>
 
@@ -15,20 +15,22 @@
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
         rel="stylesheet">
+
 </head>
 
 <body>
-
     <main class="page">
 
         <!-- =========================
-             HEADER
-        ========================= -->
+         HEADER
+    ========================== -->
 
         <header>
 
-            <div class="logo" aria-label="Espaço reservado para o logo">
+            <div class="logo" aria-label="Logo Hora do QA">
+
                 <img src="logo.png" alt="Logo Hora do QA">
+
             </div>
 
             <div class="brand">
@@ -45,7 +47,8 @@
 
             <div class="status">
 
-                <span class="status-indicator"></span>
+                <span class="status-indicator" aria-hidden="true">
+                </span>
 
                 <span>
                     PLAYWRIGHT / READY
@@ -55,10 +58,9 @@
 
         </header>
 
-
         <!-- =========================
-             HERO
-        ========================= -->
+         HERO
+    ========================== -->
 
         <section class="hero">
 
@@ -72,17 +74,16 @@
 
             <p class="hero-description">
                 Como configurar o comportamento dos testes através do
-                arquivo <strong>playwright.config.ts</strong>, definindo
+                arquivo <strong>playwright.config.ts</strong>, centralizando
                 diretórios, browsers, URL base, evidências, retries,
-                paralelismo e relatórios.
+                paralelismo, timeouts e relatórios.
             </p>
 
         </section>
 
-
         <!-- =========================
-             CONCEITO 19
-        ========================= -->
+         CONCEITO 19
+    ========================== -->
 
         <article class="concept">
 
@@ -98,6 +99,9 @@
 
             </div>
 
+            <!-- =========================
+             TITLE
+        ========================== -->
 
             <h2>
                 Configuração
@@ -107,365 +111,762 @@
                 playwright.config.ts
             </div>
 
+            <!-- =========================
+             CONCEITO
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Conceito
+                </h3>
+
+                <pre class="concept-code"><code>PLAYWRIGHT
+
+↓
+
+playwright.config.ts
+
+↓
+
+TESTES
+
+↓
+
+BROWSER
+
+↓
+
+EXECUÇÃO
+
+↓
+
+EVIDÊNCIAS
+
+↓
+
+REPORTS</code></pre>
+
+            </section>
 
             <!-- =========================
-                 CONFIGURAÇÃO BÁSICA
-            ========================= -->
+             FLUXO DE CONFIGURAÇÃO
+        ========================== -->
 
-            <h3>
-                Configuração básica
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                O arquivo <strong>playwright.config.ts</strong> centraliza
-                diversas configurações utilizadas durante a execução dos testes.
-            </p>
+                <h3 class="concept-subtitle">
+                    Fluxo da configuração
+                </h3>
 
-            <pre class="concept-code"><code>import { defineConfig } from '@playwright/test';
+                <div class="mermaid-wrapper">
+
+                    <div class="mermaid">
+
+                        flowchart TD
+
+                        A["playwright.config.ts"]
+
+                        B["Testes"]
+
+                        C["Browser / Projects"]
+
+                        D["Base URL"]
+
+                        E["Timeouts"]
+
+                        F["Retries / Workers"]
+
+                        G["Screenshots / Video / Trace"]
+
+                        H["Reporter"]
+
+                        I["Execução"]
+
+                        A --> B
+                        A --> C
+                        A --> D
+                        A --> E
+                        A --> F
+                        A --> G
+                        A --> H
+
+                        B --> I
+                        C --> I
+                        D --> I
+                        E --> I
+                        F --> I
+                        G --> I
+                        H --> I
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =========================
+             CONFIGURAÇÃO BÁSICA
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Configuração básica
+                </h3>
+
+                <p class="concept-description">
+                    O arquivo <strong>playwright.config.ts</strong> centraliza
+                    configurações compartilhadas utilizadas durante a execução
+                    dos testes.
+                </p>
+
+                <pre class="concept-code"><code>import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './tests',
 
-  use: {
-    baseURL: 'https://example.com',
-    headless: true,
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-    trace: 'on-first-retry'
-  },
+testDir: './tests',
 
-  retries: 2,
+use: {
+baseURL: 'https://example.com',
+headless: true,
+screenshot: 'only-on-failure',
+video: 'retain-on-failure',
+trace: 'on-first-retry'
+},
 
-  workers: 4,
+retries: 2,
 
-  reporter: 'html'
+workers: 4,
+
+reporter: 'html'
+
 });</code></pre>
 
+            </section>
 
             <!-- =========================
-                 TEST DIR
-            ========================= -->
+             TEST DIR
+        ========================== -->
 
-            <h3>
-                Diretório dos testes
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                A propriedade <strong>testDir</strong> define onde o Playwright
-                deve procurar os arquivos de teste.
-            </p>
+                <h3 class="concept-subtitle">
+                    Diretório dos testes
+                </h3>
 
-            <pre class="concept-code"><code>export default defineConfig({
-  testDir: './tests'
+                <p class="concept-description">
+                    A propriedade <strong>testDir</strong> define o diretório
+                    onde o Playwright deve procurar os arquivos de teste.
+                </p>
+
+                <pre class="concept-code"><code>export default defineConfig({
+
+testDir: './tests'
+
 });</code></pre>
 
+            </section>
 
             <!-- =========================
-                 BASE URL
-            ========================= -->
+             BASE URL
+        ========================== -->
 
-            <h3>
-                URL base
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                Com <strong>baseURL</strong>, os testes podem utilizar caminhos
-                relativos em vez de repetir a URL completa da aplicação.
-            </p>
+                <h3 class="concept-subtitle">
+                    URL base
+                </h3>
 
-            <pre class="concept-code"><code>use: {
-  baseURL: 'https://example.com'
+                <p class="concept-description">
+                    A propriedade <strong>baseURL</strong> permite utilizar
+                    caminhos relativos nos testes, evitando repetir a URL
+                    completa da aplicação.
+                </p>
+
+                <pre class="concept-code"><code>use: {
+
+baseURL: 'https://example.com'
+
 }</code></pre>
 
-            <p class="concept-description">
-                Com essa configuração, é possível navegar utilizando:
-            </p>
+                <p class="concept-description">
+                    Com essa configuração, os testes podem utilizar:
+                </p>
 
-            <pre class="concept-code"><code>await page.goto('/login');
+                <pre class="concept-code"><code>await page.goto('/login');
 
 await page.goto('/dashboard');</code></pre>
 
+            </section>
 
             <!-- =========================
-                 HEADLESS
-            ========================= -->
+             HEADLESS
+        ========================== -->
 
-            <h3>
-                Headless
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                A propriedade <strong>headless</strong> controla se o navegador
-                será executado com ou sem interface visual.
-            </p>
+                <h3 class="concept-subtitle">
+                    Headless
+                </h3>
 
-            <pre class="concept-code"><code>use: {
-  headless: true
+                <p class="concept-description">
+                    A propriedade <strong>headless</strong> controla se o
+                    navegador será executado com ou sem interface visual.
+                </p>
+
+                <pre class="concept-code"><code>use: {
+
+headless: true
+
 }</code></pre>
 
+            </section>
 
             <!-- =========================
-                 SCREENSHOT
-            ========================= -->
+             SCREENSHOT
+        ========================== -->
 
-            <h3>
-                Screenshots
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                A configuração <strong>screenshot</strong> determina quando
-                screenshots devem ser capturados.
-            </p>
+                <h3 class="concept-subtitle">
+                    Screenshots
+                </h3>
 
-            <pre class="concept-code"><code>use: {
-  screenshot: 'only-on-failure'
+                <p class="concept-description">
+                    A configuração <strong>screenshot</strong> determina
+                    quando screenshots devem ser capturados durante
+                    a execução.
+                </p>
+
+                <pre class="concept-code"><code>use: {
+
+screenshot: 'only-on-failure'
+
 }</code></pre>
 
-            <p class="concept-description">
-                Também é possível capturar screenshots sempre:
-            </p>
+                <p class="concept-description">
+                    Também é possível capturar screenshots sempre:
+                </p>
 
-            <pre class="concept-code"><code>use: {
-  screenshot: 'on'
+                <pre class="concept-code"><code>use: {
+
+screenshot: 'on'
+
 }</code></pre>
 
+            </section>
 
             <!-- =========================
-                 VIDEO
-            ========================= -->
+             VIDEO
+        ========================== -->
 
-            <h3>
-                Gravação de vídeo
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                A propriedade <strong>video</strong> controla a gravação
-                da execução dos testes.
-            </p>
+                <h3 class="concept-subtitle">
+                    Gravação de vídeo
+                </h3>
 
-            <pre class="concept-code"><code>use: {
-  video: 'retain-on-failure'
+                <p class="concept-description">
+                    A propriedade <strong>video</strong> controla a gravação
+                    dos testes e pode ser utilizada para preservar evidências
+                    de execuções com falha.
+                </p>
+
+                <pre class="concept-code"><code>use: {
+
+video: 'retain-on-failure'
+
 }</code></pre>
 
+            </section>
 
             <!-- =========================
-                 TRACE
-            ========================= -->
+             TRACE
+        ========================== -->
 
-            <h3>
-                Trace
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                O Trace permite registrar informações detalhadas da execução,
-                sendo especialmente útil para investigar falhas.
-            </p>
+                <h3 class="concept-subtitle">
+                    Trace
+                </h3>
 
-            <pre class="concept-code"><code>use: {
-  trace: 'on-first-retry'
+                <p class="concept-description">
+                    O Trace registra informações detalhadas da execução,
+                    permitindo investigar posteriormente ações, snapshots,
+                    screenshots e informações relacionadas à execução.
+                </p>
+
+                <pre class="concept-code"><code>use: {
+
+trace: 'on-first-retry'
+
 }</code></pre>
 
+            </section>
 
             <!-- =========================
-                 RETRIES
-            ========================= -->
+             RETRIES
+        ========================== -->
 
-            <h3>
-                Retries
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                A propriedade <strong>retries</strong> define quantas vezes
-                um teste que falhou pode ser repetido.
-            </p>
+                <h3 class="concept-subtitle">
+                    Retries
+                </h3>
 
-            <pre class="concept-code"><code>retries: 2</code></pre>
+                <p class="concept-description">
+                    A propriedade <strong>retries</strong> define quantas
+                    vezes um teste que falhou pode ser repetido.
+                </p>
 
+                <pre class="concept-code"><code>retries: 2</code></pre>
 
-            <!-- =========================
-                 WORKERS
-            ========================= -->
-
-            <h3>
-                Workers
-            </h3>
-
-            <p class="concept-description">
-                A propriedade <strong>workers</strong> controla a quantidade
-                de workers utilizados para executar os testes em paralelo.
-            </p>
-
-            <pre class="concept-code"><code>workers: 4</code></pre>
-
+            </section>
 
             <!-- =========================
-                 REPORTER
-            ========================= -->
+             WORKERS
+        ========================== -->
 
-            <h3>
-                Reporter
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                O <strong>reporter</strong> define como os resultados dos
-                testes serão apresentados ou armazenados.
-            </p>
+                <h3 class="concept-subtitle">
+                    Workers
+                </h3>
 
-            <pre class="concept-code"><code>reporter: 'html'</code></pre>
+                <p class="concept-description">
+                    A propriedade <strong>workers</strong> controla a
+                    quantidade de workers utilizados para executar os
+                    testes em paralelo.
+                </p>
 
+                <pre class="concept-code"><code>workers: 4</code></pre>
+
+            </section>
 
             <!-- =========================
-                 PROJETOS
-            ========================= -->
+             REPORTER
+        ========================== -->
 
-            <h3>
-                Configurar múltiplos projetos
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                A propriedade <strong>projects</strong> permite configurar
-                diferentes browsers ou ambientes dentro da mesma suíte.
-            </p>
+                <h3 class="concept-subtitle">
+                    Reporter
+                </h3>
 
-            <pre class="concept-code"><code>import { defineConfig, devices } from '@playwright/test';
+                <p class="concept-description">
+                    O <strong>reporter</strong> define como os resultados
+                    dos testes serão apresentados ou armazenados.
+                </p>
+
+                <pre class="concept-code"><code>reporter: 'html'</code></pre>
+
+            </section>
+
+            <!-- =========================
+             PROJECTS
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Configurar múltiplos projetos
+                </h3>
+
+                <p class="concept-description">
+                    A propriedade <strong>projects</strong> permite configurar
+                    diferentes browsers, dispositivos ou ambientes dentro
+                    da mesma suíte.
+                </p>
+
+                <pre class="concept-code"><code>import {
+
+defineConfig,
+devices
+} from '@playwright/test';
 
 export default defineConfig({
 
-  projects: [
+projects: [
 
-    {
-      name: 'chromium',
-      use: {
-        ...devices['Desktop Chrome']
-      }
-    },
-
-    {
-      name: 'firefox',
-      use: {
-        ...devices['Desktop Firefox']
-      }
-    },
-
-    {
-      name: 'webkit',
-      use: {
-        ...devices['Desktop Safari']
-      }
-    }
-
-  ]
-
-});</code></pre>
-
-
-            <!-- =========================
-                 TIMEOUT
-            ========================= -->
-
-            <h3>
-                Timeout global
-            </h3>
-
-            <p class="concept-description">
-                O <strong>timeout</strong> pode definir o tempo máximo permitido
-                para a execução de cada teste.
-            </p>
-
-            <pre class="concept-code"><code>timeout: 30 * 1000</code></pre>
-
-
-            <!-- =========================
-                 EXPECT TIMEOUT
-            ========================= -->
-
-            <h3>
-                Timeout das assertions
-            </h3>
-
-            <p class="concept-description">
-                A propriedade <strong>expect.timeout</strong> define o tempo
-                máximo de espera das assertions.
-            </p>
-
-            <pre class="concept-code"><code>expect: {
-  timeout: 5000
-}</code></pre>
-
-
-            <!-- =========================
-                 CONFIGURAÇÃO COMPLETA
-            ========================= -->
-
-            <h3>
-                Exemplo completo
-            </h3>
-
-            <p class="concept-description">
-                Um exemplo reunindo as principais configurações apresentadas:
-            </p>
-
-            <pre class="concept-code"><code>import { defineConfig, devices } from '@playwright/test';
-
-export default defineConfig({
-
-  testDir: './tests',
-
-  timeout: 30 * 1000,
-
-  expect: {
-    timeout: 5000
-  },
-
-  retries: 2,
-
-  workers: 4,
-
-  reporter: 'html',
+{
+  name: 'chromium',
 
   use: {
-    baseURL: 'https://example.com',
+    ...devices['Desktop Chrome']
+  }
+},
 
-    headless: true,
+{
+  name: 'firefox',
 
-    screenshot: 'only-on-failure',
+  use: {
+    ...devices['Desktop Firefox']
+  }
+},
 
-    video: 'retain-on-failure',
+{
+  name: 'webkit',
 
-    trace: 'on-first-retry'
-  },
+  use: {
+    ...devices['Desktop Safari']
+  }
+}
 
-  projects: [
-
-    {
-      name: 'chromium',
-      use: {
-        ...devices['Desktop Chrome']
-      }
-    },
-
-    {
-      name: 'firefox',
-      use: {
-        ...devices['Desktop Firefox']
-      }
-    },
-
-    {
-      name: 'webkit',
-      use: {
-        ...devices['Desktop Safari']
-      }
-    }
-
-  ]
+]
 
 });</code></pre>
 
+            </section>
 
             <!-- =========================
-                 NOTA
-            ========================= -->
+             FLUXO PROJECTS
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Fluxo de projetos
+                </h3>
+
+                <div class="mermaid-wrapper">
+
+                    <div class="mermaid">
+
+                        flowchart LR
+
+                        A["playwright.config.ts"]
+
+                        B["Chromium"]
+
+                        C["Firefox"]
+
+                        D["WebKit"]
+
+                        E["Execução"]
+
+                        A --> B
+                        A --> C
+                        A --> D
+
+                        B --> E
+                        C --> E
+                        D --> E
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =========================
+             TIMEOUT
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Timeout global
+                </h3>
+
+                <p class="concept-description">
+                    A propriedade <strong>timeout</strong> define o tempo
+                    máximo permitido para a execução de cada teste.
+                </p>
+
+                <pre class="concept-code"><code>timeout: 30 * 1000</code></pre>
+
+            </section>
+
+            <!-- =========================
+             EXPECT TIMEOUT
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Timeout das assertions
+                </h3>
+
+                <p class="concept-description">
+                    A configuração <strong>expect.timeout</strong> define
+                    o tempo máximo de espera das assertions.
+                </p>
+
+                <pre class="concept-code"><code>expect: {
+
+timeout: 5000
+
+}</code></pre>
+
+            </section>
+
+            <!-- =========================
+             HIERARQUIA
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Organização da configuração
+                </h3>
+
+                <div class="mermaid-wrapper">
+
+                    <div class="mermaid">
+
+                        flowchart TD
+
+                        A["playwright.config.ts"]
+
+                        B["Test discovery"]
+                        C["Execution"]
+                        D["Browser"]
+                        E["Evidence"]
+                        F["Reports"]
+
+                        B1["testDir"]
+
+                        C1["timeout"]
+                        C2["retries"]
+                        C3["workers"]
+
+                        D1["baseURL"]
+                        D2["headless"]
+                        D3["projects"]
+
+                        E1["screenshot"]
+                        E2["video"]
+                        E3["trace"]
+
+                        F1["reporter"]
+
+                        A --> B
+                        A --> C
+                        A --> D
+                        A --> E
+                        A --> F
+
+                        B --> B1
+
+                        C --> C1
+                        C --> C2
+                        C --> C3
+
+                        D --> D1
+                        D --> D2
+                        D --> D3
+
+                        E --> E1
+                        E --> E2
+                        E --> E3
+
+                        F --> F1
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =========================
+             CONFIGURAÇÃO COMPLETA
+        ========================== -->
+
+            <section class="concept-example">
+
+                <h3 class="concept-example-title">
+                    Exemplo completo — playwright.config.ts
+                </h3>
+
+                <p class="concept-description">
+                    Um exemplo reunindo as principais configurações
+                    apresentadas neste conceito.
+                </p>
+
+                <pre class="concept-code"><code>import {
+
+defineConfig,
+devices
+} from '@playwright/test';
+
+export default defineConfig({
+
+testDir: './tests',
+
+timeout: 30 * 1000,
+
+expect: {
+timeout: 5000
+},
+
+retries: 2,
+
+workers: 4,
+
+reporter: 'html',
+
+use: {
+
+baseURL: 'https://example.com',
+
+headless: true,
+
+screenshot: 'only-on-failure',
+
+video: 'retain-on-failure',
+
+trace: 'on-first-retry'
+
+},
+
+projects: [
+
+{
+  name: 'chromium',
+
+  use: {
+    ...devices['Desktop Chrome']
+  }
+},
+
+{
+  name: 'firefox',
+
+  use: {
+    ...devices['Desktop Firefox']
+  }
+},
+
+{
+  name: 'webkit',
+
+  use: {
+    ...devices['Desktop Safari']
+  }
+}
+
+]
+
+});</code></pre>
+
+            </section>
+
+            <!-- =========================
+             BOAS PRÁTICAS
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Boas práticas
+                </h3>
+
+                <p class="concept-description">
+                    Centralize configurações compartilhadas no arquivo
+                    de configuração e utilize projetos quando houver
+                    diferentes browsers, dispositivos ou ambientes.
+                    Evite duplicar configurações diretamente nos testes
+                    quando elas puderem ser definidas globalmente.
+                </p>
+
+                <div class="mermaid-wrapper">
+
+                    <div class="mermaid">
+
+                        flowchart TD
+
+                        A["Configuração centralizada"]
+
+                        B["testDir"]
+
+                        C["use"]
+
+                        D["projects"]
+
+                        E["timeouts"]
+
+                        F["retries"]
+
+                        G["workers"]
+
+                        H["evidências"]
+
+                        I["reporter"]
+
+                        J["Execução consistente"]
+
+                        A --> B
+                        A --> C
+                        A --> D
+                        A --> E
+                        A --> F
+                        A --> G
+                        A --> H
+                        A --> I
+
+                        B --> J
+                        C --> J
+                        D --> J
+                        E --> J
+                        F --> J
+                        G --> J
+                        H --> J
+                        I --> J
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =========================
+             RESUMO
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Resumo da configuração
+                </h3>
+
+                <div class="mermaid-wrapper">
+
+                    <div class="mermaid">
+
+                        flowchart LR
+
+                        A["Config"]
+
+                        B["Onde testar"]
+                        C["Como executar"]
+                        D["Como evidenciar"]
+                        E["Como reportar"]
+
+                        F["testDir"]
+                        G["use / projects"]
+                        H["screenshot / video / trace"]
+                        I["reporter"]
+
+                        A --> B
+                        A --> C
+                        A --> D
+                        A --> E
+
+                        B --> F
+                        C --> G
+                        D --> H
+                        E --> I
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =========================
+             NOTA
+        ========================== -->
 
             <div class="note">
 
@@ -474,22 +875,39 @@ export default defineConfig({
                 </span>
 
                 <p>
-                    O arquivo <strong>playwright.config.ts</strong> deve concentrar
-                    as configurações compartilhadas da suíte. Isso evita repetir
-                    configurações em cada teste e facilita alterações de ambiente,
-                    browsers, evidências, retries, paralelismo e relatórios.
-                    Para projetos maiores, a configuração também pode ser organizada
-                    utilizando diferentes <strong>projects</strong>.
+                    O <strong>playwright.config.ts</strong> funciona como
+                    o ponto central de configuração da suíte.
+
+                    Utilize <strong>testDir</strong> para organizar a
+                    descoberta dos testes, <strong>use</strong> para
+                    configurações compartilhadas do navegador,
+                    <strong>projects</strong> para diferentes ambientes
+                    ou browsers, e propriedades como
+                    <strong>timeout</strong>, <strong>retries</strong> e
+                    <strong>workers</strong> para controlar a execução.
+
+                    Para investigação de falhas, configure também
+                    <strong>screenshot</strong>, <strong>video</strong> e
+                    <strong>trace</strong> como mecanismos de coleta
+                    de evidências.
+
+                    O objetivo é manter a configuração centralizada,
+                    previsível e reutilizável entre os testes.
+
+                    Fluxo:
+
+                    CONFIGURAR → EXECUTAR → COLETAR EVIDÊNCIAS
+                    → REPORTAR → ANALISAR.
+
                 </p>
 
             </div>
 
         </article>
 
-
         <!-- =========================
-             FOOTER
-        ========================= -->
+         FOOTER
+    ========================== -->
 
         <footer>
 
@@ -516,6 +934,102 @@ export default defineConfig({
         </footer>
 
     </main>
+
+    <!-- =========================
+     MERMAID
+========================== -->
+
+    <script type="module">
+
+        import mermaid from
+            'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+        mermaid.initialize({
+
+            startOnLoad: true,
+
+            theme: 'base',
+
+            themeVariables: {
+
+                background: '#102D23',
+
+                primaryColor: '#0F3D2E',
+
+                primaryTextColor: '#F3EFE6',
+
+                primaryBorderColor: '#8FE3B0',
+
+                lineColor: '#8FE3B0',
+
+                secondaryColor: '#124A38',
+
+                tertiaryColor: '#102D23',
+
+                fontFamily:
+                    'Manrope, sans-serif'
+
+            }
+
+        });
+
+    </script>
+
+    <!-- =========================
+     CODE LINE NUMBERS
+========================== -->
+
+    <script>
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            () => {
+
+                const codeBlocks =
+                    document.querySelectorAll(
+                        '.concept pre.concept-code code'
+                    );
+
+                codeBlocks.forEach((code) => {
+
+                    const text =
+                        code.textContent
+                            .replace(/\r\n/g, '\n');
+
+                    const lines =
+                        text.split('\n');
+
+                    code.replaceChildren();
+
+                    lines.forEach(
+                        (line, index) => {
+
+                            const lineElement =
+                                document.createElement(
+                                    'span'
+                                );
+
+                            lineElement.className =
+                                'code-line';
+
+                            lineElement.dataset.line =
+                                String(index + 1);
+
+                            lineElement.textContent =
+                                line || ' ';
+
+                            code.appendChild(
+                                lineElement
+                            );
+
+                        });
+
+                });
+
+            }
+        );
+
+    </script>
 
 </body>
 

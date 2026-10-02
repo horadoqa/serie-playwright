@@ -1,0 +1,14 @@
+{
+  "name": "serie-playwright",
+  "version": "1.0.0",
+  "description": "Uma série de conteúdos práticos sobre **Playwright**, reunindo os principais conceitos, recursos e padrões utilizados na automação de testes de aplicações web.",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.3"
+  }
+}

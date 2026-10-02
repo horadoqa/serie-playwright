@@ -1,4 +1,7 @@
-<!DOCTYPE html> <html lang="pt-BR"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!DOCTYPE html> <html lang="pt-BR"> <head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <title>Playwright — Screenshots</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -8,20 +11,21 @@
 
 <link
     href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
-    rel="stylesheet"
->
+    rel="stylesheet">
 
 </head> <body>
 <main class="page">
 
     <!-- =========================
-         HEADER
-    ========================== -->
+    HEADER
+    ========================= -->
 
     <header>
 
         <div class="logo" aria-label="Espaço reservado para o logo">
+
             <img src="logo.png" alt="Logo Hora do QA">
+
         </div>
 
         <div class="brand">
@@ -50,8 +54,8 @@
 
 
     <!-- =========================
-         HERO
-    ========================== -->
+    HERO
+    ========================= -->
 
     <section class="hero">
 
@@ -64,18 +68,20 @@
         </h1>
 
         <p class="hero-description">
+
             Como capturar imagens durante a execução dos testes
             utilizando o Playwright. Screenshots podem ser usados
             para evidências, investigação de falhas, documentação
             e análise visual da aplicação.
+
         </p>
 
     </section>
 
 
     <!-- =========================
-         CONCEITO 10
-    ========================== -->
+    CONCEITO 10
+    ========================= -->
 
     <article class="concept">
 
@@ -91,6 +97,11 @@
 
         </div>
 
+
+        <!-- =========================
+        TITLE
+        ========================= -->
+
         <h2>
             Screenshots
         </h2>
@@ -101,133 +112,211 @@
 
 
         <!-- =========================
-             SCREENSHOT BÁSICO
-        ========================== -->
+        CONCEITO
+        ========================= -->
 
-        <div class="code-section">
+        <div class="concept-subtitle">
+            Conceito
+        </div>
 
-            <div class="concept-subtitle">
-                Screenshot básico
-            </div>
+        <pre class="concept-code"><code>TESTE
 
-            <pre class="concept-code"><code>await page.screenshot({
-path: 'screenshot.png'
+↓
 
-});</code></pre>
+AÇÃO
+
+↓
+
+RESULTADO
+
+↓
+
+SCREENSHOT
+
+↓
+
+EVIDÊNCIA</code></pre>
+
+        <!-- =========================
+        NOTA
+        ========================= -->
+
+        <div class="note">
+
+            <span class="note-label">
+                QA Note
+            </span>
+
+            <p>
+
+                Screenshots registram visualmente o estado da aplicação
+                durante a execução do teste. Eles podem ser capturados
+                manualmente com <strong>page.screenshot()</strong> ou
+                automaticamente pelo Playwright utilizando a configuração
+                <strong>screenshot</strong>.
+
+            </p>
 
         </div>
 
 
         <!-- =========================
-             PÁGINA INTEIRA
-        ========================== -->
+        FLUXO DE SCREENSHOT
+        ========================= -->
 
-        <div class="code-section">
+        <div class="concept-subtitle">
+            Fluxo de captura
+        </div>
 
-            <div class="concept-subtitle">
-                Capturar página inteira
+        <div class="mermaid-wrapper">
+
+            <div class="mermaid">
+
+flowchart TD
+
+A["Executar teste"]
+B["Realizar ação"]
+C["Obter resultado"]
+D{"Quando capturar?"}
+
+E["Durante o teste"]
+F["Após uma ação"]
+G["Em caso de falha"]
+H["Ao final do teste"]
+
+I["page.screenshot()"]
+J["locator.screenshot()"]
+K["Screenshot automático"]
+
+L["Arquivo de imagem"]
+M["Evidência"]
+
+A --> B
+B --> C
+C --> D
+
+D -->|Manual| E
+D -->|Elemento| F
+D -->|Falha| G
+D -->|Final| H
+
+E --> I
+F --> J
+G --> K
+H --> I
+
+I --> L
+J --> L
+K --> L
+
+L --> M
+
             </div>
 
-            <pre class="concept-code"><code>await page.screenshot({
+        </div>
+
+
+        <!-- =========================
+        SCREENSHOT BÁSICO
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Screenshot básico
+        </div>
+
+        <pre class="concept-code"><code>await page.screenshot({
+path: 'screenshot.png'
+
+});</code></pre>
+
+        <!-- =========================
+        PÁGINA INTEIRA
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Capturar página inteira
+        </div>
+
+        <pre class="concept-code"><code>await page.screenshot({
 path: 'full.png',
 fullPage: true
 
 });</code></pre>
 
+        <!-- =========================
+        ELEMENTO
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Capturar um elemento
         </div>
 
-
-        <!-- =========================
-             ELEMENTO
-        ========================== -->
-
-        <div class="code-section">
-
-            <div class="concept-subtitle">
-                Capturar um elemento
-            </div>
-
-            <pre class="concept-code"><code>await page
+        <pre class="concept-code"><code>await page
 .getByRole('main')
 .screenshot({
     path: 'main.png'
 });</code></pre>
 
-        </div>
-
 
         <!-- =========================
-             FORMATO JPEG
-        ========================== -->
+        FORMATO JPEG
+        ========================= -->
 
-        <div class="code-section">
+        <div class="concept-subtitle">
+            Salvar como JPEG
+        </div>
 
-            <div class="concept-subtitle">
-                Salvar como JPEG
-            </div>
-
-            <pre class="concept-code"><code>await page.screenshot({
+        <pre class="concept-code"><code>await page.screenshot({
 path: 'screenshot.jpg',
 type: 'jpeg',
 quality: 80
 
 });</code></pre>
 
+        <!-- =========================
+        FUNDO TRANSPARENTE
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Fundo transparente
         </div>
 
-
-        <!-- =========================
-             FUNDO TRANSPARENTE
-        ========================== -->
-
-        <div class="code-section">
-
-            <div class="concept-subtitle">
-                Fundo transparente
-            </div>
-
-            <pre class="concept-code"><code>await page.screenshot({
+        <pre class="concept-code"><code>await page.screenshot({
 path: 'screenshot.png',
 omitBackground: true
 
 });</code></pre>
 
+        <!-- =========================
+        SCREENSHOT APÓS AÇÃO
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Capturar após uma ação
         </div>
 
-
-        <!-- =========================
-             SCREENSHOT APÓS AÇÃO
-        ========================== -->
-
-        <div class="code-section">
-
-            <div class="concept-subtitle">
-                Capturar após uma ação
-            </div>
-
-            <pre class="concept-code"><code>await page
-.getByRole('button', { name: 'Salvar' })
+        <pre class="concept-code"><code>await page
+.getByRole('button', {
+    name: 'Salvar'
+})
 .click();
 
 await page.screenshot({
 path: 'after-save.png'
 });</code></pre>
 
+        <!-- =========================
+        ELEMENTO APÓS AÇÃO
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Capturar elemento após uma ação
         </div>
 
-
-        <!-- =========================
-             SCREENSHOT DE ELEMENTO APÓS AÇÃO
-        ========================== -->
-
-        <div class="code-section">
-
-            <div class="concept-subtitle">
-                Capturar elemento após uma ação
-            </div>
-
-            <pre class="concept-code"><code>await page
-.getByRole('button', { name: 'Salvar' })
+        <pre class="concept-code"><code>await page
+.getByRole('button', {
+    name: 'Salvar'
+})
 .click();
 
 await page
@@ -236,27 +325,41 @@ await page
 path: 'main-after-save.png'
 });</code></pre>
 
+        <!-- =========================
+        SCREENSHOT DE LOCATOR
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Screenshot utilizando locator
         </div>
 
+        <pre class="concept-code"><code>const mensagem =
+page.getByText(
+    'Cadastro realizado com sucesso'
+);
+
+await mensagem.screenshot({
+path: 'mensagem-sucesso.png'
+});</code></pre>
 
         <!-- =========================
-             EXEMPLO PRÁTICO
-        ========================== -->
+        EXEMPLO PRÁTICO
+        ========================= -->
 
-        <div class="code-section">
+        <div class="concept-subtitle">
+            Exemplo prático
+        </div>
 
-            <div class="concept-subtitle">
-                Exemplo prático
-            </div>
+        <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
 
-            <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
-
-test('capturar evidência', async ({ page }) => {
+test('capturar evidência de login', async ({ page }) => {
 
 await page.goto('https://example.com');
 
 await page
-    .getByRole('button', { name: 'Login' })
+    .getByRole('button', {
+        name: 'Login'
+    })
     .click();
 
 await page
@@ -268,11 +371,15 @@ await page
     .fill('123456');
 
 await page
-    .getByRole('button', { name: 'Entrar' })
+    .getByRole('button', {
+        name: 'Entrar'
+    })
     .click();
 
 await expect(
-    page.getByText('Login realizado com sucesso')
+    page.getByText(
+        'Login realizado com sucesso'
+    )
 ).toBeVisible();
 
 await page.screenshot({
@@ -282,20 +389,15 @@ await page.screenshot({
 
 });</code></pre>
 
+        <!-- =========================
+        SCREENSHOT AUTOMÁTICO
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Screenshot automático no config
         </div>
 
-
-        <!-- =========================
-             SCREENSHOT AUTOMÁTICO
-        ========================== -->
-
-        <div class="code-section">
-
-            <div class="concept-subtitle">
-                Screenshot automático no config
-            </div>
-
-            <pre class="concept-code"><code>import { defineConfig } from '@playwright/test';
+        <pre class="concept-code"><code>import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
 
@@ -305,20 +407,15 @@ use: {
 
 });</code></pre>
 
+        <!-- =========================
+        OUTRAS OPÇÕES
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Outras opções de screenshot automático
         </div>
 
-
-        <!-- =========================
-             SCREENSHOT AUTOMÁTICO
-        ========================== -->
-
-        <div class="code-section">
-
-            <div class="concept-subtitle">
-                Outras opções de screenshot automático
-            </div>
-
-            <pre class="concept-code"><code>export default defineConfig({
+        <pre class="concept-code"><code>export default defineConfig({
 
 use: {
     screenshot: 'on'
@@ -326,12 +423,77 @@ use: {
 
 });</code></pre>
 
+        <!-- =========================
+        EVIDÊNCIA DE FALHA
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Evidência em caso de falha
         </div>
 
+        <pre class="concept-code"><code>export default defineConfig({
+
+use: {
+    screenshot: 'only-on-failure'
+}
+
+});</code></pre>
 
         <!-- =========================
-             NOTA
-        ========================== -->
+        ASSERTION + SCREENSHOT
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Assertion + Screenshot
+        </div>
+
+        <pre class="concept-code"><code>await expect(
+page.getByRole('heading', {
+    name: 'Dashboard'
+})
+
+).toBeVisible();
+
+await page.screenshot({
+path: 'dashboard.png',
+fullPage: true
+});</code></pre>
+
+        <!-- =========================
+        BOAS PRÁTICAS
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Boas práticas
+        </div>
+
+        <pre class="concept-code"><code>// Capture evidências relevantes
+
+await page.screenshot({
+path: 'resultado.png'
+});
+
+// Para elementos específicos
+
+await page
+.getByRole('main')
+.screenshot({
+path: 'main.png'
+});
+
+// Para falhas automaticamente
+
+export default defineConfig({
+
+use: {
+    screenshot: 'only-on-failure'
+}
+
+});</code></pre>
+
+        <!-- =========================
+        NOTA FINAL
+        ========================= -->
 
         <div class="note">
 
@@ -340,14 +502,16 @@ use: {
             </span>
 
             <p>
-                Screenshots são especialmente úteis como evidência de execução
-                e investigação de falhas. Para evitar arquivos desnecessários,
-                uma estratégia comum é configurar
+
+                Screenshots são especialmente úteis como evidência de
+                execução e investigação de falhas. Para evitar arquivos
+                desnecessários, uma estratégia comum é configurar
                 <strong>screenshot: 'only-on-failure'</strong>.
                 Para capturar uma página inteira manualmente, utilize
                 <strong>fullPage: true</strong>. Também é possível capturar
-                elementos específicos utilizando o método
+                elementos específicos utilizando
                 <strong>locator.screenshot()</strong>.
+
             </p>
 
         </div>
@@ -356,8 +520,8 @@ use: {
 
 
     <!-- =========================
-         FOOTER
-    ========================== -->
+    FOOTER
+    ========================= -->
 
     <footer>
 
@@ -384,5 +548,95 @@ use: {
     </footer>
 
 </main>
+
+
+<!-- =========================
+MERMAID
+========================= -->
+
+<script type="module">
+
+    import mermaid from
+        'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+    mermaid.initialize({
+
+        startOnLoad: true,
+
+        theme: 'base',
+
+        themeVariables: {
+
+            background: '#102D23',
+
+            primaryColor: '#0F3D2E',
+
+            primaryTextColor: '#F3EFE6',
+
+            primaryBorderColor: '#8FE3B0',
+
+            lineColor: '#8FE3B0',
+
+            secondaryColor: '#124A38',
+
+            tertiaryColor: '#102D23',
+
+            fontFamily: 'Manrope, sans-serif'
+
+        }
+
+    });
+
+</script>
+
+
+<!-- =========================
+CODE LINE NUMBERS
+========================= -->
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const codeBlocks =
+            document.querySelectorAll(
+                ".concept pre.concept-code code"
+            );
+
+        codeBlocks.forEach((code) => {
+
+            const text = code.textContent;
+
+            const lines = text.split("\n");
+
+            code.innerHTML = "";
+
+            lines.forEach((line, index) => {
+
+                const lineElement =
+                    document.createElement("span");
+
+                lineElement.className =
+                    "code-line";
+
+                lineElement.setAttribute(
+                    "data-line",
+                    index + 1
+                );
+
+                lineElement.textContent =
+                    line || " ";
+
+                code.appendChild(
+                    lineElement
+                );
+
+            });
+
+        });
+
+    });
+
+</script>
 
 </body> </html>

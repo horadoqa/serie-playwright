@@ -2,9 +2,8 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Playwright — Comandos essenciais para decorar</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,19 +14,19 @@
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
         rel="stylesheet">
+
 </head>
 
 <body>
-
     <main class="page">
 
         <!-- =========================
-             HEADER
-        ========================= -->
+         HEADER
+    ========================== -->
 
         <header>
 
-            <div class="logo" aria-label="Espaço reservado para o logo">
+            <div class="logo" aria-label="Logo Hora do QA">
                 <img src="logo.png" alt="Logo Hora do QA">
             </div>
 
@@ -45,7 +44,7 @@
 
             <div class="status">
 
-                <span class="status-indicator"></span>
+                <span class="status-indicator" aria-hidden="true"></span>
 
                 <span>
                     PLAYWRIGHT / READY
@@ -55,10 +54,9 @@
 
         </header>
 
-
         <!-- =========================
-             HERO
-        ========================= -->
+         HERO
+    ========================== -->
 
         <section class="hero">
 
@@ -72,18 +70,17 @@
             </h1>
 
             <p class="hero-description">
-                Os principais comandos do Playwright que você deve conhecer
-                para navegar, localizar elementos, interagir com a aplicação,
-                aguardar estados e validar resultados durante a automação
-                de testes.
+                Os principais comandos do Playwright para navegar,
+                localizar elementos, interagir com a aplicação,
+                aguardar estados, validar resultados e investigar
+                falhas durante a automação de testes.
             </p>
 
         </section>
 
-
         <!-- =========================
-             CONCEITO 20
-        ========================= -->
+         CONCEITO 20
+    ========================== -->
 
         <article class="concept">
 
@@ -99,7 +96,6 @@
 
             </div>
 
-
             <h2>
                 Comandos essenciais para decorar
             </h2>
@@ -108,42 +104,84 @@
                 Playwright / Quick Reference
             </div>
 
+            <!-- =========================
+             FLUXO
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Fluxo básico de automação
+                </h3>
+
+                <div class="mermaid-wrapper">
+
+                    <div class="mermaid">
+
+                        flowchart LR
+
+                        A["Navegar"]
+                        B["Localizar"]
+                        C["Interagir"]
+                        D["Aguardar"]
+                        E["Validar"]
+                        F["Evidência"]
+
+                        A --> B
+                        B --> C
+                        C --> D
+                        D --> E
+                        E --> F
+
+                    </div>
+
+                </div>
+
+            </section>
 
             <!-- =========================
-                 NAVEGAÇÃO
-            ========================= -->
+             NAVEGAÇÃO
+        ========================== -->
 
-            <h3>
-                Navegação
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                Comandos utilizados para navegar entre páginas e acompanhar
-                mudanças de URL ou estados de carregamento.
-            </p>
+                <h3 class="concept-subtitle">
+                    Navegação
+                </h3>
 
-            <pre class="concept-code"><code>page.goto('https://example.com');
+                <p class="concept-description">
+                    Os comandos de navegação permitem acessar páginas,
+                    aguardar mudanças de URL e esperar estados específicos
+                    de carregamento.
+                </p>
+
+                <pre class="concept-code"><code>await page.goto('https://example.com');
 
 await page.waitForURL('**/dashboard');
 
 await page.waitForLoadState('networkidle');</code></pre>
 
+            </section>
 
             <!-- =========================
-                 LOCATORS
-            ========================= -->
+             LOCATORS
+        ========================== -->
 
-            <h3>
-                Locators
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                Os locators permitem encontrar elementos de forma semântica
-                e realizar interações com eles durante os testes.
-            </p>
+                <h3 class="concept-subtitle">
+                    Locators
+                </h3>
 
-            <pre class="concept-code"><code>page.getByRole('button', {
-  name: 'Login'
+                <p class="concept-description">
+                    Locators representam elementos da página e permitem
+                    realizar ações e assertions de maneira mais confiável.
+                    Dê preferência a locators semânticos quando disponíveis.
+                </p>
+
+                <pre class="concept-code"><code>page.getByRole('button', {
+
+name: 'Login'
 });
 
 page.getByText('Entrar');
@@ -154,21 +192,28 @@ page.getByTestId('login-button');
 
 page.locator('#email');</code></pre>
 
+            </section>
 
             <!-- =========================
-                 AÇÕES
-            ========================= -->
+             AÇÕES
+        ========================== -->
 
-            <h3>
-                Ações
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                Comandos utilizados para interagir com os elementos da aplicação,
-                como clicar, preencher campos, selecionar opções e fazer upload.
-            </p>
+                <h3 class="concept-subtitle">
+                    Ações
+                </h3>
 
-            <pre class="concept-code"><code>await page.getByRole('button').click();
+                <p class="concept-description">
+                    As ações permitem interagir com a aplicação realizando
+                    cliques, preenchimento de campos, seleção de opções,
+                    comandos de teclado e upload de arquivos.
+                </p>
+
+                <pre class="concept-code"><code>await page.getByRole('button', {
+
+name: 'Login'
+}).click();
 
 await page.getByLabel('Nome').fill('João');
 
@@ -182,126 +227,315 @@ await page.getByLabel('Estado').selectOption('SP');
 
 await page.getByLabel('Arquivo').setInputFiles('arquivo.pdf');</code></pre>
 
+            </section>
 
             <!-- =========================
-                 ASSERTIONS
-            ========================= -->
+             ESPERA
+        ========================== -->
 
-            <h3>
-                Assertions
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                As assertions verificam se o comportamento observado corresponde
-                ao resultado esperado pelo teste.
-            </p>
+                <h3 class="concept-subtitle">
+                    Esperas
+                </h3>
 
-            <pre class="concept-code"><code>await expect(page).toHaveTitle('Example');
+                <p class="concept-description">
+                    O Playwright possui mecanismos de auto-waiting e
+                    assertions que aguardam automaticamente as condições
+                    necessárias. Em cenários específicos, também é possível
+                    aguardar URL ou estados de carregamento.
+                </p>
 
-await expect(page).toHaveURL(/dashboard/);
+                <pre class="concept-code"><code>await page.waitForURL('**/dashboard');
 
-await expect(page.getByRole('button')).toBeVisible();
+await page.waitForLoadState('networkidle');
 
-await expect(page.getByRole('button')).toBeEnabled();
+await expect(
+page.getByRole('heading', {
+name: 'Dashboard'
+})
+).toBeVisible();</code></pre>
 
-await expect(page.getByRole('button')).toBeDisabled();
-
-await expect(page.getByText('Sucesso')).toHaveText('Sucesso');
-
-await expect(page.locator('.item')).toHaveCount(3);</code></pre>
-
+            </section>
 
             <!-- =========================
-                 DEBUG E EVIDÊNCIAS
-            ========================= -->
+             ASSERTIONS
+        ========================== -->
 
-            <h3>
-                Debug e evidências
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                Comandos úteis para investigar falhas, inspecionar a execução
-                e registrar evidências durante os testes.
-            </p>
+                <h3 class="concept-subtitle">
+                    Assertions
+                </h3>
 
-            <pre class="concept-code"><code>await page.screenshot({
-  path: 'example.png'
+                <p class="concept-description">
+                    As assertions verificam se o comportamento observado
+                    corresponde ao resultado esperado pelo teste.
+                </p>
+
+                <pre class="concept-code"><code>await expect(page)
+
+.toHaveTitle('Example');
+
+await expect(page)
+.toHaveURL(/dashboard/);
+
+await expect(
+page.getByRole('button')
+).toBeVisible();
+
+await expect(
+page.getByRole('button')
+).toBeEnabled();
+
+await expect(
+page.getByRole('button')
+).toBeDisabled();
+
+await expect(
+page.getByText('Sucesso')
+).toHaveText('Sucesso');
+
+await expect(
+page.locator('.item')
+).toHaveCount(3);</code></pre>
+
+            </section>
+
+            <!-- =========================
+             ASSERTIONS DE CONTEÚDO
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Validar conteúdo
+                </h3>
+
+                <p class="concept-description">
+                    Além de verificar visibilidade e estado dos elementos,
+                    também é possível validar textos, valores, atributos
+                    e outras propriedades da interface.
+                </p>
+
+                <pre class="concept-code"><code>await expect(
+
+page.getByRole('heading')
+).toHaveText('Dashboard');
+
+await expect(
+page.getByLabel('E-mail')
+).toHaveValue('user@example.com');
+
+await expect(
+page.getByRole('button')
+).toHaveAttribute(
+'type',
+'submit'
+);</code></pre>
+
+            </section>
+
+            <!-- =========================
+             DEBUG E EVIDÊNCIAS
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Debug e evidências
+                </h3>
+
+                <p class="concept-description">
+                    Durante a investigação de uma falha, screenshots e
+                    pausas podem ajudar a entender o estado da aplicação
+                    no momento do problema.
+                </p>
+
+                <pre class="concept-code"><code>await page.screenshot({
+
+path: 'example.png'
 });
 
 await page.pause();</code></pre>
 
+            </section>
 
             <!-- =========================
-                 EXEMPLO
-            ========================= -->
+             SCREENSHOT
+        ========================== -->
 
-            <h3>
-                Exemplo de utilização
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                Um fluxo simples combinando navegação, localização,
-                validação e captura de evidência.
-            </p>
+                <h3 class="concept-subtitle">
+                    Capturar screenshot
+                </h3>
 
-            <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
+                <p class="concept-description">
+                    Screenshots podem ser utilizados como evidência
+                    visual da execução do teste.
+                </p>
+
+                <pre class="concept-code"><code>await page.screenshot({
+
+path: 'evidencias/dashboard.png',
+fullPage: true
+});</code></pre>
+
+            </section>
+
+            <!-- =========================
+             FLUXO COMPLETO
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Fluxo de um teste
+                </h3>
+
+                <div class="mermaid-wrapper">
+
+                    <div class="mermaid">
+
+                        flowchart TD
+
+                        A["Test"]
+                        B["page.goto()"]
+                        C["Locator"]
+                        D["Action"]
+                        E["Auto-wait"]
+                        F["Assertion"]
+                        G["Evidence"]
+                        H["Resultado"]
+
+                        A --> B
+                        B --> C
+                        C --> D
+                        D --> E
+                        E --> F
+                        F --> G
+                        G --> H
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =========================
+             EXEMPLO
+        ========================== -->
+
+            <section class="concept-example">
+
+                <h3 class="concept-example-title">
+                    Exemplo completo
+                </h3>
+
+                <p class="concept-description">
+                    Um fluxo simples combinando navegação, localização,
+                    interação, validação e captura de evidência.
+                </p>
+
+                <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
 
 test('fluxo básico', async ({ page }) => {
 
-  // Navegação
-  await page.goto('https://example.com');
+// Navegação
+await page.goto('https://example.com');
 
-  // Localização
-  const titulo = page.getByRole('heading', {
-    name: 'Example Domain'
-  });
+// Localização
+const titulo = page.getByRole('heading', {
+name: 'Example Domain'
+});
 
-  // Validação
-  await expect(titulo).toBeVisible();
+// Validação
+await expect(titulo).toBeVisible();
 
-  // Screenshot
-  await page.screenshot({
-    path: 'example.png'
-  });
+// Evidência
+await page.screenshot({
+path: 'example.png'
+});
 
 });</code></pre>
 
+            </section>
 
             <!-- =========================
-                 NOTA
-            ========================= -->
+             RESUMO VISUAL
+        ========================== -->
 
-            <div class="note">
+            <section class="concept-section">
 
-                <span class="note-label">
-                    QA Note
-                </span>
+                <h3 class="concept-subtitle">
+                    Mapa mental dos comandos
+                </h3>
 
-                <p>
-                    Para memorizar os comandos, pense no fluxo:
-                    <strong>
-                        navegar → localizar → interagir → aguardar → validar
-                    </strong>.
-                    Na maioria dos testes E2E, esses cinco passos formam
-                    a base da automação com Playwright.
+                <div class="mermaid-wrapper">
+
+                    <div class="mermaid">
+
+                        flowchart LR
+
+                        A["PAGE"]
+
+                        A --> B["Navegação"]
+                        A --> C["Locators"]
+                        A --> D["Ações"]
+                        A --> E["Esperas"]
+                        A --> F["Assertions"]
+                        A --> G["Debug"]
+
+                        B --> B1["goto"]
+                        B --> B2["waitForURL"]
+                        B --> B3["waitForLoadState"]
+
+                        C --> C1["getByRole"]
+                        C --> C2["getByText"]
+                        C --> C3["getByLabel"]
+                        C --> C4["getByTestId"]
+                        C --> C5["locator"]
+
+                        D --> D1["click"]
+                        D --> D2["fill"]
+                        D --> D3["press"]
+                        D --> D4["check"]
+                        D --> D5["selectOption"]
+
+                        E --> E1["Auto-wait"]
+                        E --> E2["waitForURL"]
+                        E --> E3["waitForLoadState"]
+
+                        F --> F1["toBeVisible"]
+                        F --> F2["toHaveText"]
+                        F --> F3["toHaveURL"]
+                        F --> F4["toHaveCount"]
+
+                        G --> G1["screenshot"]
+                        G --> G2["pause"]
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =========================
+             RESUMO RÁPIDO
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Resumo rápido
+                </h3>
+
+                <p class="concept-description">
+                    Os principais comandos reunidos em uma única referência.
                 </p>
 
-            </div>
-
-
-            <!-- =========================
-                 RESUMO
-            ========================= -->
-
-            <h3>
-                Resumo rápido
-            </h3>
-
-            <p class="concept-description">
-                Os principais comandos reunidos em uma única referência.
-            </p>
-
-            <pre class="concept-code"><code>page.goto()
+                <pre class="concept-code"><code>page.goto()
 
 page.getByRole()
 page.getByText()
@@ -327,17 +561,53 @@ toBeVisible()
 toBeEnabled()
 toBeDisabled()
 toHaveText()
+toHaveValue()
+toHaveAttribute()
 toHaveCount()
 
 screenshot()
 page.pause()</code></pre>
 
+            </section>
+
+            <!-- =========================
+             NOTA
+        ========================== -->
+
+            <div class="note">
+
+                <span class="note-label">
+                    QA Note
+                </span>
+
+                <p>
+                    Para memorizar os comandos, pense no fluxo:
+
+                    <strong>
+                        navegar → localizar → interagir → aguardar → validar
+                    </strong>.
+
+                    O Playwright possui auto-waiting para diversas ações
+                    e assertions. Por isso, evite adicionar esperas artificiais
+                    quando uma ação ou assertion já consegue aguardar a condição
+                    necessária.
+
+                    Use locators semânticos sempre que possível e mantenha
+                    as assertions próximas da ação que está sendo validada.
+
+                    Para investigação de falhas, utilize recursos como
+                    <strong>page.pause()</strong>,
+                    <strong>screenshot</strong>,
+                    Trace e os recursos de debug do Playwright.
+                </p>
+
+            </div>
+
         </article>
 
-
         <!-- =========================
-             FOOTER
-        ========================= -->
+         FOOTER
+    ========================== -->
 
         <footer>
 
@@ -364,6 +634,97 @@ page.pause()</code></pre>
         </footer>
 
     </main>
+
+    <!-- =========================
+     MERMAID
+========================== -->
+
+    <script type="module">
+
+        import mermaid from
+            'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+        mermaid.initialize({
+
+            startOnLoad: true,
+
+            theme: 'base',
+
+            themeVariables: {
+
+                background: '#102D23',
+
+                primaryColor: '#0F3D2E',
+
+                primaryTextColor: '#F3EFE6',
+
+                primaryBorderColor: '#8FE3B0',
+
+                lineColor: '#8FE3B0',
+
+                secondaryColor: '#124A38',
+
+                tertiaryColor: '#102D23',
+
+                fontFamily: 'Manrope, sans-serif'
+
+            }
+
+        });
+
+    </script>
+
+    <!-- =========================
+     CODE LINE NUMBERS
+========================== -->
+
+    <script>
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            () => {
+
+                const codeBlocks =
+                    document.querySelectorAll(
+                        '.concept pre.concept-code code'
+                    );
+
+                codeBlocks.forEach((code) => {
+
+                    const text =
+                        code.textContent.replace(/\r\n/g, '\n');
+
+                    const lines =
+                        text.split('\n');
+
+                    code.replaceChildren();
+
+                    lines.forEach((line, index) => {
+
+                        const lineElement =
+                            document.createElement('span');
+
+                        lineElement.className =
+                            'code-line';
+
+                        lineElement.dataset.line =
+                            String(index + 1);
+
+                        lineElement.textContent =
+                            line || ' ';
+
+                        code.appendChild(
+                            lineElement
+                        );
+
+                    });
+
+                });
+
+            }
+        );
+
+    </script>
 
 </body>
 

@@ -2,26 +2,33 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Playwright — Rodar testes específicos</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link rel="stylesheet" href="style.css">
+
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
         rel="stylesheet">
+
 </head>
 
 <body>
     <main class="page">
+
+
         <!-- =========================
-     HEADER
-========================= -->
+         HEADER
+    ========================== -->
 
         <header>
 
-            <div class="logo" aria-label="Espaço reservado para o logo">
+            <div class="logo" aria-label="Logo Hora do QA">
 
                 <img src="logo.png" alt="Logo Hora do QA">
 
@@ -43,7 +50,8 @@
 
             <div class="status">
 
-                <span class="status-indicator"></span>
+                <span class="status-indicator" aria-hidden="true">
+                </span>
 
                 <span>
                     PLAYWRIGHT / READY
@@ -55,8 +63,8 @@
 
 
         <!-- =========================
-     HERO
-========================= -->
+         HERO
+    ========================== -->
 
         <section class="hero">
 
@@ -72,17 +80,18 @@
 
 
             <p class="hero-description">
-                Comandos para executar arquivos, testes individuais,
-                projetos, browsers e diferentes configurações do Playwright
-                de forma controlada pela linha de comando.
+                Como selecionar arquivos, testes, projetos e diferentes
+                configurações do Playwright pela linha de comando,
+                tornando a execução mais controlada e eficiente durante
+                desenvolvimento, investigação e automação.
             </p>
 
         </section>
 
 
         <!-- =========================
-     CONCEITO 18
-========================= -->
+         CONCEITO 18
+    ========================== -->
 
         <article class="concept">
 
@@ -100,6 +109,10 @@
             </div>
 
 
+            <!-- =========================
+             TITLE
+        ========================== -->
+
             <h2>
                 Rodar testes específicos
             </h2>
@@ -111,229 +124,788 @@
 
 
             <!-- =========================
-       ARQUIVO
-  ========================= -->
+             CONCEITO
+        ========================== -->
 
-            <h3>
-                Executar um arquivo específico
-            </h3>
+            <section class="concept-section">
 
-
-            <p class="concept-description">
-                Para executar somente um arquivo de teste, informe o caminho
-                do arquivo após o comando <strong>playwright test</strong>.
-            </p>
+                <h3 class="concept-subtitle">
+                    Conceito
+                </h3>
 
 
-            <pre class="concept-code"><code>npx playwright test login.spec.ts</code></pre>
+                <pre class="concept-code"><code>TEST SUITE
 
+↓
 
-            <!-- =========================
-       CAMINHO
-  ========================= -->
+SELEÇÃO
 
-            <h3>
-                Executar um arquivo pelo caminho
-            </h3>
+↓
 
+ARQUIVO
 
-            <p class="concept-description">
-                Também é possível informar o caminho completo ou relativo
-                até o arquivo de teste.
-            </p>
+↓
 
+TESTE
 
-            <pre class="concept-code"><code>npx playwright test tests/login.spec.ts</code></pre>
+↓
 
+PROJETO
 
-            <!-- =========================
-       TESTE POR NOME
-  ========================= -->
+↓
 
-            <h3>
-                Executar um teste pelo nome
-            </h3>
+CONFIGURAÇÃO
 
+↓
 
-            <p class="concept-description">
-                O parâmetro <strong>-g</strong> permite executar somente os
-                testes cujo título corresponda ao padrão informado.
-            </p>
+EXECUÇÃO</code></pre>
 
-
-            <pre class="concept-code"><code>npx playwright test -g "login"</code></pre>
+            </section>
 
 
             <!-- =========================
-       CHROMIUM
-  ========================= -->
+             FLUXO
+        ========================== -->
 
-            <h3>
-                Executar no Chromium
-            </h3>
+            <section class="concept-section">
 
-
-            <p class="concept-description">
-                Utilize <strong>--project</strong> para selecionar um projeto
-                específico configurado no Playwright.
-            </p>
+                <h3 class="concept-subtitle">
+                    Estratégia de seleção
+                </h3>
 
 
-            <pre class="concept-code"><code>npx playwright test --project=chromium</code></pre>
+                <div class="mermaid-wrapper">
 
+                    <div class="mermaid">
 
-            <!-- =========================
-       FIREFOX
-  ========================= -->
+                        flowchart TD
 
-            <h3>
-                Executar no Firefox
-            </h3>
+                        A["Suíte de testes"]
+                        B["Selecionar arquivo"]
+                        C["Selecionar teste"]
+                        D["Selecionar projeto"]
+                        E["Aplicar opções"]
+                        F["Executar"]
+                        G["Analisar resultado"]
 
+                        A --> B
+                        B --> C
+                        C --> D
+                        D --> E
+                        E --> F
+                        F --> G
 
-            <pre class="concept-code"><code>npx playwright test --project=firefox</code></pre>
+                    </div>
 
+                </div>
 
-            <!-- =========================
-       WEBKIT
-  ========================= -->
-
-            <h3>
-                Executar no WebKit
-            </h3>
-
-
-            <pre class="concept-code"><code>npx playwright test --project=webkit</code></pre>
+            </section>
 
 
             <!-- =========================
-       WORKERS
-  ========================= -->
+             ARQUIVO
+        ========================== -->
 
-            <h3>
-                Executar com apenas um worker
-            </h3>
+            <section class="concept-section">
 
-
-            <p class="concept-description">
-                O parâmetro <strong>--workers=1</strong> limita a execução
-                a um único worker, sendo útil para investigar problemas
-                relacionados a paralelismo ou ordem de execução.
-            </p>
+                <h3 class="concept-subtitle">
+                    Executar um arquivo específico
+                </h3>
 
 
-            <pre class="concept-code"><code>npx playwright test --workers=1</code></pre>
+                <p class="concept-description">
+                    Para executar somente um arquivo de teste, informe
+                    o caminho do arquivo após o comando
+                    <strong>playwright test</strong>.
+                </p>
 
 
-            <!-- =========================
-       REPEAT
-  ========================= -->
+                <pre class="concept-code"><code>npx playwright test login.spec.ts</code></pre>
 
-            <h3>
-                Repetir cada teste
-            </h3>
-
-
-            <p class="concept-description">
-                O parâmetro <strong>--repeat-each</strong> permite executar
-                cada teste várias vezes.
-            </p>
-
-
-            <pre class="concept-code"><code>npx playwright test --repeat-each=3</code></pre>
+            </section>
 
 
             <!-- =========================
-       REPORT LIST
-  ========================= -->
+             CAMINHO
+        ========================== -->
 
-            <h3>
-                Utilizar o reporter em lista
-            </h3>
+            <section class="concept-section">
 
-
-            <p class="concept-description">
-                O reporter <strong>list</strong> exibe os testes durante
-                a execução em formato de lista.
-            </p>
+                <h3 class="concept-subtitle">
+                    Executar um arquivo pelo caminho
+                </h3>
 
 
-            <pre class="concept-code"><code>npx playwright test --reporter=list</code></pre>
+                <p class="concept-description">
+                    É possível informar um caminho relativo até o arquivo
+                    de teste. Isso é especialmente útil quando os testes
+                    estão organizados em diferentes diretórios.
+                </p>
 
 
-            <!-- =========================
-       REPORT HTML
-  ========================= -->
+                <pre class="concept-code"><code>npx playwright test tests/login.spec.ts</code></pre>
 
-            <h3>
-                Gerar relatório HTML
-            </h3>
-
-
-            <p class="concept-description">
-                O reporter <strong>html</strong> gera um relatório visual
-                com os resultados da execução.
-            </p>
-
-
-            <pre class="concept-code"><code>npx playwright test --reporter=html</code></pre>
+            </section>
 
 
             <!-- =========================
-       COMBINAÇÃO
-  ========================= -->
+             MULTIPLOS ARQUIVOS
+        ========================== -->
 
-            <h3>
-                Combinar opções
-            </h3>
+            <section class="concept-section">
 
-
-            <p class="concept-description">
-                Os parâmetros podem ser combinados para criar uma execução
-                mais específica.
-            </p>
+                <h3 class="concept-subtitle">
+                    Executar múltiplos arquivos
+                </h3>
 
 
-            <pre class="concept-code"><code>npx playwright test tests/login.spec.ts \
+                <p class="concept-description">
+                    Também é possível informar mais de um arquivo na
+                    mesma execução.
+                </p>
 
 
---project=chromium
---workers=1
+                <pre class="concept-code"><code>npx playwright test \
+tests/login.spec.ts \
+tests/cadastro.spec.ts</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             TESTE POR NOME
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Executar um teste pelo nome
+                </h3>
+
+
+                <p class="concept-description">
+                    O parâmetro <strong>-g</strong>, também disponível
+                    como <strong>--grep</strong>, permite selecionar testes
+                    cujo título corresponda ao padrão informado.
+                </p>
+
+
+                <pre class="concept-code"><code>npx playwright test -g "login"</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             GREP
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Selecionar testes por padrão
+                </h3>
+
+
+                <p class="concept-description">
+                    O <strong>--grep</strong> utiliza um padrão para filtrar
+                    os títulos dos testes. Isso permite selecionar grupos
+                    de testes sem precisar informar cada arquivo manualmente.
+                </p>
+
+
+                <pre class="concept-code"><code>npx playwright test --grep "login"</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             GREP INVERT
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Excluir testes por padrão
+                </h3>
+
+
+                <p class="concept-description">
+                    O parâmetro <strong>--grep-invert</strong> permite
+                    excluir da execução os testes que correspondem
+                    ao padrão informado.
+                </p>
+
+
+                <pre class="concept-code"><code>npx playwright test \
+--grep-invert "skip"</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             PROJECT
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Executar um projeto específico
+                </h3>
+
+
+                <p class="concept-description">
+                    O parâmetro <strong>--project</strong> seleciona um
+                    projeto definido na configuração do Playwright.
+                    Os projetos normalmente representam browsers ou
+                    diferentes ambientes de execução.
+                </p>
+
+
+                <pre class="concept-code"><code>npx playwright test \
+--project=chromium</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             CHROMIUM
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Executar no projeto Chromium
+                </h3>
+
+
+                <pre class="concept-code"><code>npx playwright test \
+--project=chromium</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             FIREFOX
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Executar no projeto Firefox
+                </h3>
+
+
+                <pre class="concept-code"><code>npx playwright test \
+--project=firefox</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             WEBKIT
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Executar no projeto WebKit
+                </h3>
+
+
+                <pre class="concept-code"><code>npx playwright test \
+--project=webkit</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             PROJETO + TESTE
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Combinar teste e projeto
+                </h3>
+
+
+                <p class="concept-description">
+                    Os filtros podem ser combinados para executar um
+                    teste específico dentro de um projeto específico.
+                </p>
+
+
+                <pre class="concept-code"><code>npx playwright test \
+tests/login.spec.ts \
+--project=chromium</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             WORKERS
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Executar com um único worker
+                </h3>
+
+
+                <p class="concept-description">
+                    O parâmetro <strong>--workers=1</strong> limita a
+                    execução a um único worker. Isso pode ser útil
+                    durante investigações relacionadas a paralelismo,
+                    compartilhamento de estado ou ordem de execução.
+                </p>
+
+
+                <pre class="concept-code"><code>npx playwright test \
+--workers=1</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             REPEAT
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Repetir cada teste
+                </h3>
+
+
+                <p class="concept-description">
+                    O parâmetro <strong>--repeat-each</strong> executa
+                    cada teste várias vezes. Pode ser utilizado para
+                    investigar comportamentos intermitentes.
+                </p>
+
+
+                <pre class="concept-code"><code>npx playwright test \
+--repeat-each=3</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             LIST REPORTER
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Utilizar o reporter em lista
+                </h3>
+
+
+                <p class="concept-description">
+                    O reporter <strong>list</strong> exibe os testes
+                    durante a execução em formato de lista.
+                </p>
+
+
+                <pre class="concept-code"><code>npx playwright test \
+--reporter=list</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             HTML REPORTER
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Utilizar o HTML Reporter
+                </h3>
+
+
+                <p class="concept-description">
+                    O reporter <strong>html</strong> gera um relatório
+                    visual com os resultados da execução.
+                </p>
+
+
+                <pre class="concept-code"><code>npx playwright test \
 --reporter=html</code></pre>
 
-            <!-- =========================
-       DEBUG
-  ========================= -->
-
-            <h3>
-                Executar um teste específico em debug
-            </h3>
-
-
-            <p class="concept-description">
-                Combine a seleção do teste com <strong>--debug</strong>
-                para investigar uma falha específica.
-            </p>
-
-
-            <pre class="concept-code"><code>npx playwright test tests/login.spec.ts --debug</code></pre>
+            </section>
 
 
             <!-- =========================
-       HEADED
-  ========================= -->
+             DEBUG
+        ========================== -->
 
-            <h3>
-                Executar um teste específico com navegador visível
-            </h3>
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Executar um teste específico em debug
+                </h3>
 
 
-            <pre class="concept-code"><code>npx playwright test tests/login.spec.ts --headed</code></pre>
+                <p class="concept-description">
+                    A seleção do teste pode ser combinada com
+                    <strong>--debug</strong> para investigar uma falha
+                    específica utilizando o Playwright Inspector.
+                </p>
+
+
+                <pre class="concept-code"><code>npx playwright test \
+tests/login.spec.ts \
+--debug</code></pre>
+
+            </section>
 
 
             <!-- =========================
-       NOTA
-  ========================= -->
+             HEADED
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Executar com navegador visível
+                </h3>
+
+
+                <p class="concept-description">
+                    O parâmetro <strong>--headed</strong> executa o teste
+                    exibindo a janela do navegador.
+                </p>
+
+
+                <pre class="concept-code"><code>npx playwright test \
+tests/login.spec.ts \
+--headed</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             UI MODE
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Executar no UI Mode
+                </h3>
+
+
+                <p class="concept-description">
+                    O <strong>--ui</strong> abre a interface interativa
+                    do Playwright para executar e investigar os testes.
+                </p>
+
+
+                <pre class="concept-code"><code>npx playwright test \
+tests/login.spec.ts \
+--ui</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             TRACE
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Executar com Trace
+                </h3>
+
+
+                <p class="concept-description">
+                    O parâmetro <strong>--trace</strong> permite definir
+                    a estratégia de gravação do Trace durante a execução.
+                </p>
+
+
+                <pre class="concept-code"><code>npx playwright test \
+tests/login.spec.ts \
+--trace on</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             COMBINAÇÃO
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Combinar opções
+                </h3>
+
+
+                <p class="concept-description">
+                    Os parâmetros podem ser combinados para criar uma
+                    execução direcionada a um cenário específico.
+                </p>
+
+
+                <pre class="concept-code"><code>npx playwright test \
+tests/login.spec.ts \
+--project=chromium \
+--workers=1 \
+--trace on</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             FLUXO DE SELEÇÃO
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Fluxo de seleção
+                </h3>
+
+
+                <div class="mermaid-wrapper">
+
+                    <div class="mermaid">
+
+                        flowchart TD
+
+                        A["Suíte de testes"]
+
+                        B["Arquivo<br>tests/login.spec.ts"]
+
+                        C["Teste<br>--grep login"]
+
+                        D["Projeto<br>--project chromium"]
+
+                        E["Execução<br>--workers=1"]
+
+                        F["Debug / Trace"]
+
+                        G["Resultado"]
+
+                        A --> B
+                        B --> C
+                        C --> D
+                        D --> E
+                        E --> F
+                        F --> G
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+             ESTRATÉGIA
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Estratégia de execução
+                </h3>
+
+
+                <div class="mermaid-wrapper">
+
+                    <div class="mermaid">
+
+                        flowchart TD
+
+                        A["Falha identificada"]
+
+                        B["Selecionar arquivo"]
+
+                        C["Selecionar teste"]
+
+                        D["Selecionar projeto"]
+
+                        E["Reduzir paralelismo"]
+
+                        F["Executar em Debug"]
+
+                        G["Analisar resultado"]
+
+                        H{"Falha reproduzida?"}
+
+                        I["Investigar"]
+
+                        J["Executar suíte completa"]
+
+                        A --> B
+                        B --> C
+                        C --> D
+                        D --> E
+                        E --> F
+                        F --> G
+                        G --> H
+
+                        H -->|Sim| I
+                        H -->|Não| J
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+             EXEMPLO COMPLETO
+        ========================== -->
+
+            <section class="concept-example">
+
+                <h3 class="concept-example-title">
+                    Exemplo completo — investigação direcionada
+                </h3>
+
+
+                <p class="concept-description">
+                    Neste exemplo, a execução é direcionada para um
+                    arquivo específico, seleciona o projeto Chromium,
+                    utiliza um único worker e ativa o Trace para facilitar
+                    a investigação de uma possível falha.
+                </p>
+
+
+                <pre class="concept-code"><code>npx playwright test \
+tests/login.spec.ts \
+--project=chromium \
+--workers=1 \
+--trace on</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             COMANDOS RESUMIDOS
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Comandos essenciais
+                </h3>
+
+
+                <div class="mermaid-wrapper">
+
+                    <div class="mermaid">
+
+                        flowchart TD
+
+                        A["playwright test"]
+
+                        B["Arquivo"]
+                        C["-g / --grep"]
+                        D["--project"]
+                        E["--workers"]
+                        F["--repeat-each"]
+                        G["--debug"]
+                        H["--headed"]
+                        I["--ui"]
+                        J["--trace"]
+
+                        A --> B
+                        A --> C
+                        A --> D
+                        A --> E
+                        A --> F
+                        A --> G
+                        A --> H
+                        A --> I
+                        A --> J
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+     BOAS PRÁTICAS
+========================= -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Boas práticas
+                </h3>
+
+                <p class="concept-description">
+                    Durante a investigação de uma falha, reduza o escopo
+                    da execução sempre que possível. Comece pelo arquivo
+                    ou teste relacionado ao problema e adicione opções
+                    como projeto, worker, debug ou trace conforme a
+                    necessidade da investigação.
+                </p>
+
+                <div class="mermaid-wrapper">
+
+                    <div class="mermaid">
+
+                        flowchart TD
+
+                        A["Falha identificada"]
+
+                        B["Selecionar arquivo<br>tests/login.spec.ts"]
+
+                        C["Selecionar teste<br>--grep"]
+
+                        D["Selecionar projeto<br>--project"]
+
+                        E["Controlar execução<br>--workers=1"]
+
+                        F["Investigar<br>--debug / --headed / --ui"]
+
+                        G["Coletar evidências<br>--trace"]
+
+                        H["Validar resultado"]
+
+                        I{"Falha reproduzida?"}
+
+                        J["Corrigir"]
+
+                        K["Executar novamente"]
+
+                        L["Validar suíte"]
+
+                        A --> B
+                        B --> C
+                        C --> D
+                        D --> E
+                        E --> F
+                        F --> G
+                        G --> H
+                        H --> I
+
+                        I -->|Sim| J
+                        J --> K
+                        K --> H
+
+                        I -->|Não| L
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =========================
+             NOTA
+        ========================== -->
 
             <div class="note">
 
@@ -341,25 +913,43 @@
                     QA Note
                 </span>
 
+
                 <p>
-                    Durante a investigação de uma falha, evite executar toda a
-                    suíte desnecessariamente. Comece selecionando o arquivo ou
-                    teste com <strong>login.spec.ts</strong> ou
-                    <strong>-g</strong>. Se necessário, combine com
-                    <strong>--debug</strong>, <strong>--headed</strong> ou
-                    <strong>--workers=1</strong> para tornar a investigação
-                    mais controlada.
+                    Quando precisar investigar uma falha, evite executar
+                    toda a suíte sem necessidade.
+
+                    Comece selecionando o arquivo com
+                    <strong>tests/login.spec.ts</strong> ou filtrando
+                    testes pelo título com <strong>-g</strong> ou
+                    <strong>--grep</strong>.
+
+                    Quando existir um projeto específico, utilize
+                    <strong>--project</strong> para direcionar a execução.
+
+                    Para uma investigação mais controlada, combine a
+                    seleção do teste com <strong>--workers=1</strong>,
+                    <strong>--debug</strong>, <strong>--headed</strong>,
+                    <strong>--ui</strong> ou <strong>--trace</strong>.
+
+                    O objetivo é reduzir o escopo da execução, reproduzir
+                    o comportamento e coletar evidências suficientes para
+                    entender a falha.
+
+                    Fluxo:
+
+                    SELECIONAR → EXECUTAR → INVESTIGAR → COLETAR EVIDÊNCIAS
+                    → CORRIGIR → VALIDAR.
+
                 </p>
 
             </div>
-
 
         </article>
 
 
         <!-- =========================
-     FOOTER
-========================= -->
+         FOOTER
+    ========================== -->
 
         <footer>
 
@@ -387,6 +977,114 @@
         </footer>
 
     </main>
+
+
+    <!-- =========================
+     MERMAID
+========================== -->
+
+    <script type="module">
+
+        import mermaid from
+            'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+
+        mermaid.initialize({
+
+            startOnLoad: true,
+
+            theme: 'base',
+
+            themeVariables: {
+
+                background: '#102D23',
+
+                primaryColor: '#0F3D2E',
+
+                primaryTextColor: '#F3EFE6',
+
+                primaryBorderColor: '#8FE3B0',
+
+                lineColor: '#8FE3B0',
+
+                secondaryColor: '#124A38',
+
+                tertiaryColor: '#102D23',
+
+                fontFamily:
+                    'Manrope, sans-serif'
+
+            }
+
+        });
+
+    </script>
+
+
+    <!-- =========================
+     CODE LINE NUMBERS
+========================== -->
+
+    <script>
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            () => {
+
+                const codeBlocks =
+                    document.querySelectorAll(
+                        '.concept pre.concept-code code'
+                    );
+
+
+                codeBlocks.forEach((code) => {
+
+                    const text =
+                        code.textContent
+                            .replace(/\r\n/g, '\n');
+
+
+                    const lines =
+                        text.split('\n');
+
+
+                    code.replaceChildren();
+
+
+                    lines.forEach(
+                        (line, index) => {
+
+                            const lineElement =
+                                document.createElement(
+                                    'span'
+                                );
+
+
+                            lineElement.className =
+                                'code-line';
+
+
+                            lineElement.dataset.line =
+                                String(index + 1);
+
+
+                            lineElement.textContent =
+                                line || ' ';
+
+
+                            code.appendChild(
+                                lineElement
+                            );
+
+                        });
+
+                });
+
+            }
+        );
+
+    </script>
+
 </body>
 
 </html>

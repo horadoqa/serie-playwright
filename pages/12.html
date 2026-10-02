@@ -1,467 +1,688 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!DOCTYPE html> <html lang="pt-BR"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Playwright — Esperas</title>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <title>Playwright — Esperas</title>
+<link rel="stylesheet" href="style.css">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
+    rel="stylesheet"
+>
 
-    <link rel="stylesheet" href="style.css">
+</head> <body>
+<main class="page">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
-        rel="stylesheet"
-    >
-</head>
+    <!-- =========================
+         HEADER
+    ========================= -->
 
-<body>
+    <header>
 
-    <main class="page">
+        <div class="logo" aria-label="Espaço reservado para o logo">
+            <img src="logo.png" alt="Logo Hora do QA">
+        </div>
+
+        <div class="brand">
+
+            <span class="eyebrow">
+                Software Quality / Automation
+            </span>
+
+            <span class="brand-name">
+                Hora do QA
+            </span>
+
+        </div>
+
+        <div class="status">
+
+            <span class="status-indicator"></span>
+
+            <span>
+                PLAYWRIGHT / READY
+            </span>
+
+        </div>
+
+    </header>
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="hero-label">
+            Playwright
+        </div>
+
+        <h1>
+            Esperas<br>
+            no Playwright
+        </h1>
+
+        <p class="hero-description">
+
+            Como aguardar o estado correto da aplicação durante a execução
+            dos testes. O Playwright possui mecanismos de espera automática
+            e APIs de espera explícita que ajudam a sincronizar o teste
+            com o comportamento real da aplicação.
+
+        </p>
+
+    </section>
+
+    <!-- =========================
+         CONCEITO 12
+    ========================= -->
+
+    <article class="concept">
+
+        <div class="concept-top">
+
+            <span class="concept-number">
+                CONCEITO / 12
+            </span>
+
+            <span class="concept-status">
+                WAITING
+            </span>
+
+        </div>
 
         <!-- =========================
-             HEADER
+             TITLE
         ========================= -->
 
-        <header>
+        <h2>
+            Esperas
+        </h2>
 
-            <div class="logo" aria-label="Espaço reservado para o logo">
-                <img src="logo.png" alt="Logo Hora do QA">
-            </div>
-
-            <div class="brand">
-
-                <span class="eyebrow">
-                    Software Quality / Automation
-                </span>
-
-                <span class="brand-name">
-                    Hora do QA
-                </span>
-
-            </div>
-
-            <div class="status">
-
-                <span class="status-indicator"></span>
-
-                <span>
-                    PLAYWRIGHT / READY
-                </span>
-
-            </div>
-
-        </header>
-
+        <div class="concept-subtitle">
+            Auto-waiting / Explicit waiting
+        </div>
 
         <!-- =========================
-             HERO
+             CONCEITO
         ========================= -->
 
-        <section class="hero">
+        <div class="concept-subtitle">
+            Conceito
+        </div>
 
-            <div class="hero-label">
-                Playwright
+        <pre class="concept-code"><code>AÇÃO
+
+↓
+
+ESPERAR CONDIÇÃO
+
+↓
+
+ESTADO ESPERADO
+
+↓
+
+CONTINUAR TESTE</code></pre>
+
+        <!-- =========================
+             FLUXO DE ESPERAS
+        ========================= -->
+
+        <div class="concept-subtitle">
+            Fluxo de sincronização
+        </div>
+
+        <div class="mermaid-wrapper">
+
+            <div class="mermaid">
+
+flowchart TD
+
+A["Executar ação"]
+B{"Precisa aguardar?"}
+
+C["Auto-waiting"]
+D["Aguardar condição explícita"]
+
+E["Elemento pronto"]
+F["URL alterada"]
+G["Resposta recebida"]
+H["Evento ocorrido"]
+I["Estado esperado"]
+
+J["Continuar teste"]
+K["Teste falha por timeout"]
+
+A --> B
+
+B -->|Não| J
+B -->|Sim| C
+
+C --> E
+E --> J
+
+B -->|Condição específica| D
+
+D --> F
+D --> G
+D --> H
+D --> I
+
+F --> J
+G --> J
+H --> J
+I --> J
+
+C -.->|Timeout| K
+D -.->|Timeout| K
+
             </div>
 
-            <h1>
-                Esperas<br>
-                no Playwright
-            </h1>
+        </div>
 
-            <p class="hero-description">
-                Como aguardar o estado correto da aplicação durante a execução
-                dos testes. O Playwright possui mecanismos de espera automática,
-                permitindo criar testes mais confiáveis sem depender de pausas
-                fixas e desnecessárias.
+        <!-- =========================
+             AUTO WAITING
+        ========================= -->
+
+        <section class="concept-section">
+
+            <h3 class="concept-subtitle">
+                Auto-waiting
+            </h3>
+
+            <p class="concept-description">
+
+                O Playwright aguarda automaticamente que o elemento esteja
+                em uma condição adequada antes de executar ações como
+                <strong>click()</strong>, <strong>fill()</strong> e outras
+                operações sobre locators.
+
             </p>
+
+            <pre class="concept-code"><code>await page
+.getByRole('button', {
+    name: 'Salvar'
+})
+.click();</code></pre>
 
         </section>
 
-
         <!-- =========================
-             CONCEITO 12
+             EXPECT
         ========================= -->
 
-        <article class="concept">
+        <section class="concept-section">
 
-            <div class="concept-top">
+            <h3 class="concept-subtitle">
+                Aguardar uma condição
+            </h3>
 
-                <span class="concept-number">
-                    CONCEITO / 12
-                </span>
+            <p class="concept-description">
 
-                <span class="concept-status">
-                    WAITING
-                </span>
+                As assertions do Playwright também possuem espera automática.
+                Elas podem aguardar até que a condição esperada seja satisfeita
+                ou até que o timeout seja atingido.
 
-            </div>
+            </p>
 
-            <h2>
-                Esperas
-            </h2>
+            <pre class="concept-code"><code>await expect(
+page.getByText('Carregado')
 
-            <div class="concept-subtitle">
-                Auto-waiting / Explicit waiting
-            </div>
-
-
-            <!-- =========================
-                 AUTO WAITING
-            ========================= -->
-
-            <section class="concept-section">
-
-                <h3 class="concept-subtitle">
-                    Auto-waiting
-                </h3>
-
-                <p class="concept-description">
-                    O Playwright aguarda automaticamente que o elemento esteja
-                    em uma condição adequada antes de executar ações como
-                    <strong>click()</strong>.
-                </p>
-
-                <pre class="concept-code"><code>await page
-    .getByRole('button', { name: 'Salvar' })
-    .click();</code></pre>
-
-            </section>
-
-
-            <!-- =========================
-                 EXPECT
-            ========================= -->
-
-            <section class="concept-section">
-
-                <h3 class="concept-subtitle">
-                    Aguardar uma condição
-                </h3>
-
-                <p class="concept-description">
-                    As assertions do Playwright também possuem espera automática
-                    e podem aguardar até que uma condição seja satisfeita.
-                </p>
-
-                <pre class="concept-code"><code>await expect(
-    page.getByText('Carregado')
 ).toBeVisible();</code></pre>
 
-            </section>
+        </section>
 
+        <!-- =========================
+             URL
+        ========================= -->
 
-            <!-- =========================
-                 URL
-            ========================= -->
+        <section class="concept-section">
 
-            <section class="concept-section">
+            <h3 class="concept-subtitle">
+                Aguardar mudança de URL
+            </h3>
 
-                <h3 class="concept-subtitle">
-                    Aguardar mudança de URL
-                </h3>
+            <p class="concept-description">
 
-                <p class="concept-description">
-                    Use <strong>waitForURL()</strong> quando o teste precisar
-                    aguardar uma navegação para uma URL específica.
-                </p>
+                Use <strong>waitForURL()</strong> quando o teste precisar
+                aguardar a navegação para uma URL específica.
 
-                <pre class="concept-code"><code>await page.waitForURL('**/dashboard');</code></pre>
+            </p>
 
-            </section>
+            <pre class="concept-code"><code>await page.waitForURL('**/dashboard');</code></pre>
 
+        </section>
 
-            <!-- =========================
-                 LOAD STATE
-            ========================= -->
+        <!-- =========================
+             LOAD STATE
+        ========================= -->
 
-            <section class="concept-section">
+        <section class="concept-section">
 
-                <h3 class="concept-subtitle">
-                    Aguardar estado de carregamento
-                </h3>
+            <h3 class="concept-subtitle">
+                Aguardar estado de carregamento
+            </h3>
 
-                <p class="concept-description">
-                    O método <strong>waitForLoadState()</strong> permite aguardar
-                    estados específicos do carregamento da página.
-                </p>
+            <p class="concept-description">
 
-                <pre class="concept-code"><code>await page.waitForLoadState('load');
+                O método <strong>waitForLoadState()</strong> permite aguardar
+                estados específicos do carregamento da página.
+
+            </p>
+
+            <pre class="concept-code"><code>await page.waitForLoadState('load');
 
 await page.waitForLoadState('domcontentloaded');
 
 await page.waitForLoadState('networkidle');</code></pre>
 
-            </section>
+        </section>
 
+        <!-- =========================
+             RESPONSE
+        ========================= -->
 
-            <!-- =========================
-                 RESPONSE
-            ========================= -->
+        <section class="concept-section">
 
-            <section class="concept-section">
+            <h3 class="concept-subtitle">
+                Aguardar uma resposta da API
+            </h3>
 
-                <h3 class="concept-subtitle">
-                    Aguardar uma resposta da API
-                </h3>
+            <p class="concept-description">
 
-                <p class="concept-description">
-                    <strong>waitForResponse()</strong> permite sincronizar o teste
-                    com uma resposta específica da aplicação.
-                </p>
+                <strong>waitForResponse()</strong> permite sincronizar
+                o teste com uma resposta específica da aplicação.
 
-                <pre class="concept-code"><code>const responsePromise =
+            </p>
+
+            <pre class="concept-code"><code>const responsePromise =
+page.waitForResponse('**/api/users');
+
+await page.getByRole('button', {
+name: 'Carregar usuários'
+}).click();
+
+const response =
+await responsePromise;</code></pre>
+
+        </section>
+
+        <!-- =========================
+             REQUEST
+        ========================= -->
+
+        <section class="concept-section">
+
+            <h3 class="concept-subtitle">
+                Aguardar uma requisição
+            </h3>
+
+            <p class="concept-description">
+
+                <strong>waitForRequest()</strong> permite aguardar uma
+                requisição específica realizada pela aplicação.
+
+            </p>
+
+            <pre class="concept-code"><code>const requestPromise =
+page.waitForRequest('**/api/users');
+
+await page.getByRole('button', {
+name: 'Carregar usuários'
+}).click();
+
+const request =
+await requestPromise;</code></pre>
+
+        </section>
+
+        <!-- =========================
+             POPUP
+        ========================= -->
+
+        <section class="concept-section">
+
+            <h3 class="concept-subtitle">
+                Aguardar uma nova página
+            </h3>
+
+            <p class="concept-description">
+
+                O evento <strong>popup</strong> pode ser aguardado quando
+                uma ação abre uma nova página ou janela.
+
+            </p>
+
+            <pre class="concept-code"><code>const popupPromise =
+page.waitForEvent('popup');
+
+await page.getByRole('link', {
+name: 'Abrir'
+}).click();
+
+const popup =
+await popupPromise;</code></pre>
+
+        </section>
+
+        <!-- =========================
+             ELEMENTO
+        ========================= -->
+
+        <section class="concept-section">
+
+            <h3 class="concept-subtitle">
+                Aguardar elemento
+            </h3>
+
+            <p class="concept-description">
+
+                O método <strong>waitFor()</strong> permite aguardar o
+                elemento atingir uma condição de estado.
+
+            </p>
+
+            <pre class="concept-code"><code>await page
+.getByRole('button', {
+    name: 'Enviar'
+})
+.waitFor();</code></pre>
+
+        </section>
+
+        <!-- =========================
+             TIMEOUT
+        ========================= -->
+
+        <section class="concept-section">
+
+            <h3 class="concept-subtitle">
+                Configurar timeout
+            </h3>
+
+            <p class="concept-description">
+
+                É possível definir um timeout específico para uma ação
+                quando necessário.
+
+            </p>
+
+            <pre class="concept-code"><code>await page
+.getByRole('button')
+.click({
+    timeout: 10000
+});</code></pre>
+
+        </section>
+
+        <!-- =========================
+             EVITAR WAITFORTIMEOUT
+        ========================= -->
+
+        <section class="concept-section">
+
+            <h3 class="concept-subtitle">
+                Evite pausas fixas
+            </h3>
+
+            <p class="concept-description">
+
+                <strong>waitForTimeout()</strong> interrompe a execução
+                por um período fixo e geralmente não representa uma
+                condição real da aplicação.
+
+            </p>
+
+            <pre class="concept-code"><code>// Evite quando possível
+
+await page.waitForTimeout(3000);</code></pre>
+
+        </section>
+
+        <!-- =========================
+             ALTERNATIVA
+        ========================= -->
+
+        <section class="concept-section">
+
+            <h3 class="concept-subtitle">
+                Prefira aguardar o estado esperado
+            </h3>
+
+            <p class="concept-description">
+
+                Em vez de aguardar uma quantidade fixa de tempo,
+                aguarde diretamente o estado que indica que a operação
+                terminou.
+
+            </p>
+
+            <pre class="concept-code"><code>await expect(
+page.getByText('Processamento concluído')
+
+).toBeVisible();</code></pre>
+
+        </section>
+
+        <!-- =========================
+             EXEMPLO PRÁTICO
+        ========================= -->
+
+        <section class="concept-example">
+
+            <h3 class="concept-example-title">
+                Exemplo prático
+            </h3>
+
+            <p class="concept-description">
+
+                Neste exemplo, o teste aguarda o carregamento dos dados
+                observando diretamente os elementos esperados na interface.
+
+            </p>
+
+            <pre class="concept-code"><code>test('aguardar carregamento', async ({ page }) =&gt; {
+
+await page.goto('https://example.com');
+
+await page.getByRole('button', {
+    name: 'Carregar dados'
+}).click();
+
+await expect(
+    page.getByText('Dados carregados')
+).toBeVisible();
+
+await expect(
+    page.getByRole('table')
+).toBeVisible();
+
+});</code></pre>
+
+        </section>
+
+        <!-- =========================
+             EXEMPLO COM RESPONSE
+        ========================= -->
+
+        <section class="concept-example">
+
+            <h3 class="concept-example-title">
+                Exemplo com API
+            </h3>
+
+            <p class="concept-description">
+
+                Quando a ação depende de uma requisição específica,
+                prepare a espera antes da ação para evitar perder
+                o evento.
+
+            </p>
+
+            <pre class="concept-code"><code>test('aguardar resposta da API', async ({ page }) =&gt; {
+
+await page.goto('https://example.com');
+
+const responsePromise =
     page.waitForResponse('**/api/users');
 
 await page.getByRole('button', {
     name: 'Carregar usuários'
 }).click();
 
-const response = await responsePromise;</code></pre>
+const response =
+    await responsePromise;
 
-            </section>
-
-
-            <!-- =========================
-                 REQUEST
-            ========================= -->
-
-            <section class="concept-section">
-
-                <h3 class="concept-subtitle">
-                    Aguardar uma requisição
-                </h3>
-
-                <p class="concept-description">
-                    <strong>waitForRequest()</strong> permite aguardar uma
-                    requisição específica realizada pela aplicação.
-                </p>
-
-                <pre class="concept-code"><code>const requestPromise =
-    page.waitForRequest('**/api/users');
-
-await page.getByRole('button', {
-    name: 'Carregar usuários'
-}).click();
-
-const request = await requestPromise;</code></pre>
-
-            </section>
-
-
-            <!-- =========================
-                 POPUP
-            ========================= -->
-
-            <section class="concept-section">
-
-                <h3 class="concept-subtitle">
-                    Aguardar uma nova página
-                </h3>
-
-                <p class="concept-description">
-                    O evento <strong>popup</strong> pode ser aguardado quando
-                    uma ação abre uma nova página ou janela.
-                </p>
-
-                <pre class="concept-code"><code>const popupPromise =
-    page.waitForEvent('popup');
-
-await page.getByRole('link', {
-    name: 'Abrir'
-}).click();
-
-const popup = await popupPromise;</code></pre>
-
-            </section>
-
-
-            <!-- =========================
-                 ELEMENTO
-            ========================= -->
-
-            <section class="concept-section">
-
-                <h3 class="concept-subtitle">
-                    Aguardar elemento
-                </h3>
-
-                <p class="concept-description">
-                    O método <strong>waitFor()</strong> permite aguardar o
-                    elemento atingir uma condição de estado.
-                </p>
-
-                <pre class="concept-code"><code>await page
-    .getByRole('button', { name: 'Enviar' })
-    .waitFor();</code></pre>
-
-            </section>
-
-
-            <!-- =========================
-                 TIMEOUT
-            ========================= -->
-
-            <section class="concept-section">
-
-                <h3 class="concept-subtitle">
-                    Configurar timeout
-                </h3>
-
-                <p class="concept-description">
-                    É possível definir um timeout específico para uma ação
-                    quando necessário.
-                </p>
-
-                <pre class="concept-code"><code>await page
-    .getByRole('button')
-    .click({
-        timeout: 10000
-    });</code></pre>
-
-            </section>
-
-
-            <!-- =========================
-                 EVITAR WAITFORTIMEOUT
-            ========================= -->
-
-            <section class="concept-section">
-
-                <h3 class="concept-subtitle">
-                    Evite pausas fixas
-                </h3>
-
-                <p class="concept-description">
-                    <strong>waitForTimeout()</strong> interrompe a execução por
-                    um período fixo e geralmente não representa uma condição
-                    real da aplicação.
-                </p>
-
-                <pre class="concept-code"><code>// Evite quando possível
-
-await page.waitForTimeout(3000);</code></pre>
-
-            </section>
-
-
-            <!-- =========================
-                 ALTERNATIVA
-            ========================= -->
-
-            <section class="concept-section">
-
-                <h3 class="concept-subtitle">
-                    Prefira aguardar o estado esperado
-                </h3>
-
-                <p class="concept-description">
-                    Em vez de aguardar uma quantidade fixa de tempo, aguarde
-                    diretamente o estado que indica que a operação terminou.
-                </p>
-
-                <pre class="concept-code"><code>await expect(
-    page.getByText('Processamento concluído')
-).toBeVisible();</code></pre>
-
-            </section>
-
-
-            <!-- =========================
-                 EXEMPLO PRÁTICO
-            ========================= -->
-
-            <section class="concept-example">
-
-                <h3 class="concept-example-title">
-                    Exemplo prático
-                </h3>
-
-                <p class="concept-description">
-                    Neste exemplo, o teste aguarda o carregamento dos dados
-                    observando diretamente os elementos esperados na interface.
-                </p>
-
-                <pre class="concept-code"><code>test('aguardar carregamento', async ({ page }) =&gt; {
-
-    await page.goto('https://example.com');
-
-    await page.getByRole('button', {
-        name: 'Carregar dados'
-    }).click();
-
-    await expect(
-        page.getByText('Dados carregados')
-    ).toBeVisible();
-
-    await expect(
-        page.getByRole('table')
-    ).toBeVisible();
+expect(response.status()).toBe(200);
 
 });</code></pre>
 
-            </section>
-
-
-            <!-- =========================
-                 NOTA
-            ========================= -->
-
-            <div class="note">
-
-                <span class="note-label">
-                    QA Note
-                </span>
-
-                <p>
-                    Evite usar <strong>page.waitForTimeout()</strong> como
-                    estratégia principal de sincronização. Prefira aguardar
-                    uma condição real da aplicação, como um elemento ficar
-                    visível, uma URL mudar, uma resposta ser recebida ou uma
-                    navegação ser concluída. O mecanismo de
-                    <strong>auto-waiting</strong> do Playwright já aguarda
-                    automaticamente várias condições antes de executar ações
-                    nos elementos.
-                </p>
-
-            </div>
-
-        </article>
-
+        </section>
 
         <!-- =========================
-             FOOTER
+             NOTA
         ========================= -->
 
-        <footer>
+        <div class="note">
 
-            <div class="footer-brand">
-                Hora do QA
-            </div>
+            <span class="note-label">
+                QA Note
+            </span>
 
-            <div class="footer-meta">
+            <p>
 
-                <span>
-                    PLAYWRIGHT / REF-012
-                </span>
+                Evite usar <strong>page.waitForTimeout()</strong> como
+                estratégia principal de sincronização. Prefira aguardar
+                uma condição real da aplicação, como um elemento ficar
+                visível, uma URL mudar, uma resposta ser recebida ou um
+                evento acontecer. O mecanismo de <strong>auto-waiting</strong>
+                do Playwright já aguarda automaticamente várias condições
+                antes de executar ações nos elementos.
 
-                <span>
-                    QUALITY NOTES
-                </span>
+            </p>
 
-                <span class="footer-pass">
-                    READY
-                </span>
+        </div>
 
-            </div>
+    </article>
 
-        </footer>
+    <!-- =========================
+         FOOTER
+    ========================= -->
 
-    </main>
+    <footer>
 
-</body>
+        <div class="footer-brand">
+            Hora do QA
+        </div>
 
-</html>
+        <div class="footer-meta">
+
+            <span>
+                PLAYWRIGHT / REF-012
+            </span>
+
+            <span>
+                QUALITY NOTES
+            </span>
+
+            <span class="footer-pass">
+                READY
+            </span>
+
+        </div>
+
+    </footer>
+
+</main>
+
+<!-- =========================
+     MERMAID
+========================= -->
+
+<script type="module">
+
+    import mermaid from
+        'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+    mermaid.initialize({
+
+        startOnLoad: true,
+
+        theme: 'base',
+
+        themeVariables: {
+
+            background: '#102D23',
+
+            primaryColor: '#0F3D2E',
+
+            primaryTextColor: '#F3EFE6',
+
+            primaryBorderColor: '#8FE3B0',
+
+            lineColor: '#8FE3B0',
+
+            secondaryColor: '#124A38',
+
+            tertiaryColor: '#102D23',
+
+            fontFamily: 'Manrope, sans-serif'
+
+        }
+
+    });
+
+</script>
+
+<!-- =========================
+     CODE LINE NUMBERS
+========================= -->
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const codeBlocks =
+            document.querySelectorAll(
+                ".concept pre.concept-code code"
+            );
+
+        codeBlocks.forEach((code) => {
+
+            const text = code.textContent;
+
+            const lines = text.split("\n");
+
+            code.innerHTML = "";
+
+            lines.forEach((line, index) => {
+
+                const lineElement =
+                    document.createElement("span");
+
+                lineElement.className =
+                    "code-line";
+
+                lineElement.setAttribute(
+                    "data-line",
+                    index + 1
+                );
+
+                lineElement.textContent =
+                    line || " ";
+
+                code.appendChild(
+                    lineElement
+                );
+
+            });
+
+        });
+
+    });
+
+</script>
+
+</body> </html>

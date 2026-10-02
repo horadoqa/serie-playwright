@@ -2,18 +2,28 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Playwright — Abas e páginas</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="style.css">
+    <title>Playwright — Frames</title>
+
+    <link rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link rel="stylesheet"
+        href="style.css">
 
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
         rel="stylesheet">
+
 </head>
 
 <body>
@@ -26,8 +36,12 @@
 
         <header>
 
-            <div class="logo" aria-label="Espaço reservado para o logo">
-                <img src="logo.png" alt="Logo Hora do QA">
+            <div class="logo"
+                aria-label="Espaço reservado para o logo">
+
+                <img src="logo.png"
+                    alt="Logo Hora do QA">
+
             </div>
 
             <div class="brand">
@@ -66,355 +80,80 @@
             </div>
 
             <h1>
-                Abas<br>
-                e páginas
+                Frames
             </h1>
 
             <p class="hero-description">
-                Como trabalhar com múltiplas páginas e novas abas durante
-                a execução dos testes. Aprenda a aguardar popups, capturar
-                novas páginas e continuar a interação no contexto correto.
+
+                Como acessar e interagir com elementos que estão
+                dentro de iframes utilizando o Playwright.
+                O <strong>frameLocator()</strong> permite localizar
+                elementos diretamente dentro de um frame, enquanto
+                o objeto <strong>Frame</strong> permite trabalhar
+                diretamente com o contexto do iframe.
+
             </p>
 
         </section>
 
 
         <!-- =========================
-        CONCEITO 09
+        CONCEITO 08
         ========================= -->
 
         <article class="concept">
 
+
+            <!-- =========================
+            CONCEPT TOP
+            ========================= -->
+
             <div class="concept-top">
 
                 <span class="concept-number">
-                    CONCEITO / 09
+                    CONCEITO / 08
                 </span>
 
                 <span class="concept-status">
-                    PAGES / POPUPS
+                    FRAMES / IFRAME
                 </span>
 
             </div>
 
 
+            <!-- =========================
+            TITLE
+            ========================= -->
+
             <h2>
-                Abas e páginas
+                Frames
             </h2>
 
+            <div class="concept-subtitle">
+                FrameLocator / Frame / iframe
+            </div>
+
+
+            <!-- =========================
+            CONCEITO
+            ========================= -->
 
             <div class="concept-subtitle">
-                Page / Popup / Multiple Pages
+                Conceito
             </div>
 
-
-            <!-- =========================
-            NOVA ABA / POPUP
-            ========================= -->
-
-            <div class="code-section">
-
-                <div class="concept-subtitle">
-                    Aguardar uma nova aba
-                </div>
-
-                <pre class="concept-code"><code>const popupPromise =
-    page.waitForEvent('popup');
-
-await page
-    .getByRole('link', { name: 'Abrir' })
-    .click();
-
-const popup = await popupPromise;</code></pre>
-
-            </div>
-
-
-            <!-- =========================
-            AGUARDAR CARREGAMENTO
-            ========================= -->
-
-            <div class="code-section">
-
-                <div class="concept-subtitle">
-                    Aguardar carregamento da nova página
-                </div>
-
-                <pre class="concept-code"><code>const popupPromise =
-    page.waitForEvent('popup');
-
-await page
-    .getByRole('link', { name: 'Abrir' })
-    .click();
-
-const popup = await popupPromise;
-
-await popup.waitForLoadState('domcontentloaded');</code></pre>
-
-            </div>
-
-
-            <!-- =========================
-            VALIDAR URL
-            ========================= -->
-
-            <div class="code-section">
-
-                <div class="concept-subtitle">
-                    Validar URL da nova página
-                </div>
-
-                <pre class="concept-code"><code>const popupPromise =
-    page.waitForEvent('popup');
-
-await page
-    .getByRole('link', { name: 'Abrir' })
-    .click();
-
-const popup = await popupPromise;
-
-await expect(popup)
-    .toHaveURL(/dashboard/);</code></pre>
-
-            </div>
-
-
-            <!-- =========================
-            VALIDAR TÍTULO
-            ========================= -->
-
-            <div class="code-section">
-
-                <div class="concept-subtitle">
-                    Validar título da nova página
-                </div>
-
-                <pre class="concept-code"><code>const popupPromise =
-    page.waitForEvent('popup');
-
-await page
-    .getByRole('link', { name: 'Abrir' })
-    .click();
-
-const popup = await popupPromise;
-
-await expect(popup)
-    .toHaveTitle(/Dashboard/);</code></pre>
-
-            </div>
-
-
-            <!-- =========================
-            MÚLTIPLAS PÁGINAS
-            ========================= -->
-
-            <div class="code-section">
-
-                <div class="concept-subtitle">
-                    Trabalhar com múltiplas páginas
-                </div>
-
-                <pre class="concept-code"><code>const pages = page.context().pages();
-
-console.log(pages.length);
-
-const currentPage = pages[0];
-const secondPage = pages[1];</code></pre>
-
-            </div>
-
-
-            <!-- =========================
-            CRIAR NOVA PÁGINA
-            ========================= -->
-
-            <div class="code-section">
-
-                <div class="concept-subtitle">
-                    Criar uma nova página
-                </div>
-
-                <pre class="concept-code"><code>const newPage =
-    await page.context().newPage();
-
-await newPage.goto('https://example.com');</code></pre>
-
-            </div>
-
-
-            <!-- =========================
-            AGUARDAR NOVA PÁGINA NO CONTEXTO
-            ========================= -->
-
-            <div class="code-section">
-
-                <div class="concept-subtitle">
-                    Aguardar uma nova página no contexto
-                </div>
-
-                <pre class="concept-code"><code>const pagePromise =
-    page.context().waitForEvent('page');
-
-const newPage =
-    await page.context().newPage();
-
-await pagePromise;</code></pre>
-
-            </div>
-
-
-            <!-- =========================
-            INTERAGIR COM NOVA PÁGINA
-            ========================= -->
-
-            <div class="code-section">
-
-                <div class="concept-subtitle">
-                    Interagir com a nova página
-                </div>
-
-                <pre class="concept-code"><code>const popupPromise =
-    page.waitForEvent('popup');
-
-await page
-    .getByRole('link', { name: 'Abrir relatório' })
-    .click();
-
-const popup = await popupPromise;
-
-await popup.getByRole('button', {
-    name: 'Exportar'
-}).click();</code></pre>
-
-            </div>
-
-
-            <!-- =========================
-            FECHAR PÁGINA
-            ========================= -->
-
-            <div class="code-section">
-
-                <div class="concept-subtitle">
-                    Fechar uma página
-                </div>
-
-                <pre class="concept-code"><code>const popupPromise =
-    page.waitForEvent('popup');
-
-await page
-    .getByRole('link', { name: 'Abrir' })
-    .click();
-
-const popup = await popupPromise;
-
-await popup.close();</code></pre>
-
-            </div>
-
-
-            <!-- =========================
-            VERIFICAR PÁGINAS ABERTAS
-            ========================= -->
-
-            <div class="code-section">
-
-                <div class="concept-subtitle">
-                    Verificar páginas abertas
-                </div>
-
-                <pre class="concept-code"><code>const pages =
-    page.context().pages();
-
-for (const currentPage of pages) {
-
-    console.log(
-        await currentPage.title()
-    );
-
-}</code></pre>
-
-            </div>
-
-
-            <!-- =========================
-            EXEMPLO PRÁTICO
-            ========================= -->
-
-            <div class="code-section">
-
-                <div class="concept-subtitle">
-                    Exemplo prático
-                </div>
-
-                <pre class="concept-code"><code>test('abrir nova aba', async ({ page }) =&gt; {
-
-    await page.goto('https://example.com');
-
-    const popupPromise =
-        page.waitForEvent('popup');
-
-    await page
-        .getByRole('link', {
-            name: 'Abrir relatório'
-        })
-        .click();
-
-    const popup = await popupPromise;
-
-    await popup.waitForLoadState('domcontentloaded');
-
-    await expect(popup)
-        .toHaveURL(/relatorio/);
-
-    await expect(popup)
-        .toHaveTitle(/Relatório/);
-
-    await expect(
-        popup.getByRole('heading', {
-            name: 'Relatório'
-        })
-    ).toBeVisible();
-
-});</code></pre>
-
-            </div>
-
-
-            <!-- =========================
-            EXEMPLO COM CONTEXTO
-            ========================= -->
-
-            <div class="code-section">
-
-                <div class="concept-subtitle">
-                    Exemplo com múltiplas páginas
-                </div>
-
-                <pre class="concept-code"><code>test('trabalhar com múltiplas páginas', async ({ page }) =&gt; {
-
-    await page.goto('https://example.com');
-
-    const context = page.context();
-
-    const newPagePromise =
-        context.waitForEvent('page');
-
-    const newPage =
-        await context.newPage();
-
-    await newPage.goto(
-        'https://example.com/relatorio'
-    );
-
-    await newPagePromise;
-
-    await expect(newPage)
-        .toHaveURL(/relatorio/);
-
-});</code></pre>
-
-            </div>
+            <pre class="concept-code"><code>PAGE
+
+↓
+IFRAME
+↓
+ACESSAR FRAME
+↓
+LOCALIZAR ELEMENTO
+↓
+INTERAGIR
+↓
+VALIDAR</code></pre>
 
 
             <!-- =========================
@@ -428,16 +167,492 @@ for (const currentPage of pages) {
                 </span>
 
                 <p>
-                    Quando uma ação abre uma nova aba ou janela, utilize
-                    <strong>page.waitForEvent('popup')</strong> quando a nova
-                    página é aberta a partir da página atual. Para páginas
-                    criadas diretamente pelo contexto, utilize
-                    <strong>context.waitForEvent('page')</strong>.
-                    Depois de obter o objeto <strong>Page</strong>, você pode
-                    utilizar normalmente <strong>goto()</strong>,
-                    <strong>locator()</strong>, <strong>expect()</strong>,
-                    <strong>waitForLoadState()</strong> e outras APIs do
-                    Playwright.
+
+                    Um <strong>iframe</strong> cria um contexto de
+                    documento separado dentro da página. Para a maioria
+                    dos testes, prefira <strong>frameLocator()</strong>
+                    para localizar e interagir diretamente com elementos
+                    dentro do frame. Quando for necessário trabalhar
+                    diretamente com o objeto <strong>Frame</strong>,
+                    utilize <strong>page.frame()</strong> ou
+                    <strong>contentFrame()</strong>.
+
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+            FLUXO DE FRAMES
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Fluxo de interação com iframe
+            </div>
+
+            <div class="mermaid-wrapper">
+
+                <div class="mermaid">
+
+flowchart TD
+
+    A["Página"]
+    B["iframe"]
+    C{"Como acessar?"}
+
+    D["frameLocator()"]
+    E["page.frame()"]
+    F["contentFrame()"]
+
+    G["FrameLocator"]
+    H["Frame"]
+
+    I["Localizar elemento"]
+    J["Interagir"]
+    K["Assertion"]
+
+    A --> B
+    B --> C
+
+    C -->|Interação direta| D
+    C -->|Localizar Frame| E
+    C -->|Converter Locator| F
+
+    D --> G
+    E --> H
+    F --> H
+
+    G --> I
+    H --> I
+
+    I --> J
+    J --> K
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+            FRAME LOCATOR
+            ========================= -->
+
+            <div class="concept-subtitle">
+                frameLocator()
+            </div>
+
+            <pre class="concept-code"><code>const frame =
+    page.frameLocator('#payment-frame');
+
+await frame
+    .getByRole('button', {
+        name: 'Enviar'
+    })
+    .click();</code></pre>
+
+
+            <!-- =========================
+            LOCALIZAR PELO ID
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Localizar iframe pelo ID
+            </div>
+
+            <pre class="concept-code"><code>const frame =
+    page.frameLocator('#payment-frame');
+
+await expect(
+    frame.getByText('Pagamento aprovado')
+).toBeVisible();</code></pre>
+
+
+            <!-- =========================
+            LOCALIZAR PELO TITLE
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Localizar iframe pelo atributo title
+            </div>
+
+            <pre class="concept-code"><code>const frame =
+    page.frameLocator(
+        'iframe[title="Pagamento"]'
+    );
+
+await frame
+    .getByRole('button', {
+        name: 'Pagar'
+    })
+    .click();</code></pre>
+
+
+            <!-- =========================
+            PREENCHER CAMPO
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Preencher campos dentro do frame
+            </div>
+
+            <pre class="concept-code"><code>const frame =
+    page.frameLocator('#payment-frame');
+
+await frame
+    .getByLabel('Nome')
+    .fill('João');</code></pre>
+
+
+            <!-- =========================
+            LOCALIZAR TEXTO
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Localizar texto dentro do frame
+            </div>
+
+            <pre class="concept-code"><code>const frame =
+    page.frameLocator('#payment-frame');
+
+await expect(
+    frame.getByText('Pagamento aprovado')
+).toBeVisible();</code></pre>
+
+
+            <!-- =========================
+            FRAME ANINHADO
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Trabalhar com frames aninhados
+            </div>
+
+            <pre class="concept-code"><code>const nestedFrame =
+    page
+        .frameLocator('#iframe-principal')
+        .frameLocator('#iframe-interno');
+
+await nestedFrame
+    .getByRole('button', {
+        name: 'Confirmar'
+    })
+    .click();</code></pre>
+
+
+            <!-- =========================
+            PAGE.FRAME
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Localizar Frame pela URL
+            </div>
+
+            <pre class="concept-code"><code>const frame =
+    page.frame({
+        url: /payment/
+    });
+
+await frame
+    ?.getByRole('button', {
+        name: 'Pagar'
+    })
+    .click();</code></pre>
+
+
+            <!-- =========================
+            CONTENT FRAME
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Obter Frame com contentFrame()
+            </div>
+
+            <pre class="concept-code"><code>const iframe =
+    page.locator('#payment-frame');
+
+const frame =
+    await iframe.contentFrame();
+
+await frame
+    ?.getByLabel('Nome')
+    .fill('João');</code></pre>
+
+
+            <!-- =========================
+            FRAMELOCATOR X FRAME
+            ========================= -->
+
+            <div class="concept-subtitle">
+                FrameLocator x Frame
+            </div>
+
+            <pre class="concept-code"><code>// FrameLocator
+
+const frameLocator =
+    page.frameLocator('#payment-frame');
+
+await frameLocator
+    .getByLabel('Nome')
+    .fill('João');
+
+
+// Frame
+
+const frame =
+    await page
+        .locator('#payment-frame')
+        .contentFrame();
+
+await frame
+    ?.getByLabel('Nome')
+    .fill('João');</code></pre>
+
+
+            <!-- =========================
+            LISTAR FRAMES
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Listar frames da página
+            </div>
+
+            <pre class="concept-code"><code>const frames =
+    page.frames();
+
+for (const frame of frames) {
+
+    console.log(
+        frame.url()
+    );
+
+}</code></pre>
+
+
+            <!-- =========================
+            FRAME PRINCIPAL
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Acessar o frame principal
+            </div>
+
+            <pre class="concept-code"><code>const mainFrame =
+    page.mainFrame();
+
+console.log(
+    mainFrame.url()
+);</code></pre>
+
+
+            <!-- =========================
+            ASSERTIONS
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Assertions dentro do frame
+            </div>
+
+            <pre class="concept-code"><code>const frame =
+    page.frameLocator('#payment-frame');
+
+await expect(
+    frame.getByText('Pagamento aprovado')
+).toBeVisible();
+
+await expect(
+    frame.getByLabel('Nome')
+).toHaveValue('João');</code></pre>
+
+
+            <!-- =========================
+            EXEMPLO PRÁTICO
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Exemplo prático
+            </div>
+
+            <pre class="concept-code"><code>test('interagir com iframe', async ({ page }) =&gt; {
+
+    await page.goto('https://example.com');
+
+    const frame =
+        page.frameLocator('#payment-frame');
+
+    await frame
+        .getByLabel('Número do cartão')
+        .fill('4111111111111111');
+
+    await frame
+        .getByLabel('Nome')
+        .fill('João da Silva');
+
+    await frame
+        .getByRole('button', {
+            name: 'Pagar'
+        })
+        .click();
+
+    await expect(
+        frame.getByText('Pagamento aprovado')
+    ).toBeVisible();
+
+});</code></pre>
+
+
+            <!-- =========================
+            EXEMPLO CONTENT FRAME
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Exemplo usando contentFrame()
+            </div>
+
+            <pre class="concept-code"><code>test('acessar Frame diretamente', async ({ page }) =&gt; {
+
+    await page.goto('https://example.com');
+
+    const iframe =
+        page.locator('#payment-frame');
+
+    const frame =
+        await iframe.contentFrame();
+
+    await frame
+        ?.getByLabel('Nome')
+        .fill('João');
+
+    await expect(
+        frame?.getByText('Pagamento aprovado')
+    ).toBeVisible();
+
+});</code></pre>
+
+
+            <!-- =========================
+            EXEMPLO PAGE.FRAME
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Exemplo usando page.frame()
+            </div>
+
+            <pre class="concept-code"><code>test('localizar Frame pela URL', async ({ page }) =&gt; {
+
+    await page.goto('https://example.com');
+
+    const frame =
+        page.frame({
+            url: /payment/
+        });
+
+    await frame
+        ?.getByLabel('Nome')
+        .fill('João');
+
+    await frame
+        ?.getByRole('button', {
+            name: 'Pagar'
+        })
+        .click();
+
+});</code></pre>
+
+
+            <!-- =========================
+            EXEMPLO FRAME ANINHADO
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Exemplo com frame aninhado
+            </div>
+
+            <pre class="concept-code"><code>const frame =
+    page
+        .frameLocator('#iframe-principal')
+        .frameLocator('#iframe-interno');
+
+await frame
+    .getByRole('button', {
+        name: 'Confirmar'
+    })
+    .click();
+
+await expect(
+    frame.getByText('Confirmado')
+).toBeVisible();</code></pre>
+
+
+            <!-- =========================
+            BOAS PRÁTICAS
+            ========================= -->
+
+            <div class="concept-subtitle">
+                Boas práticas
+            </div>
+
+            <pre class="concept-code"><code>// Prefira frameLocator()
+// para interações comuns
+
+const frame =
+    page.frameLocator('#payment-frame');
+
+await frame
+    .getByLabel('Nome')
+    .fill('João');
+
+
+// Use contentFrame()
+// quando precisar do objeto Frame
+
+const iframe =
+    page.locator('#payment-frame');
+
+const frame =
+    await iframe.contentFrame();
+
+
+// Use page.frame()
+// quando precisar localizar
+// um Frame específico
+
+const frame =
+    page.frame({
+        url: /payment/
+    });
+
+
+// Use page.frames()
+// para inspecionar os frames
+
+const frames =
+    page.frames();</code></pre>
+
+
+            <!-- =========================
+            NOTA FINAL
+            ========================= -->
+
+            <div class="note">
+
+                <span class="note-label">
+                    QA Note
+                </span>
+
+                <p>
+
+                    Para a maioria dos testes que precisam interagir com
+                    elementos dentro de um iframe, prefira
+                    <strong>frameLocator()</strong>. Ele permite encadear
+                    locators diretamente dentro do frame e mantém o código
+                    simples. Quando for necessário trabalhar com o objeto
+                    <strong>Frame</strong>, utilize
+                    <strong>page.frame()</strong> ou
+                    <strong>locator.contentFrame()</strong>.
+                    Para inspecionar a estrutura de frames da página,
+                    utilize <strong>page.frames()</strong> e
+                    <strong>page.mainFrame()</strong>.
+
                 </p>
 
             </div>
@@ -458,7 +673,7 @@ for (const currentPage of pages) {
             <div class="footer-meta">
 
                 <span>
-                    PLAYWRIGHT / REF-009
+                    PLAYWRIGHT / REF-008
                 </span>
 
                 <span>
@@ -474,6 +689,98 @@ for (const currentPage of pages) {
         </footer>
 
     </main>
+
+
+    <!-- =========================
+    MERMAID
+    ========================= -->
+
+    <script type="module">
+
+        import mermaid from
+            'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+        mermaid.initialize({
+
+            startOnLoad: true,
+
+            theme: 'base',
+
+            themeVariables: {
+
+                background: '#102D23',
+
+                primaryColor: '#0F3D2E',
+
+                primaryTextColor: '#F3EFE6',
+
+                primaryBorderColor: '#8FE3B0',
+
+                lineColor: '#8FE3B0',
+
+                secondaryColor: '#124A38',
+
+                tertiaryColor: '#102D23',
+
+                fontFamily: 'Manrope, sans-serif'
+
+            }
+
+        });
+
+    </script>
+
+
+    <!-- =========================
+    CODE LINE NUMBERS
+    ========================= -->
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const codeBlocks =
+                document.querySelectorAll(
+                    ".concept pre.concept-code code"
+                );
+
+            codeBlocks.forEach((code) => {
+
+                const text =
+                    code.textContent;
+
+                const lines =
+                    text.split("\n");
+
+                code.innerHTML = "";
+
+                lines.forEach((line, index) => {
+
+                    const lineElement =
+                        document.createElement("span");
+
+                    lineElement.className =
+                        "code-line";
+
+                    lineElement.setAttribute(
+                        "data-line",
+                        index + 1
+                    );
+
+                    lineElement.textContent =
+                        line || " ";
+
+                    code.appendChild(
+                        lineElement
+                    );
+
+                });
+
+            });
+
+        });
+
+    </script>
 
 </body>
 

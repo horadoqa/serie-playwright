@@ -2,28 +2,47 @@
 <html lang="pt-BR">
 
 <head>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Playwright — Ações</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link rel="stylesheet" href="style.css">
+
   <link
     href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
     rel="stylesheet">
+
 </head>
 
+
 <body>
+
   <main class="page">
+
+
     <!-- =========================
-     HEADER
-========================== -->
+         HEADER
+    ========================= -->
 
     <header>
 
-      <div class="logo" aria-label="Espaço reservado para o logo">
-        <img src="logo.png" alt="Logo Hora do QA">
+      <div
+        class="logo"
+        aria-label="Espaço reservado para o logo"
+      >
+
+        <img
+          src="logo.png"
+          alt="Logo Hora do QA"
+        >
+
       </div>
+
 
       <div class="brand">
 
@@ -36,6 +55,7 @@
         </span>
 
       </div>
+
 
       <div class="status">
 
@@ -51,8 +71,8 @@
 
 
     <!-- =========================
-     HERO
-========================== -->
+         HERO
+    ========================= -->
 
     <section class="hero">
 
@@ -60,25 +80,34 @@
         Playwright
       </div>
 
+
       <h1>
         Ações
       </h1>
 
+
       <p class="hero-description">
+
         Os principais comandos utilizados para interagir com
         elementos de uma página, preenchendo campos, clicando,
         selecionando opções, pressionando teclas e realizando
         uploads durante os testes.
+
       </p>
 
     </section>
 
 
     <!-- =========================
-     CONCEITO 05
-========================== -->
+         CONCEITO 05
+    ========================= -->
 
     <article class="concept">
+
+
+      <!-- =========================
+           CONCEPT TOP
+      ========================= -->
 
       <div class="concept-top">
 
@@ -93,9 +122,14 @@
       </div>
 
 
+      <!-- =========================
+           TITLE
+      ========================= -->
+
       <h2>
         Ações
       </h2>
+
 
       <div class="concept-subtitle">
         Page / Locator Actions
@@ -103,23 +137,23 @@
 
 
       <!-- =========================
-       EXEMPLO BÁSICO
-  ========================== -->
+           EXEMPLO BÁSICO
+      ========================= -->
 
       <pre class="concept-code"><code>await page.getByRole('button', {
-
-name: 'Login'
+    name: 'Login'
 }).click();
 
 await page.getByLabel('Email')
-.fill('user@example.com');
+    .fill('user@example.com');
 
 await page.getByLabel('Senha')
-.fill('123456');</code></pre>
+    .fill('123456');</code></pre>
+
 
       <!-- =========================
-       NOTA
-  ========================== -->
+           NOTA
+      ========================= -->
 
       <div class="note">
 
@@ -128,23 +162,34 @@ await page.getByLabel('Senha')
         </span>
 
         <p>
+
           As ações do Playwright são realizadas principalmente
           através de <strong>locators</strong>. Depois de localizar
-          um elemento, você pode executar ações como
+          um elemento, podemos executar ações como
           <strong>click()</strong>, <strong>fill()</strong>,
           <strong>press()</strong>, <strong>check()</strong>,
           <strong>uncheck()</strong>,
           <strong>selectOption()</strong> e
           <strong>setInputFiles()</strong>.
+
         </p>
 
       </div>
 
 
-      <!-- ========================= PRINCIPAIS AÇÕES ========================= -->
-      <div class="concept-subtitle"> Principais ações </div>
+      <!-- =========================
+           PRINCIPAIS AÇÕES
+      ========================= -->
+
+      <div class="concept-subtitle">
+        Principais ações
+      </div>
+
+
       <div class="table-wrapper">
+
         <table>
+
           <thead>
 
             <tr>
@@ -161,6 +206,7 @@ await page.getByLabel('Senha')
 
           </thead>
 
+
           <tbody>
 
             <tr>
@@ -175,6 +221,7 @@ await page.getByLabel('Senha')
 
             </tr>
 
+
             <tr>
 
               <td>
@@ -186,6 +233,7 @@ await page.getByLabel('Senha')
               </td>
 
             </tr>
+
 
             <tr>
 
@@ -200,6 +248,7 @@ await page.getByLabel('Senha')
 
             </tr>
 
+
             <tr>
 
               <td>
@@ -211,6 +260,7 @@ await page.getByLabel('Senha')
               </td>
 
             </tr>
+
 
             <tr>
 
@@ -224,6 +274,7 @@ await page.getByLabel('Senha')
 
             </tr>
 
+
             <tr>
 
               <td>
@@ -236,6 +287,7 @@ await page.getByLabel('Senha')
               </td>
 
             </tr>
+
 
             <tr>
 
@@ -253,150 +305,375 @@ await page.getByLabel('Senha')
           </tbody>
 
         </table>
+
       </div>
 
 
       <!-- =========================
-       CLICK
-  ========================== -->
+           FLUXO DE AÇÃO
+      ========================= -->
+
+      <div class="concept-subtitle">
+        Fluxo de interação
+      </div>
+
+
+      <div class="mermaid-wrapper">
+
+        <div class="mermaid">
+
+          flowchart TD
+
+          A["Localizar elemento"]
+          B["Locator"]
+          C{"Qual ação?"}
+
+          D["click()"]
+          E["fill()"]
+          F["press()"]
+          G["check() / uncheck()"]
+          H["selectOption()"]
+          I["setInputFiles()"]
+
+          J["Aplicação processa a ação"]
+          K["Validar resultado com expect()"]
+
+          A --> B
+          B --> C
+
+          C -->|Clique| D
+          C -->|Preenchimento| E
+          C -->|Teclado| F
+          C -->|Checkbox / Radio| G
+          C -->|Select| H
+          C -->|Upload| I
+
+          D --> J
+          E --> J
+          F --> J
+          G --> J
+          H --> J
+          I --> J
+
+          J --> K
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           CLICK
+      ========================= -->
 
       <div class="concept-subtitle">
         click()
       </div>
 
-      <pre class="concept-code"><code>await page.getByRole('button', {
 
-name: 'Salvar'
+      <pre class="concept-code"><code>await page.getByRole('button', {
+    name: 'Salvar'
 }).click();
 
 await page.getByRole('link', {
-name: 'Produtos'
+    name: 'Produtos'
 }).click();
 
-await page.getByText('Continuar').click();</code></pre>
+await page.getByText('Continuar')
+    .click();</code></pre>
+
 
       <!-- =========================
-       FILL
-  ========================== -->
+           FILL
+      ========================= -->
 
       <div class="concept-subtitle">
         fill()
       </div>
 
-      <pre class="concept-code"><code>await page.getByLabel('Nome')
 
-.fill('João');
+      <pre class="concept-code"><code>await page.getByLabel('Nome')
+    .fill('João');
 
 await page.getByLabel('Email')
-.fill('joao@example.com');
+    .fill('joao@example.com');
 
 await page.getByLabel('Senha')
-.fill('123456');</code></pre>
+    .fill('123456');</code></pre>
+
 
       <!-- =========================
-       PRESS
-  ========================== -->
+           PRESS
+      ========================= -->
 
       <div class="concept-subtitle">
         press()
       </div>
 
-      <pre class="concept-code"><code>await page.getByLabel('Nome')
 
-.press('Enter');
+      <pre class="concept-code"><code>await page.getByLabel('Nome')
+    .press('Enter');
 
 await page.getByPlaceholder('Pesquisar')
-.press('Enter');
+    .press('Enter');
 
 await page.getByLabel('Campo')
-.press('Control+A');</code></pre>
+    .press('Control+A');</code></pre>
+
 
       <!-- =========================
-       CHECK / UNCHECK
-  ========================== -->
+           CHECK / UNCHECK
+      ========================= -->
 
       <div class="concept-subtitle">
         check() / uncheck()
       </div>
 
-      <pre class="concept-code"><code>await page.getByRole('checkbox', {
 
-name: 'Aceito os termos'
+      <pre class="concept-code"><code>await page.getByRole('checkbox', {
+    name: 'Aceito os termos'
 }).check();
 
 await page.getByRole('checkbox', {
-name: 'Aceito os termos'
+    name: 'Aceito os termos'
 }).uncheck();</code></pre>
 
+
       <!-- =========================
-       SELECT OPTION
-  ========================== -->
+           SELECT OPTION
+      ========================= -->
 
       <div class="concept-subtitle">
         selectOption()
       </div>
 
-      <pre class="concept-code"><code>await page.getByLabel('Estado')
 
-.selectOption('sp');
+      <pre class="concept-code"><code>await page.getByLabel('Estado')
+    .selectOption('sp');
 
 await page.getByLabel('Estado')
-.selectOption({
-label: 'São Paulo'
-});</code></pre>
+    .selectOption({
+        label: 'São Paulo'
+    });</code></pre>
+
 
       <!-- =========================
-       UPLOAD
-  ========================== -->
+           UPLOAD
+      ========================= -->
 
       <div class="concept-subtitle">
         setInputFiles()
       </div>
 
-      <pre class="concept-code"><code>await page.getByLabel('Arquivo')
 
-.setInputFiles('arquivo.pdf');</code></pre>
+      <pre class="concept-code"><code>await page.getByLabel('Arquivo')
+    .setInputFiles('arquivo.pdf');</code></pre>
+
 
       <!-- =========================
-       FLUXO COMPLETO
-  ========================== -->
+           COMPARAÇÃO
+      ========================= -->
 
       <div class="concept-subtitle">
-        Fluxo completo
+        Ação → elemento
       </div>
+
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>
+                Necessidade
+              </th>
+
+              <th>
+                Ação
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            <tr>
+
+              <td>
+                Clicar em botão ou link
+              </td>
+
+              <td>
+                <code>click()</code>
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td>
+                Preencher campo
+              </td>
+
+              <td>
+                <code>fill()</code>
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td>
+                Pressionar uma tecla
+              </td>
+
+              <td>
+                <code>press()</code>
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td>
+                Marcar checkbox
+              </td>
+
+              <td>
+                <code>check()</code>
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td>
+                Desmarcar checkbox
+              </td>
+
+              <td>
+                <code>uncheck()</code>
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td>
+                Selecionar opção
+              </td>
+
+              <td>
+                <code>selectOption()</code>
+              </td>
+
+            </tr>
+
+
+            <tr>
+
+              <td>
+                Enviar arquivo
+              </td>
+
+              <td>
+                <code>setInputFiles()</code>
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      <!-- =========================
+           FLUXO COMPLETO
+      ========================= -->
+
+      <div class="concept-subtitle">
+        Exemplo completo
+      </div>
+
 
       <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
 
 test('preencher formulário', async ({ page }) => {
 
-await page.goto('https://example.com');
+    await page.goto('https://example.com');
 
-await page.getByLabel('Nome')
-.fill('João');
+    await page.getByLabel('Nome')
+        .fill('João');
 
-await page.getByLabel('Email')
-.fill('joao@example.com');
+    await page.getByLabel('Email')
+        .fill('joao@example.com');
 
-await page.getByLabel('Estado')
-.selectOption('sp');
+    await page.getByLabel('Estado')
+        .selectOption('sp');
 
-await page.getByRole('checkbox', {
-name: 'Aceito os termos'
-}).check();
+    await page.getByRole('checkbox', {
+        name: 'Aceito os termos'
+    }).check();
 
-await page.getByRole('button', {
-name: 'Enviar'
-}).click();
+    await page.getByRole('button', {
+        name: 'Enviar'
+    }).click();
 
-await expect(
-page.getByText('Cadastro realizado com sucesso')
-).toBeVisible();
+    await expect(
+        page.getByText(
+            'Cadastro realizado com sucesso'
+        )
+    ).toBeVisible();
 
 });</code></pre>
 
+
       <!-- =========================
-       BOA PRÁTICA
-  ========================== -->
+           BOA PRÁTICA
+      ========================= -->
+
+      <div class="concept-subtitle">
+        Boas práticas
+      </div>
+
+
+      <pre class="concept-code"><code>// Localizar + executar ação
+
+const botaoSalvar = page.getByRole('button', {
+    name: 'Salvar'
+});
+
+await botaoSalvar.click();
+
+
+// Preencher campos com locator semântico
+
+await page.getByLabel('Email')
+    .fill('qa@example.com');
+
+
+// Validar o resultado da ação
+
+await expect(
+    page.getByText('Salvo com sucesso')
+).toBeVisible();</code></pre>
+
+
+      <!-- =========================
+           NOTA FINAL
+      ========================= -->
 
       <div class="note">
 
@@ -405,31 +682,33 @@ page.getByText('Cadastro realizado com sucesso')
         </span>
 
         <p>
-          Prefira realizar ações através de locators estáveis
-          e semânticos. Por exemplo, utilize
-          <strong>getByRole()</strong>,
-          <strong>getByLabel()</strong>,
-          <strong>getByText()</strong> ou
-          <strong>getByTestId()</strong>
-          quando forem apropriados para o elemento.
-          Evite depender de seletores frágeis quando existir
-          uma forma mais estável de identificar o elemento.
+
+          Um bom teste normalmente segue uma sequência simples:
+          <strong>localizar → agir → validar</strong>.
+
+          O locator identifica o elemento,
+          a ação modifica ou interage com a aplicação
+          e o <strong>expect()</strong> verifica se o comportamento
+          esperado realmente aconteceu.
+
         </p>
 
       </div>
+
 
     </article>
 
 
     <!-- =========================
-     FOOTER
-========================== -->
+         FOOTER
+    ========================= -->
 
     <footer>
 
       <div class="footer-brand">
         Hora do QA
       </div>
+
 
       <div class="footer-meta">
 
@@ -449,7 +728,107 @@ page.getByText('Cadastro realizado com sucesso')
 
     </footer>
 
+
   </main>
+
+
+  <!-- =========================
+       MERMAID
+  ========================= -->
+
+  <script type="module">
+
+    import mermaid from
+      'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+
+    mermaid.initialize({
+
+      startOnLoad: true,
+
+      theme: 'base',
+
+      themeVariables: {
+
+        background: '#102D23',
+
+        primaryColor: '#0F3D2E',
+
+        primaryTextColor: '#F3EFE6',
+
+        primaryBorderColor: '#8FE3B0',
+
+        lineColor: '#8FE3B0',
+
+        secondaryColor: '#124A38',
+
+        tertiaryColor: '#102D23',
+
+        fontFamily: 'Manrope, sans-serif'
+
+      }
+
+    });
+
+  </script>
+
+
+  <!-- =========================
+       CODE LINE NUMBERS
+  ========================= -->
+
+  <script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+      const codeBlocks =
+        document.querySelectorAll(
+          ".concept pre.concept-code code"
+        );
+
+
+      codeBlocks.forEach((code) => {
+
+        const text = code.textContent;
+
+        const lines = text.split("\n");
+
+        code.innerHTML = "";
+
+
+        lines.forEach((line, index) => {
+
+          const lineElement =
+            document.createElement("span");
+
+
+          lineElement.className =
+            "code-line";
+
+
+          lineElement.setAttribute(
+            "data-line",
+            index + 1
+          );
+
+
+          lineElement.textContent =
+            line || " ";
+
+
+          code.appendChild(
+            lineElement
+          );
+
+        });
+
+      });
+
+    });
+
+  </script>
+
+
 </body>
 
 </html>

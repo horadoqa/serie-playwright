@@ -2,9 +2,8 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Playwright — Cookies e Storage</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,19 +14,19 @@
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
         rel="stylesheet">
+
 </head>
 
 <body>
-
     <main class="page">
 
         <!-- =========================
-             HEADER
-        ========================= -->
+         HEADER
+    ========================== -->
 
         <header>
 
-            <div class="logo" aria-label="Espaço reservado para o logo">
+            <div class="logo" aria-label="Logo Hora do QA">
                 <img src="logo.png" alt="Logo Hora do QA">
             </div>
 
@@ -45,7 +44,7 @@
 
             <div class="status">
 
-                <span class="status-indicator"></span>
+                <span class="status-indicator" aria-hidden="true"></span>
 
                 <span>
                     PLAYWRIGHT / READY
@@ -57,8 +56,8 @@
 
 
         <!-- =========================
-             HERO
-        ========================= -->
+         HERO
+    ========================== -->
 
         <section class="hero">
 
@@ -72,17 +71,18 @@
             </h1>
 
             <p class="hero-description">
-                Como trabalhar com cookies, estado de autenticação e
-                armazenamento persistente no Playwright para preparar
-                sessões e reutilizar o estado entre diferentes testes.
+                Como trabalhar com cookies, localStorage, sessionStorage
+                e estado de autenticação no Playwright para preparar
+                sessões, compartilhar dados e reutilizar o estado entre
+                diferentes testes.
             </p>
 
         </section>
 
 
         <!-- =========================
-             CONCEITO 16
-        ========================= -->
+         CONCEITO 16
+    ========================== -->
 
         <article class="concept">
 
@@ -99,8 +99,12 @@
             </div>
 
 
+            <!-- =========================
+             TITLE
+        ========================== -->
+
             <h2>
-                Cookies e storage
+                Cookies e Storage
             </h2>
 
             <div class="concept-subtitle">
@@ -109,213 +113,1100 @@
 
 
             <!-- =========================
-                 COOKIES
-            ========================= -->
+             CONCEITO
+        ========================== -->
 
-            <h3>
-                Adicionar cookies
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                É possível adicionar cookies diretamente ao
-                <strong>BrowserContext</strong> antes de executar as ações do teste.
-            </p>
+                <h3 class="concept-subtitle">
+                    Conceito
+                </h3>
 
-            <pre class="concept-code"><code>await context.addCookies([
-  {
+                <pre class="concept-code"><code>BROWSER CONTEXT
+
+↓
+
+COOKIES
+
+↓
+
+LOCAL STORAGE
+
+↓
+
+SESSION STORAGE
+
+↓
+
+AUTHENTICATION STATE
+
+↓
+
+TESTES AUTENTICADOS</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             FLUXO
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Estado do navegador
+                </h3>
+
+                <div class="mermaid-wrapper">
+
+                    <div class="mermaid">
+
+                        flowchart LR
+
+                        A["BrowserContext"]
+                        B["Cookies"]
+                        C["localStorage"]
+                        D["sessionStorage"]
+                        E["Storage State"]
+                        F["Testes autenticados"]
+
+                        A --> B
+                        A --> C
+                        A --> D
+                        B --> E
+                        C --> E
+                        D -. "não incluído automaticamente" .-> E
+                        E --> F
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+             COOKIES
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Cookies
+                </h3>
+
+                <p class="concept-description">
+                    Cookies são armazenados no
+                    <strong>BrowserContext</strong> e podem ser utilizados
+                    pela aplicação para manter informações de sessão,
+                    preferências ou outros dados enviados em requisições.
+                </p>
+
+                <pre class="concept-code"><code>await context.addCookies([
+{
     name: 'session',
     value: 'abc123',
     domain: 'example.com',
     path: '/'
-  }
+}
+
 ]);</code></pre>
+
+            </section>
 
 
             <!-- =========================
-                 CONSULTAR COOKIES
-            ========================= -->
+             CONSULTAR COOKIES
+        ========================== -->
 
-            <h3>
-                Consultar cookies
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                O método <strong>context.cookies()</strong> retorna os cookies
-                disponíveis no contexto atual do navegador.
-            </p>
+                <h3 class="concept-subtitle">
+                    Consultar cookies
+                </h3>
 
-            <pre class="concept-code"><code>const cookies = await context.cookies();
+                <p class="concept-description">
+                    O método <strong>context.cookies()</strong> retorna
+                    os cookies disponíveis no contexto atual.
+                </p>
+
+                <pre class="concept-code"><code>const cookies =
+await context.cookies();
 
 console.log(cookies);</code></pre>
 
-
-            <!-- =========================
-                 REMOVER COOKIES
-            ========================= -->
-
-            <h3>
-                Limpar cookies
-            </h3>
-
-            <p class="concept-description">
-                O método <strong>clearCookies()</strong> remove os cookies
-                armazenados no contexto do navegador.
-            </p>
-
-            <pre class="concept-code"><code>await context.clearCookies();</code></pre>
+            </section>
 
 
             <!-- =========================
-                 LOCAL STORAGE
-            ========================= -->
+             LIMPAR COOKIES
+        ========================== -->
 
-            <h3>
-                Trabalhando com localStorage
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                O <strong>localStorage</strong> permite armazenar dados
-                diretamente no contexto da página.
-            </p>
+                <h3 class="concept-subtitle">
+                    Limpar cookies
+                </h3>
 
-            <pre class="concept-code"><code>await page.goto('https://example.com');
+                <p class="concept-description">
+                    O método <strong>clearCookies()</strong> remove os
+                    cookies armazenados no contexto.
+                </p>
 
-await page.evaluate(() => {
-  localStorage.setItem('token', 'abc123');
-});
+                <pre class="concept-code"><code>await context.clearCookies();</code></pre>
 
-const token = await page.evaluate(() => {
-  return localStorage.getItem('token');
-});
+            </section>
+
+
+            <!-- =========================
+             LOCAL STORAGE
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    localStorage
+                </h3>
+
+                <p class="concept-description">
+                    O <strong>localStorage</strong> armazena dados associados
+                    à origem da aplicação. O Playwright possui uma API
+                    específica para manipular esse armazenamento.
+                </p>
+
+                <pre class="concept-code"><code>await page.goto(
+'https://example.com'
+
+);
+
+await page.localStorage.setItem(
+'token',
+'abc123'
+);
+
+const token =
+await page.localStorage.getItem(
+'token'
+);
 
 console.log(token);</code></pre>
 
+            </section>
+
 
             <!-- =========================
-                 SESSION STORAGE
-            ========================= -->
+             LISTAR LOCAL STORAGE
+        ========================== -->
 
-            <h3>
-                Trabalhando com sessionStorage
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                O <strong>sessionStorage</strong> permite armazenar dados
-                associados à sessão da página.
-            </p>
+                <h3 class="concept-subtitle">
+                    Consultar localStorage
+                </h3>
 
-            <pre class="concept-code"><code>await page.evaluate(() => {
-  sessionStorage.setItem('user', 'João');
-});
+                <p class="concept-description">
+                    Também é possível consultar todos os itens armazenados
+                    no <strong>localStorage</strong>.
+                </p>
 
-const user = await page.evaluate(() => {
-  return sessionStorage.getItem('user');
-});
+                <pre class="concept-code"><code>const items =
+await page.localStorage.items();
+
+console.log(items);</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             REMOVER LOCAL STORAGE
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Limpar localStorage
+                </h3>
+
+                <p class="concept-description">
+                    O método <strong>clear()</strong> remove todos os itens
+                    do localStorage da origem atual.
+                </p>
+
+                <pre class="concept-code"><code>await page.localStorage.clear();</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             SESSION STORAGE
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    sessionStorage
+                </h3>
+
+                <p class="concept-description">
+                    O <strong>sessionStorage</strong> armazena dados
+                    associados à origem e à sessão da página. O Playwright
+                    possui uma API específica para manipular esse armazenamento.
+                </p>
+
+                <pre class="concept-code"><code>await page.goto(
+'https://example.com'
+
+);
+
+await page.sessionStorage.setItem(
+'user',
+'João'
+);
+
+const user =
+await page.sessionStorage.getItem(
+'user'
+);
 
 console.log(user);</code></pre>
 
-
-            <!-- =========================
-                 CODEGEN
-            ========================= -->
-
-            <h3>
-                Gerar estado de autenticação
-            </h3>
-
-            <p class="concept-description">
-                O comando <strong>codegen</strong> pode ser utilizado para
-                explorar uma aplicação e gerar interações automaticamente.
-            </p>
-
-            <pre class="concept-code"><code>npx playwright codegen https://example.com</code></pre>
+            </section>
 
 
             <!-- =========================
-                 STORAGE STATE
-            ========================= -->
+             STORAGE STATE
+        ========================== -->
 
-            <h3>
-                Reutilizar estado de autenticação
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                Depois de obter um arquivo de estado, ele pode ser utilizado
-                pelos testes através da configuração <strong>storageState</strong>.
-            </p>
+                <h3 class="concept-subtitle">
+                    Storage State
+                </h3>
 
-            <pre class="concept-code"><code>test.use({
-  storageState: 'auth.json'
-});</code></pre>
+                <p class="concept-description">
+                    O <strong>storageState()</strong> permite capturar
+                    o estado do contexto para reutilizá-lo posteriormente.
+                    O estado inclui cookies e armazenamento de origem,
+                    como localStorage.
+                </p>
 
-
-            <!-- =========================
-                 GERAR STORAGE STATE
-            ========================= -->
-
-            <h3>
-                Salvar o estado durante a autenticação
-            </h3>
-
-            <p class="concept-description">
-                Após realizar o login, o estado do contexto pode ser salvo
-                em um arquivo para ser reutilizado posteriormente.
-            </p>
-
-            <pre class="concept-code"><code>import { test } from '@playwright/test';
-
-test('login', async ({ page }) => {
-
-  await page.goto('https://example.com/login');
-
-  await page.getByLabel('Email').fill('user@example.com');
-
-  await page.getByLabel('Senha').fill('123456');
-
-  await page.getByRole('button', {
-    name: 'Entrar'
-  }).click();
-
-  await page.context().storageState({
-    path: 'auth.json'
-  });
+                <pre class="concept-code"><code>await page.context().storageState({
+path: 'auth.json'
 
 });</code></pre>
 
+            </section>
+
 
             <!-- =========================
-                 EXEMPLO COMPLETO
-            ========================= -->
+             STORAGE STATE + INDEXED DB
+        ========================== -->
 
-            <h3>
-                Exemplo completo
-            </h3>
+            <section class="concept-section">
 
-            <p class="concept-description">
-                Depois que o estado de autenticação foi salvo, ele pode ser
-                reutilizado em outros testes sem repetir o fluxo de login.
-            </p>
+                <h3 class="concept-subtitle">
+                    Storage State com IndexedDB
+                </h3>
 
-            <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
+                <p class="concept-description">
+                    Quando a aplicação utiliza IndexedDB para armazenar
+                    informações relevantes para autenticação ou estado,
+                    é possível incluí-lo no snapshot utilizando
+                    <strong>indexedDB: true</strong>.
+                </p>
 
-test.use({
-  storageState: 'auth.json'
+                <pre class="concept-code"><code>await page.context().storageState({
+path: 'auth.json',
+indexedDB: true
+
+});</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             SALVAR AUTENTICAÇÃO
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Salvar estado após o login
+                </h3>
+
+                <p class="concept-description">
+                    Depois que o login for concluído, o estado autenticado
+                    pode ser salvo em um arquivo e reutilizado por outros
+                    testes.
+                </p>
+
+                <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
+
+test('autenticação', async ({ page }) => {
+
+await page.goto(
+    'https://example.com/login'
+);
+
+await page.getByLabel(
+    'Email'
+).fill(
+    'user@example.com'
+);
+
+await page.getByLabel(
+    'Senha'
+).fill(
+    '123456'
+);
+
+await page.getByRole(
+    'button',
+    {
+        name: 'Entrar'
+    }
+).click();
+
+await expect(
+    page.getByText('Dashboard')
+).toBeVisible();
+
+await page.context().storageState({
+    path: 'playwright/.auth/user.json'
 });
 
-test('usuário autenticado', async ({ page }) => {
-
-  await page.goto('https://example.com/dashboard');
-
-  await expect(
-    page.getByText('Dashboard')
-  ).toBeVisible();
-
 });</code></pre>
+
+            </section>
 
 
             <!-- =========================
-                 NOTA
-            ========================= -->
+             REUTILIZAR
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Reutilizar estado
+                </h3>
+
+                <p class="concept-description">
+                    O arquivo de estado pode ser utilizado para iniciar
+                    um novo contexto já com os dados de autenticação
+                    previamente armazenados.
+                </p>
+
+                <pre class="concept-code"><code>test.use({
+storageState:
+    'playwright/.auth/user.json'
+
+});
+
+test(
+'usuário autenticado',
+async ({ page }) => {
+
+await page.goto(
+    'https://example.com/dashboard'
+);
+
+});</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             CONFIG
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Configurar storageState
+                </h3>
+
+                <p class="concept-description">
+                    Quando vários testes utilizam o mesmo estado autenticado,
+                    o <strong>storageState</strong> pode ser configurado
+                    diretamente no <strong>playwright.config.ts</strong>.
+                </p>
+
+                <pre class="concept-code"><code>import {
+defineConfig
+
+} from '@playwright/test';
+
+export default defineConfig({
+
+use: {
+
+    baseURL:
+        'https://example.com',
+
+    storageState:
+        'playwright/.auth/user.json'
+
+}
+
+});</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             AUTH SETUP
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Setup de autenticação
+                </h3>
+
+                <p class="concept-description">
+                    Para projetos maiores, uma abordagem recomendada é
+                    utilizar um projeto de setup responsável por realizar
+                    a autenticação antes dos testes e gerar o arquivo
+                    de estado.
+                </p>
+
+                <pre class="concept-code"><code>import {
+test as setup
+
+} from '@playwright/test';
+
+const authFile =
+'playwright/.auth/user.json';
+
+setup(
+'autenticar usuário',
+async ({ page }) => {
+
+await page.goto(
+    'https://example.com/login'
+);
+
+await page.getByLabel(
+    'Email'
+).fill(
+    'user@example.com'
+);
+
+await page.getByLabel(
+    'Senha'
+).fill(
+    '123456'
+);
+
+await page.getByRole(
+    'button',
+    {
+        name: 'Entrar'
+    }
+).click();
+
+await page.context().storageState({
+    path: authFile
+});
+
+});</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             SESSION STORAGE
+             PERSISTÊNCIA
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Persistir sessionStorage
+                </h3>
+
+                <p class="concept-description">
+                    Diferentemente de cookies e localStorage,
+                    o <strong>sessionStorage</strong> não é persistido
+                    automaticamente pelo <strong>storageState</strong>.
+                    Quando ele fizer parte da autenticação, é necessário
+                    salvá-lo e restaurá-lo explicitamente.
+                </p>
+
+                <pre class="concept-code"><code>const sessionStorage =
+await page.evaluate(() =>
+    JSON.stringify(sessionStorage)
+);
+
+console.log(sessionStorage);</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             RESTAURAR SESSION STORAGE
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Restaurar sessionStorage
+                </h3>
+
+                <p class="concept-description">
+                    O estado salvo pode ser injetado antes da aplicação
+                    executar utilizando <strong>addInitScript()</strong>.
+                </p>
+
+                <pre class="concept-code"><code>const storage =
+JSON.parse(
+    sessionStorageData
+);
+
+await context.addInitScript(
+(storage) => {
+
+    if (
+        window.location.hostname ===
+        'example.com'
+    ) {
+
+        for (
+            const [key, value]
+            of Object.entries(storage)
+        ) {
+
+            window.sessionStorage.setItem(
+                key,
+                value
+            );
+
+        }
+
+    }
+
+},
+storage
+
+);</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             CODEGEN
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Codegen
+                </h3>
+
+                <p class="concept-description">
+                    O <strong>codegen</strong> pode ser utilizado para
+                    explorar uma aplicação e gerar automaticamente
+                    interações que servem como ponto de partida para
+                    os testes.
+                </p>
+
+                <pre class="concept-code"><code>npx playwright codegen https://example.com</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             BROWSER CONTEXT
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    BrowserContext
+                </h3>
+
+                <p class="concept-description">
+                    Cada <strong>BrowserContext</strong> funciona como
+                    um ambiente isolado do navegador. Cookies e demais
+                    dados de estado pertencem ao contexto.
+                </p>
+
+                <pre class="concept-code"><code>import {
+chromium
+
+} from 'playwright';
+
+const browser =
+await chromium.launch();
+
+const context =
+await browser.newContext();
+
+const page =
+await context.newPage();
+
+await page.goto(
+'https://example.com'
+);
+
+await context.close();
+
+await browser.close();</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             CONTEXTO COM STATE
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Criar contexto com estado
+                </h3>
+
+                <p class="concept-description">
+                    Um novo contexto pode ser criado já carregando
+                    um arquivo de estado previamente salvo.
+                </p>
+
+                <pre class="concept-code"><code>const context =
+await browser.newContext({
+    storageState:
+        'playwright/.auth/user.json'
+});
+
+const page =
+await context.newPage();
+
+await page.goto(
+'https://example.com/dashboard'
+);</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             MÚLTIPLOS USUÁRIOS
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Múltiplos estados
+                </h3>
+
+                <p class="concept-description">
+                    É possível criar diferentes contextos utilizando
+                    arquivos de estado distintos. Isso é útil em cenários
+                    onde diferentes perfis precisam interagir na mesma
+                    execução.
+                </p>
+
+                <pre class="concept-code"><code>const adminContext =
+await browser.newContext({
+    storageState:
+        'playwright/.auth/admin.json'
+});
+
+const userContext =
+await browser.newContext({
+storageState:
+'playwright/.auth/user.json'
+});
+
+const adminPage =
+await adminContext.newPage();
+
+const userPage =
+await userContext.newPage();</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             FLUXO
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Fluxo de autenticação
+                </h3>
+
+                <div class="mermaid-wrapper">
+
+                    <div class="mermaid">
+
+                        flowchart LR
+
+                        A["Login"]
+                        B["BrowserContext"]
+                        C["Cookies"]
+                        D["localStorage"]
+                        E["storageState"]
+                        F["auth.json"]
+                        G["Novo BrowserContext"]
+                        H["Teste autenticado"]
+
+                        A --> B
+                        B --> C
+                        B --> D
+                        C --> E
+                        D --> E
+                        E --> F
+                        F --> G
+                        G --> H
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+             FLUXO SESSION STORAGE
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Fluxo do sessionStorage
+                </h3>
+
+                <div class="mermaid-wrapper">
+
+                    <div class="mermaid">
+
+                        flowchart LR
+
+                        A["Login"]
+                        B["sessionStorage"]
+                        C["Salvar manualmente"]
+                        D["Arquivo / variável"]
+                        E["addInitScript"]
+                        F["Novo contexto"]
+                        G["sessionStorage restaurado"]
+
+                        A --> B
+                        B --> C
+                        C --> D
+                        D --> E
+                        E --> F
+                        F --> G
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+             EXEMPLO COMPLETO
+        ========================== -->
+
+            <section class="concept-example">
+
+                <h3 class="concept-example-title">
+                    Exemplo completo — autenticação reutilizável
+                </h3>
+
+                <p class="concept-description">
+                    O exemplo abaixo demonstra o fluxo recomendado:
+                    autenticar, aguardar o estado da aplicação, salvar
+                    o estado e reutilizá-lo em um teste posterior.
+                </p>
+
+                <pre class="concept-code"><code>import {
+test,
+expect
+
+} from '@playwright/test';
+
+const authFile =
+'playwright/.auth/user.json';
+
+test.describe(
+'Autenticação com Storage State',
+() => {
+
+test(
+    'Salvar estado de autenticação',
+    async ({ page }) => {
+
+    // ==========================================
+    // LOGIN
+    // ==========================================
+
+    await page.goto(
+        'https://example.com/login'
+    );
+
+    await page.getByLabel(
+        'Email'
+    ).fill(
+        'user@example.com'
+    );
+
+    await page.getByLabel(
+        'Senha'
+    ).fill(
+        '123456'
+    );
+
+    await page.getByRole(
+        'button',
+        {
+            name: 'Entrar'
+        }
+    ).click();
+
+    // ==========================================
+    // AGUARDAR APLICAÇÃO AUTENTICADA
+    // ==========================================
+
+    await page.waitForURL(
+        '**/dashboard'
+    );
+
+    await expect(
+        page.getByText('Dashboard')
+    ).toBeVisible();
+
+    // ==========================================
+    // SALVAR ESTADO
+    // ==========================================
+
+    await page.context().storageState({
+        path: authFile
+    });
+
+});
+
+
+test(
+    'Reutilizar estado',
+    async ({ browser }) => {
+
+    // ==========================================
+    // CRIAR CONTEXTO AUTENTICADO
+    // ==========================================
+
+    const context =
+        await browser.newContext({
+            storageState: authFile
+        });
+
+    const page =
+        await context.newPage();
+
+    // ==========================================
+    // ACESSAR ÁREA PROTEGIDA
+    // ==========================================
+
+    await page.goto(
+        'https://example.com/dashboard'
+    );
+
+    // ==========================================
+    // VALIDAR AUTENTICAÇÃO
+    // ==========================================
+
+    await expect(
+        page.getByText('Dashboard')
+    ).toBeVisible();
+
+    await context.close();
+
+});
+
+});</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             STORAGE STATE
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    O que o storageState cobre?
+                </h3>
+
+                <pre class="concept-code"><code>STORAGE STATE
+
+├── Cookies
+│
+├── localStorage
+│
+├── IndexedDB*
+│
+├── OPFS*
+│
+└── WebAuthn / Passkeys*
+
+Quando configurado e suportado
+pela versão do Playwright.</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+           SESSION STORAGE
+      ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    O que NÃO é persistido automaticamente?
+                </h3>
+
+                <pre class="concept-code"><code>sessionStorage
+
+↓
+
+NÃO faz parte do
+storageState padrão
+
+↓
+
+Salvar manualmente
+
+↓
+
+Restaurar com
+addInitScript()
+
+↓
+
+Novo contexto</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             BOAS PRÁTICAS
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Boas práticas
+                </h3>
+
+                <p class="concept-description">
+                    O estado de autenticação deve ser tratado como um
+                    artefato de teste. Arquivos de autenticação podem
+                    conter cookies, tokens ou outros dados sensíveis e
+                    não devem ser versionados no repositório.
+                </p>
+
+                <pre class="concept-code"><code>LOGIN
+
+↓
+
+SALVAR ESTADO
+
+↓
+
+playwright/.auth/
+
+↓
+
+.gitignore
+
+↓
+
+REUTILIZAR
+
+↓
+
+TESTES AUTENTICADOS</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             GITIGNORE
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Proteger arquivos de autenticação
+                </h3>
+
+                <p class="concept-description">
+                    A documentação do Playwright recomenda armazenar os
+                    arquivos de autenticação em uma pasta dedicada, como
+                    <strong>playwright/.auth</strong>, e adicioná-la ao
+                    <strong>.gitignore</strong>.
+                </p>
+
+                <pre class="concept-code"><code># .gitignore
+
+playwright/.auth/</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             RESUMO
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Resumo
+                </h3>
+
+                <pre class="concept-code"><code>COOKIES
+
+→ BrowserContext
+
+↓
+
+localStorage
+
+→ page.localStorage
+
+↓
+
+sessionStorage
+
+→ page.sessionStorage
+
+↓
+
+storageState
+
+→ Cookies + localStorage
+
+outros estados suportados
+
+↓
+
+sessionStorage
+
+→ Persistência manual
+
+↓
+
+AUTHENTICATION STATE
+
+→ Reutilização entre testes</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+             NOTA
+        ========================== -->
 
             <div class="note">
 
@@ -324,12 +1215,41 @@ test('usuário autenticado', async ({ page }) => {
                 </span>
 
                 <p>
-                    O <strong>storageState</strong> é especialmente útil quando
-                    vários testes precisam iniciar já autenticados. Em vez de
-                    repetir o fluxo de login em cada teste, o estado da sessão
-                    pode ser salvo em um arquivo e reutilizado pelos testes.
-                    Cookies e storage também fazem parte do estado utilizado
-                    pelo contexto do navegador.
+                    O <strong>BrowserContext</strong> mantém o estado
+                    isolado de uma sessão do navegador.
+
+                    Cookies podem ser adicionados, consultados e removidos
+                    diretamente pelo contexto.
+
+                    O <strong>localStorage</strong> e o
+                    <strong>sessionStorage</strong> possuem APIs próprias
+                    no Playwright atual.
+
+                    O <strong>storageState</strong> é a principal estratégia
+                    para salvar e reutilizar o estado autenticado.
+
+                    Cookies e localStorage fazem parte do estado persistido.
+                    IndexedDB, OPFS e credenciais WebAuthn podem ser incluídos
+                    quando suas respectivas opções são habilitadas.
+
+                    O <strong>sessionStorage</strong> possui um tratamento
+                    diferente e não é persistido automaticamente pelo
+                    storageState.
+
+                    Quando sessionStorage fizer parte da autenticação,
+                    salve e restaure esse estado explicitamente.
+
+                    Para projetos maiores, prefira uma rotina de
+                    autenticação dedicada e armazene os arquivos de estado
+                    em <strong>playwright/.auth</strong>.
+
+                    Nunca versione arquivos de autenticação que contenham
+                    cookies, tokens ou outras informações sensíveis.
+
+                    O fluxo principal é:
+
+                    LOGIN → SALVAR ESTADO → REUTILIZAR → TESTAR.
+
                 </p>
 
             </div>
@@ -338,8 +1258,8 @@ test('usuário autenticado', async ({ page }) => {
 
 
         <!-- =========================
-             FOOTER
-        ========================= -->
+         FOOTER
+    ========================== -->
 
         <footer>
 
@@ -366,6 +1286,104 @@ test('usuário autenticado', async ({ page }) => {
         </footer>
 
     </main>
+
+
+    <!-- =========================
+     MERMAID
+========================== -->
+
+    <script type="module">
+
+        import mermaid from
+            'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+        mermaid.initialize({
+
+            startOnLoad: true,
+
+            theme: 'base',
+
+            themeVariables: {
+
+                background: '#102D23',
+
+                primaryColor: '#0F3D2E',
+
+                primaryTextColor: '#F3EFE6',
+
+                primaryBorderColor: '#8FE3B0',
+
+                lineColor: '#8FE3B0',
+
+                secondaryColor: '#124A38',
+
+                tertiaryColor: '#102D23',
+
+                fontFamily:
+                    'Manrope, sans-serif'
+
+            }
+
+        });
+
+    </script>
+
+
+    <!-- =========================
+     CODE LINE NUMBERS
+========================== -->
+
+    <script>
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            () => {
+
+                const codeBlocks =
+                    document.querySelectorAll(
+                        '.concept pre.concept-code code'
+                    );
+
+                codeBlocks.forEach((code) => {
+
+                    const text =
+                        code.textContent
+                            .replace(/\r\n/g, '\n');
+
+                    const lines =
+                        text.split('\n');
+
+                    code.replaceChildren();
+
+                    lines.forEach(
+                        (line, index) => {
+
+                            const lineElement =
+                                document.createElement(
+                                    'span'
+                                );
+
+                            lineElement.className =
+                                'code-line';
+
+                            lineElement.dataset.line =
+                                String(index + 1);
+
+                            lineElement.textContent =
+                                line || ' ';
+
+                            code.appendChild(
+                                lineElement
+                            );
+
+                        });
+
+                });
+
+            }
+        );
+
+    </script>
 
 </body>
 

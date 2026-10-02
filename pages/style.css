@@ -863,3 +863,297 @@ font-size: 0.85rem;
 
 
 }
+
+/* =========================
+   CODE — ESTILO VS CODE
+========================= */
+
+.concept pre.concept-code {
+  position: relative;
+
+  display: block;
+
+  width: 100%;
+
+  margin: 0 0 20px;
+
+  padding: 20px 0;
+
+  background: var(--codigo);
+
+  border: 1px solid rgba(143, 227, 176, 0.13);
+
+  border-radius: 10px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  color: var(--codigo-texto);
+
+  font-family: "JetBrains Mono", monospace;
+
+  font-size: 12px;
+
+  font-weight: 400;
+
+  line-height: 1.75;
+
+  text-align: left;
+
+  white-space: pre;
+
+  tab-size: 2;
+
+  -moz-tab-size: 2;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+
+/* =========================
+   ÁREA DO CÓDIGO
+========================= */
+
+.concept pre.concept-code code {
+  display: block;
+
+  width: max-content;
+
+  min-width: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  background: transparent;
+
+  border: 0;
+
+  color: var(--codigo-texto);
+
+  font-family: "JetBrains Mono", monospace;
+
+  font-size: 12px;
+
+  font-weight: 400;
+
+  line-height: 1.75;
+
+  text-align: left;
+
+  white-space: pre;
+
+  word-break: normal;
+
+  overflow-wrap: normal;
+}
+
+
+/* =========================
+   LINHAS DO CÓDIGO
+========================= */
+
+.concept-code .code-line {
+  display: block;
+
+  position: relative;
+
+  min-height: 21px;
+
+  padding-left: 70px;
+
+  padding-right: 20px;
+}
+
+
+/* =========================
+   NÚMERO DA LINHA
+========================= */
+
+.concept-code .code-line::before {
+
+  content: attr(data-line);
+
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  width: 54px;
+
+  padding-right: 14px;
+
+  text-align: right;
+
+  color: rgba(243, 239, 230, 0.32);
+
+  font-family: "JetBrains Mono", monospace;
+
+  font-size: 11px;
+
+  line-height: inherit;
+
+  border-right: 1px solid rgba(143, 227, 176, 0.10);
+
+  user-select: none;
+
+  pointer-events: none;
+}
+
+
+/* =========================
+   HOVER NA LINHA
+========================= */
+
+.concept-code .code-line:hover {
+  background: rgba(143, 227, 176, 0.035);
+}
+
+.concept-code .code-line:hover::before {
+  color: rgba(143, 227, 176, 0.70);
+}
+
+
+/* =========================
+   SELEÇÃO
+========================= */
+
+.concept pre.concept-code code::selection,
+.concept pre.concept-code .code-line::selection {
+  background: rgba(143, 227, 176, 0.25);
+
+  color: var(--branco);
+}
+
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+.concept-code::-webkit-scrollbar {
+  height: 9px;
+}
+
+.concept-code::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.15);
+
+  border-radius: 0 0 10px 10px;
+}
+
+.concept-code::-webkit-scrollbar-thumb {
+  background: rgba(143, 227, 176, 0.25);
+
+  border-radius: 10px;
+}
+
+.concept-code::-webkit-scrollbar-thumb:hover {
+  background: rgba(143, 227, 176, 0.40);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 760px) {
+
+  .concept pre.concept-code {
+    padding: 16px 0;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+  }
+
+  .concept pre.concept-code code {
+    font-size: 11px;
+
+    line-height: 1.7;
+  }
+
+  .concept-code .code-line {
+    padding-left: 58px;
+    padding-right: 16px;
+  }
+
+  .concept-code .code-line::before {
+    width: 44px;
+
+    padding-right: 10px;
+
+    font-size: 10px;
+  }
+
+}
+
+/* =========================
+   MERMAID
+========================= */
+
+.mermaid-wrapper {
+  width: 100%;
+
+  margin: 0 0 20px;
+
+  padding: 30px 20px;
+
+  background: var(--codigo);
+
+  border: 1px solid rgba(143, 227, 176, 0.13);
+
+  border-radius: 10px;
+
+  overflow-x: auto;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.mermaid {
+  width: 100%;
+
+  display: flex;
+
+  justify-content: center;
+
+  color: var(--codigo-texto);
+
+  font-family: "Manrope", sans-serif;
+}
+
+
+/* =========================
+   MERMAID TEXT
+========================= */
+
+.mermaid .nodeLabel {
+  font-family: "Manrope", sans-serif;
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+.mermaid foreignObject {
+  overflow: visible;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 760px) {
+
+  .mermaid-wrapper {
+    padding: 20px 10px;
+
+    justify-content: flex-start;
+  }
+
+  .mermaid {
+    min-width: 700px;
+  }
+
+}

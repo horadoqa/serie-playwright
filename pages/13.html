@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Playwright — Interceptação de API</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,17 +13,15 @@
 
     <link
         href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&display=swap"
-        rel="stylesheet"
-    >
+        rel="stylesheet">
+
 </head>
 
 <body>
-
     <main class="page">
-
         <!-- =========================
-             HEADER
-        ========================= -->
+     HEADER
+========================= -->
 
         <header>
 
@@ -58,8 +55,8 @@
 
 
         <!-- =========================
-             HERO
-        ========================= -->
+     HERO
+========================= -->
 
         <section class="hero">
 
@@ -73,18 +70,20 @@
             </h1>
 
             <p class="hero-description">
+
                 Como interceptar, observar, modificar e controlar requisições
                 de rede durante os testes. O Playwright permite trabalhar
                 diretamente com o tráfego da aplicação para criar cenários
                 controlados e validar diferentes comportamentos.
+
             </p>
 
         </section>
 
 
         <!-- =========================
-             CONCEITO 13
-        ========================= -->
+     CONCEITO 13
+========================= -->
 
         <article class="concept">
 
@@ -100,6 +99,11 @@
 
             </div>
 
+
+            <!-- =========================
+         TITLE
+    ========================= -->
+
             <h2>
                 Interceptação de API
             </h2>
@@ -110,8 +114,101 @@
 
 
             <!-- =========================
-                 ROUTE BÁSICO
-            ========================= -->
+         CONCEITO
+    ========================= -->
+
+            <div class="concept-subtitle">
+                Conceito
+            </div>
+
+            <pre class="concept-code"><code>REQUISIÇÃO
+
+↓
+
+INTERCEPTAR
+
+↓
+
+DECIDIR COMPORTAMENTO
+
+↓
+
+CONTINUAR / MODIFICAR / MOCKAR / ABORTAR
+
+↓
+
+RESPOSTA
+
+↓
+
+CONTINUAR TESTE</code></pre>
+
+            <!-- =========================
+         FLUXO DE INTERCEPTAÇÃO
+    ========================= -->
+
+            <div class="concept-subtitle">
+                Fluxo de interceptação
+            </div>
+
+            <div class="mermaid-wrapper">
+
+                <div class="mermaid">
+
+                    flowchart TD
+
+                    A["Aplicação realiza requisição"]
+                    B{"Interceptar rota?"}
+
+                    C["Não interceptar"]
+                    D["page.route()"]
+
+                    E{"O que fazer?"}
+
+                    F["route.continue()"]
+                    G["Modificar requisição"]
+                    H["route.fulfill()"]
+                    I["route.abort()"]
+
+                    J["Servidor / API"]
+                    K["Resposta controlada"]
+                    L["Falha simulada"]
+                    M["Resposta recebida"]
+                    N["Continuar teste"]
+
+                    A --> B
+
+                    B -->|Não| C
+                    C --> J
+
+                    B -->|Sim| D
+                    D --> E
+
+                    E -->|Continuar| F
+                    E -->|Modificar| G
+                    E -->|Mockar resposta| H
+                    E -->|Bloquear| I
+
+                    F --> J
+                    G --> J
+
+                    J --> M
+
+                    H --> K
+                    I --> L
+
+                    M --> N
+                    K --> N
+                    L --> N
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================
+         ROUTE
+    ========================= -->
 
             <section class="concept-section">
 
@@ -120,14 +217,16 @@
                 </h3>
 
                 <p class="concept-description">
+
                     O método <strong>page.route()</strong> permite interceptar
                     requisições realizadas pela página e decidir como elas
                     devem continuar.
+
                 </p>
 
                 <pre class="concept-code"><code>await page.route('**/api/users', async route =&gt; {
 
-    await route.continue();
+await route.continue();
 
 });</code></pre>
 
@@ -135,8 +234,8 @@
 
 
             <!-- =========================
-                 OBSERVAR REQUEST
-            ========================= -->
+         OBSERVAR REQUEST
+    ========================= -->
 
             <section class="concept-section">
 
@@ -145,16 +244,18 @@
                 </h3>
 
                 <p class="concept-description">
+
                     O evento <strong>request</strong> permite acompanhar as
                     requisições realizadas pela aplicação.
+
                 </p>
 
                 <pre class="concept-code"><code>page.on('request', request =&gt; {
 
-    console.log(
-        request.method(),
-        request.url()
-    );
+console.log(
+    request.method(),
+    request.url()
+);
 
 });</code></pre>
 
@@ -162,8 +263,8 @@
 
 
             <!-- =========================
-                 OBSERVAR RESPONSE
-            ========================= -->
+         OBSERVAR RESPONSE
+    ========================= -->
 
             <section class="concept-section">
 
@@ -172,16 +273,18 @@
                 </h3>
 
                 <p class="concept-description">
+
                     O evento <strong>response</strong> permite observar o
                     status e a URL das respostas recebidas.
+
                 </p>
 
                 <pre class="concept-code"><code>page.on('response', response =&gt; {
 
-    console.log(
-        response.status(),
-        response.url()
-    );
+console.log(
+    response.status(),
+    response.url()
+);
 
 });</code></pre>
 
@@ -189,8 +292,8 @@
 
 
             <!-- =========================
-                 ESPERAR REQUEST
-            ========================= -->
+         ESPERAR REQUEST
+    ========================= -->
 
             <section class="concept-section">
 
@@ -199,25 +302,28 @@
                 </h3>
 
                 <p class="concept-description">
+
                     <strong>waitForRequest()</strong> aguarda uma requisição
                     específica antes de continuar o teste.
+
                 </p>
 
                 <pre class="concept-code"><code>const requestPromise =
-    page.waitForRequest('**/api/users');
+page.waitForRequest('**/api/users');
 
 await page.getByRole('button', {
-    name: 'Carregar usuários'
+name: 'Carregar usuários'
 }).click();
 
-const request = await requestPromise;</code></pre>
+const request =
+await requestPromise;</code></pre>
 
             </section>
 
 
             <!-- =========================
-                 ESPERAR RESPONSE
-            ========================= -->
+         ESPERAR RESPONSE
+    ========================= -->
 
             <section class="concept-section">
 
@@ -226,25 +332,28 @@ const request = await requestPromise;</code></pre>
                 </h3>
 
                 <p class="concept-description">
+
                     <strong>waitForResponse()</strong> permite aguardar uma
                     resposta específica da aplicação.
+
                 </p>
 
                 <pre class="concept-code"><code>const responsePromise =
-    page.waitForResponse('**/api/users');
+page.waitForResponse('**/api/users');
 
 await page.getByRole('button', {
-    name: 'Carregar usuários'
+name: 'Carregar usuários'
 }).click();
 
-const response = await responsePromise;</code></pre>
+const response =
+await responsePromise;</code></pre>
 
             </section>
 
 
             <!-- =========================
-                 MODIFICAR REQUEST
-            ========================= -->
+         MODIFICAR REQUEST
+    ========================= -->
 
             <section class="concept-section">
 
@@ -253,18 +362,20 @@ const response = await responsePromise;</code></pre>
                 </h3>
 
                 <p class="concept-description">
+
                     É possível alterar headers ou outras propriedades da
                     requisição antes de enviá-la ao servidor.
+
                 </p>
 
                 <pre class="concept-code"><code>await page.route('**/api/users', async route =&gt; {
 
-    await route.continue({
-        headers: {
-            ...route.request().headers(),
-            'x-test': 'playwright'
-        }
-    });
+await route.continue({
+    headers: {
+        ...route.request().headers(),
+        'x-test': 'playwright'
+    }
+});
 
 });</code></pre>
 
@@ -272,8 +383,8 @@ const response = await responsePromise;</code></pre>
 
 
             <!-- =========================
-                 BLOQUEAR REQUEST
-            ========================= -->
+         BLOQUEAR REQUEST
+    ========================= -->
 
             <section class="concept-section">
 
@@ -282,14 +393,16 @@ const response = await responsePromise;</code></pre>
                 </h3>
 
                 <p class="concept-description">
+
                     O método <strong>route.abort()</strong> interrompe a
                     requisição e pode ser utilizado para simular falhas
                     ou bloquear determinados recursos.
+
                 </p>
 
                 <pre class="concept-code"><code>await page.route('**/analytics/**', async route =&gt; {
 
-    await route.abort();
+await route.abort();
 
 });</code></pre>
 
@@ -297,8 +410,8 @@ const response = await responsePromise;</code></pre>
 
 
             <!-- =========================
-                 FULFILL
-            ========================= -->
+         FULFILL
+    ========================= -->
 
             <section class="concept-section">
 
@@ -307,22 +420,24 @@ const response = await responsePromise;</code></pre>
                 </h3>
 
                 <p class="concept-description">
+
                     Com <strong>route.fulfill()</strong>, o teste pode fornecer
                     uma resposta controlada sem depender do backend real.
+
                 </p>
 
                 <pre class="concept-code"><code>await page.route('**/api/users', async route =&gt; {
 
-    await route.fulfill({
-        status: 200,
-        contentType: 'application/json',
-        body: JSON.stringify([
-            {
-                id: 1,
-                name: 'João'
-            }
-        ])
-    });
+await route.fulfill({
+    status: 200,
+    contentType: 'application/json',
+    body: JSON.stringify([
+        {
+            id: 1,
+            name: 'João'
+        }
+    ])
+});
 
 });</code></pre>
 
@@ -330,8 +445,8 @@ const response = await responsePromise;</code></pre>
 
 
             <!-- =========================
-                 MOCK DE ERRO
-            ========================= -->
+         MOCK DE ERRO
+    ========================= -->
 
             <section class="concept-section">
 
@@ -340,19 +455,21 @@ const response = await responsePromise;</code></pre>
                 </h3>
 
                 <p class="concept-description">
+
                     Uma resposta de erro pode ser simulada para validar como
                     a aplicação reage a falhas do backend.
+
                 </p>
 
                 <pre class="concept-code"><code>await page.route('**/api/users', async route =&gt; {
 
-    await route.fulfill({
-        status: 500,
-        contentType: 'application/json',
-        body: JSON.stringify({
-            error: 'Internal Server Error'
-        })
-    });
+await route.fulfill({
+    status: 500,
+    contentType: 'application/json',
+    body: JSON.stringify({
+        error: 'Internal Server Error'
+    })
+});
 
 });</code></pre>
 
@@ -360,8 +477,8 @@ const response = await responsePromise;</code></pre>
 
 
             <!-- =========================
-                 CONTINUE
-            ========================= -->
+         CONTINUE
+    ========================= -->
 
             <section class="concept-section">
 
@@ -370,13 +487,15 @@ const response = await responsePromise;</code></pre>
                 </h3>
 
                 <p class="concept-description">
+
                     <strong>route.continue()</strong> permite que a requisição
                     siga normalmente para o servidor.
+
                 </p>
 
                 <pre class="concept-code"><code>await page.route('**/api/users', async route =&gt; {
 
-    await route.continue();
+await route.continue();
 
 });</code></pre>
 
@@ -384,8 +503,8 @@ const response = await responsePromise;</code></pre>
 
 
             <!-- =========================
-                 UNROUTE
-            ========================= -->
+         UNROUTE
+    ========================= -->
 
             <section class="concept-section">
 
@@ -394,8 +513,10 @@ const response = await responsePromise;</code></pre>
                 </h3>
 
                 <p class="concept-description">
+
                     <strong>page.unroute()</strong> remove uma rota previamente
                     registrada na página.
+
                 </p>
 
                 <pre class="concept-code"><code>await page.unroute('**/api/users');</code></pre>
@@ -404,8 +525,8 @@ const response = await responsePromise;</code></pre>
 
 
             <!-- =========================
-                 EXEMPLO PRÁTICO
-            ========================= -->
+         EXEMPLO PRÁTICO
+    ========================= -->
 
             <section class="concept-example">
 
@@ -414,44 +535,46 @@ const response = await responsePromise;</code></pre>
                 </h3>
 
                 <p class="concept-description">
+
                     Neste exemplo, a resposta da API de usuários é interceptada
                     e substituída por dados controlados pelo teste.
+
                 </p>
 
                 <pre class="concept-code"><code>test('interceptar usuários', async ({ page }) =&gt; {
 
-    await page.route('**/api/users', async route =&gt; {
+await page.route('**/api/users', async route =&gt; {
 
-        await route.fulfill({
-            status: 200,
-            contentType: 'application/json',
-            body: JSON.stringify([
-                {
-                    id: 1,
-                    name: 'João'
-                },
-                {
-                    id: 2,
-                    name: 'Maria'
-                }
-            ])
-        });
-
+    await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify([
+            {
+                id: 1,
+                name: 'João'
+            },
+            {
+                id: 2,
+                name: 'Maria'
+            }
+        ])
     });
 
-    await page.goto('https://example.com');
+});
 
-    await page.getByRole('button', {
-        name: 'Carregar usuários'
-    }).click();
+await page.goto('https://example.com');
 
-    await expect(
-        page.getByText('João')
-    ).toBeVisible();
+await page.getByRole('button', {
+    name: 'Carregar usuários'
+}).click();
 
-    await expect(
-        page.getByText('Maria')
-    ).toBeVisible();
+await expect(
+    page.getByText('João')
+).toBeVisible();
+
+await expect(
+    page.getByText('Maria')
+).toBeVisible();
 
 });</code></pre>
 
@@ -459,8 +582,49 @@ const response = await responsePromise;</code></pre>
 
 
             <!-- =========================
-                 NOTA
-            ========================= -->
+         EXEMPLO COM MODIFICAÇÃO
+    ========================= -->
+
+            <section class="concept-example">
+
+                <h3 class="concept-example-title">
+                    Exemplo modificando a requisição
+                </h3>
+
+                <p class="concept-description">
+
+                    Neste exemplo, o teste intercepta a chamada e adiciona
+                    um header antes de encaminhar a requisição para o backend.
+
+                </p>
+
+                <pre class="concept-code"><code>test('modificar requisição', async ({ page }) =&gt; {
+
+await page.route('**/api/users', async route =&gt; {
+
+    await route.continue({
+        headers: {
+            ...route.request().headers(),
+            'x-test': 'playwright'
+        }
+    });
+
+});
+
+await page.goto('https://example.com');
+
+await page.getByRole('button', {
+    name: 'Carregar usuários'
+}).click();
+
+});</code></pre>
+
+            </section>
+
+
+            <!-- =========================
+         NOTA
+    ========================= -->
 
             <div class="note">
 
@@ -469,6 +633,7 @@ const response = await responsePromise;</code></pre>
                 </span>
 
                 <p>
+
                     Use <strong>page.route()</strong> quando precisar interceptar
                     ou controlar o tráfego de rede.
                     <strong>route.continue()</strong> permite seguir com a
@@ -480,6 +645,7 @@ const response = await responsePromise;</code></pre>
                     Para apenas observar o tráfego,
                     <strong>request</strong> e <strong>response</strong> são úteis
                     para acompanhar as chamadas realizadas pela aplicação.
+
                 </p>
 
             </div>
@@ -488,8 +654,8 @@ const response = await responsePromise;</code></pre>
 
 
         <!-- =========================
-             FOOTER
-        ========================= -->
+     FOOTER
+========================= -->
 
         <footer>
 
@@ -515,8 +681,11 @@ const response = await responsePromise;</code></pre>
 
         </footer>
 
-    </main>
-
+    </main> <!-- ========================= MERMAID ========================= -->
+    <script
+        type="module"> import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs'; mermaid.initialize({ startOnLoad: true, theme: 'base', themeVariables: { background: '#102D23', primaryColor: '#0F3D2E', primaryTextColor: '#F3EFE6', primaryBorderColor: '#8FE3B0', lineColor: '#8FE3B0', secondaryColor: '#124A38', tertiaryColor: '#102D23', fontFamily: 'Manrope, sans-serif' } }); </script>
+    <!-- ========================= CODE LINE NUMBERS ========================= -->
+    <script> document.addEventListener("DOMContentLoaded", () => { const codeBlocks = document.querySelectorAll(".concept pre.concept-code code"); codeBlocks.forEach((code) => { const text = code.textContent; const lines = text.split("\n"); code.innerHTML = ""; lines.forEach((line, index) => { const lineElement = document.createElement("span"); lineElement.className = "code-line"; lineElement.setAttribute("data-line", index + 1); lineElement.textContent = line || " "; code.appendChild(lineElement); }); }); }); </script>
 </body>
 
 </html>

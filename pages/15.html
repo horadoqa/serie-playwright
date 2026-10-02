@@ -2,8 +2,8 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Playwright — Requisições HTTP</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,11 +22,11 @@
 
         <!-- =========================
          HEADER
-    ========================= -->
+    ========================== -->
 
         <header>
 
-            <div class="logo" aria-label="Espaço reservado para o logo">
+            <div class="logo" aria-label="Logo Hora do QA">
                 <img src="logo.png" alt="Logo Hora do QA">
             </div>
 
@@ -44,7 +44,7 @@
 
             <div class="status">
 
-                <span class="status-indicator"></span>
+                <span class="status-indicator" aria-hidden="true"></span>
 
                 <span>
                     PLAYWRIGHT / READY
@@ -54,10 +54,9 @@
 
         </header>
 
-
         <!-- =========================
          HERO
-    ========================= -->
+    ========================== -->
 
         <section class="hero">
 
@@ -79,10 +78,9 @@
 
         </section>
 
-
         <!-- =========================
          CONCEITO 15
-    ========================= -->
+    ========================== -->
 
         <article class="concept">
 
@@ -98,6 +96,9 @@
 
             </div>
 
+            <!-- =========================
+             TITLE
+        ========================== -->
 
             <h2>
                 Requisições HTTP
@@ -107,109 +108,233 @@
                 GET / POST / PUT / PATCH / DELETE
             </div>
 
+            <!-- =========================
+             CONCEITO
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Conceito
+                </h3>
+
+                <pre class="concept-code"><code>REQUEST
+
+↓
+
+HTTP METHOD
+
+↓
+
+SERVER
+
+↓
+
+RESPONSE
+
+↓
+
+STATUS + BODY + HEADERS
+
+↓
+
+ASSERTIONS</code></pre>
+
+            </section>
 
             <!-- =========================
-             GET
-        ========================= -->
+             FLUXO HTTP
+        ========================== -->
 
-            <h3 class="concept-subtitle">
-                GET — consultar dados
-            </h3>
+            <section class="concept-section">
 
-            <pre class="concept-code"><code>test('consultar usuários', async ({ request }) => {
+                <h3 class="concept-subtitle">
+                    Fluxo de uma requisição
+                </h3>
 
-const response =
-await request.get('/api/users');
+                <div class="mermaid-wrapper">
 
-expect(response.ok()).toBeTruthy();
+                    <div class="mermaid">
 
-const data =
-await response.json();
+                        flowchart LR
 
-console.log(data);
+                        A["Teste"]
+                        B["HTTP Request"]
+                        C["API / Servidor"]
+                        D["HTTP Response"]
+                        E["Status"]
+                        F["Headers"]
+                        G["Body"]
+                        H["Assertions"]
 
+                        A --> B
+                        B --> C
+                        C --> D
+                        D --> E
+                        D --> F
+                        D --> G
+                        E --> H
+                        F --> H
+                        G --> H
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ========================= GET ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    GET — consultar dados
+                </h3>
+
+                <p class="concept-description">
+                    O método <strong>GET</strong> é utilizado para consultar
+                    recursos disponíveis na API.
+                </p>
+
+                <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
+
+test('consultar usuários', async ({ request }) => {
+  const response = await request.get('https://serverest.dev/usuarios');
+
+  expect(response.ok()).toBeTruthy();
+
+  expect(response.status()).toBe(200);
+
+  // Verificando o tipo de conteúdo da resposta é um JSON
+
+  const data = await response.json();
+  
+  expect(Array.isArray(data.usuarios)).toBeTruthy();
+  
+  // console.log(data);
 });</code></pre>
 
-            <!-- =========================
-             STATUS
-        ========================= -->
+            </section>
 
-            <h3 class="concept-subtitle">
-                Validar status da resposta
-            </h3>
+            <!-- ========================= STATUS ========================== -->
 
-            <pre class="concept-code"><code>const response =
-await request.get('/api/users');
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Validar status da resposta
+                </h3>
+
+                <p class="concept-description">
+                    O status HTTP indica o resultado da operação realizada
+                    pela API. A validação do status deve fazer parte das
+                    assertions do teste.
+                </p>
+
+                <pre class="concept-code"><code>const response = await request.get('https://serverest.dev/usuarios');
 
 expect(response.status()).toBe(200);
 
 expect(response.ok()).toBeTruthy();</code></pre>
 
-            <!-- =========================
-             JSON
-        ========================= -->
+            </section>
 
-            <h3 class="concept-subtitle">
-                Ler resposta JSON
-            </h3>
+            <!-- ========================= JSON ========================== -->
 
-            <pre class="concept-code"><code>const response =
-await request.get('/api/users');
+            <section class="concept-section">
 
-const data =
-await response.json();
+                <h3 class="concept-subtitle">
+                    Ler resposta JSON
+                </h3>
 
-expect(data).toBeDefined();</code></pre>
+                <p class="concept-description">
+                    Utilize <strong>response.json()</strong> para transformar
+                    o corpo da resposta JSON em um objeto JavaScript.
+                </p>
 
-            <!-- =========================
-             POST
-        ========================= -->
+                <pre class="concept-code"><code>const response = await request.get('https://serverest.dev/usuarios');
 
-            <h3 class="concept-subtitle">
-                POST — criar recurso
-            </h3>
+const data = await response.json();
 
-            <pre class="concept-code"><code>const response =
-await request.post('/api/users', {
+expect(Array.isArray(data.usuarios)).toBeTruthy();</code></pre>
 
-    data: {
-        name: 'João',
-        email: 'joao@example.com'
-    }
+            </section>
 
-});
+            <!-- ========================= POST ========================== -->
 
-expect(response.status()).toBe(201);</code></pre>
+            <section class="concept-section">
 
-            <!-- =========================
-             PUT
-        ========================= -->
+                <h3 class="concept-subtitle">
+                    POST — criar recurso
+                </h3>
 
-            <h3 class="concept-subtitle">
-                PUT — atualizar recurso
-            </h3>
+                <p class="concept-description">
+                    O método <strong>POST</strong> normalmente é utilizado
+                    para criar um novo recurso.
+                </p>
 
-            <pre class="concept-code"><code>const response =
-await request.put('/api/users/1', {
+                <pre class="concept-code"><code>
+const cadastroResponse = await request.post('https://serverest.dev/usuarios',
+    {
+        data: {
+          nome: 'Hora do QA',
+          email: 'horadoqa@exemple.com',
+          password: '1q2w3e4r',
+          administrador: 'true'
+        }
+      }
+);
 
-    data: {
-        name: 'João Atualizado',
-        email: 'joao@example.com'
-    }
+expect(cadastroResponse.status()).toBe(201);</code></pre>
 
-});
+            </section>
 
-expect(response.ok()).toBeTruthy();</code></pre>
+            <!-- ========================= PUT ========================== -->
 
-            <!-- =========================
-             PATCH
-        ========================= -->
+            <section class="concept-section">
 
-            <h3 class="concept-subtitle">
-                PATCH — atualização parcial
-            </h3>
+                <h3 class="concept-subtitle">
+                    PUT — atualizar recurso
+                </h3>
 
-            <pre class="concept-code"><code>const response =
+                <p class="concept-description">
+                    O método <strong>PUT</strong> pode ser utilizado para
+                    atualizar os dados de um recurso existente.
+                </p>
+
+                <pre class="concept-code"><code>
+const updateResponse = await request.put(
+      `https://serverest.dev/usuarios/${userId}`,
+      {
+        headers: {
+          accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        data: {
+          nome: 'Hora do QA - Atualizado',
+          email: email,
+          password: '1q2w3e4r',
+          administrador: 'true'
+        }
+      }
+    );
+
+expect(updateResponse.status()).toBe(200);</code></pre>
+
+            </section>
+
+            <!-- ========================= PATCH ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    PATCH — atualização parcial
+                </h3>
+
+                <p class="concept-description">
+                    O método <strong>PATCH</strong> é utilizado quando
+                    apenas parte dos dados de um recurso precisa ser alterada.
+                </p>
+
+                <pre class="concept-code"><code>const response =
 await request.patch('/api/users/1', {
 
     data: {
@@ -218,30 +343,52 @@ await request.patch('/api/users/1', {
 
 });
 
-expect(response.ok()).toBeTruthy();</code></pre>
+expect(
+response.ok()
+).toBeTruthy();</code></pre>
+
+            </section>
 
             <!-- =========================
              DELETE
-        ========================= -->
+        ========================== -->
 
-            <h3 class="concept-subtitle">
-                DELETE — remover recurso
-            </h3>
+            <section class="concept-section">
 
-            <pre class="concept-code"><code>const response =
+                <h3 class="concept-subtitle">
+                    DELETE — remover recurso
+                </h3>
+
+                <p class="concept-description">
+                    O método <strong>DELETE</strong> é utilizado para remover
+                    um recurso da API.
+                </p>
+
+                <pre class="concept-code"><code>const response =
 await request.delete('/api/users/1');
 
-expect(response.ok()).toBeTruthy();</code></pre>
+expect(
+response.ok()
+).toBeTruthy();</code></pre>
+
+            </section>
 
             <!-- =========================
              QUERY PARAMS
-        ========================= -->
+        ========================== -->
 
-            <h3 class="concept-subtitle">
-                Query parameters
-            </h3>
+            <section class="concept-section">
 
-            <pre class="concept-code"><code>const response =
+                <h3 class="concept-subtitle">
+                    Query parameters
+                </h3>
+
+                <p class="concept-description">
+                    Parâmetros de consulta podem ser enviados utilizando
+                    a propriedade <strong>params</strong>.
+                </p>
+
+                <pre class="concept-code"><code>const response =
 await request.get('/api/users', {
 
     params: {
@@ -251,17 +398,29 @@ await request.get('/api/users', {
 
 });
 
-expect(response.ok()).toBeTruthy();</code></pre>
+expect(
+response.ok()
+).toBeTruthy();</code></pre>
+
+            </section>
 
             <!-- =========================
              HEADERS
-        ========================= -->
+        ========================== -->
 
-            <h3 class="concept-subtitle">
-                Headers
-            </h3>
+            <section class="concept-section">
 
-            <pre class="concept-code"><code>const response =
+                <h3 class="concept-subtitle">
+                    Headers
+                </h3>
+
+                <p class="concept-description">
+                    Headers podem transportar informações como autenticação,
+                    tipo de conteúdo e outras informações necessárias para
+                    a comunicação com a API.
+                </p>
+
+                <pre class="concept-code"><code>const response =
 await request.get('/api/users', {
 
     headers: {
@@ -271,17 +430,29 @@ await request.get('/api/users', {
 
 });
 
-expect(response.ok()).toBeTruthy();</code></pre>
+expect(
+response.ok()
+).toBeTruthy();</code></pre>
+
+            </section>
 
             <!-- =========================
              POST JSON
-        ========================= -->
+        ========================== -->
 
-            <h3 class="concept-subtitle">
-                Enviar JSON
-            </h3>
+            <section class="concept-section">
 
-            <pre class="concept-code"><code>const response =
+                <h3 class="concept-subtitle">
+                    Enviar JSON
+                </h3>
+
+                <p class="concept-description">
+                    A propriedade <strong>data</strong> permite enviar dados
+                    no corpo da requisição. O Playwright serializa o objeto
+                    para JSON quando apropriado.
+                </p>
+
+                <pre class="concept-code"><code>const response =
 await request.post('/api/users', {
 
     data: {
@@ -294,33 +465,56 @@ await request.post('/api/users', {
 const data =
 await response.json();
 
-expect(data.name).toBe('Maria');</code></pre>
+expect(
+data.name
+).toBe('Maria');</code></pre>
+
+            </section>
 
             <!-- =========================
              TEXT
-        ========================= -->
+        ========================== -->
 
-            <h3 class="concept-subtitle">
-                Ler resposta como texto
-            </h3>
+            <section class="concept-section">
 
-            <pre class="concept-code"><code>const response =
+                <h3 class="concept-subtitle">
+                    Ler resposta como texto
+                </h3>
+
+                <p class="concept-description">
+                    Quando a API não retorna JSON, utilize
+                    <strong>response.text()</strong> para acessar
+                    o conteúdo da resposta como texto.
+                </p>
+
+                <pre class="concept-code"><code>const response =
 await request.get('/api/message');
 
 const body =
 await response.text();
 
-expect(body).toContain('Sucesso');</code></pre>
+expect(
+body
+).toContain('Sucesso');</code></pre>
+
+            </section>
 
             <!-- =========================
              RESPONSE HEADERS
-        ========================= -->
+        ========================== -->
 
-            <h3 class="concept-subtitle">
-                Validar headers da resposta
-            </h3>
+            <section class="concept-section">
 
-            <pre class="concept-code"><code>const response =
+                <h3 class="concept-subtitle">
+                    Validar headers da resposta
+                </h3>
+
+                <p class="concept-description">
+                    Os headers da resposta também podem ser validados
+                    para verificar informações retornadas pelo servidor.
+                </p>
+
+                <pre class="concept-code"><code>const response =
 await request.get('/api/users');
 
 const headers =
@@ -330,15 +524,24 @@ expect(
 headers['content-type']
 ).toContain('application/json');</code></pre>
 
+            </section>
+
             <!-- =========================
              AUTH
-        ========================= -->
+        ========================== -->
 
-            <h3 class="concept-subtitle">
-                Autenticação
-            </h3>
+            <section class="concept-section">
 
-            <pre class="concept-code"><code>const response =
+                <h3 class="concept-subtitle">
+                    Autenticação
+                </h3>
+
+                <p class="concept-description">
+                    Um fluxo comum de API é realizar login, receber um token
+                    e utilizar esse token nas chamadas protegidas.
+                </p>
+
+                <pre class="concept-code"><code>const response =
 await request.post('/api/login', {
 
     data: {
@@ -348,22 +551,37 @@ await request.post('/api/login', {
 
 });
 
-expect(response.ok()).toBeTruthy();
+expect(
+response.ok()
+).toBeTruthy();
 
 const data =
 await response.json();
 
-expect(data.token).toBeDefined();</code></pre>
+expect(
+data.token
+).toBeDefined();</code></pre>
+
+            </section>
 
             <!-- =========================
              API CONTEXT
-        ========================= -->
+        ========================== -->
 
-            <h3 class="concept-subtitle">
-                APIRequestContext
-            </h3>
+            <section class="concept-section">
 
-            <pre class="concept-code"><code>import {
+                <h3 class="concept-subtitle">
+                    APIRequestContext
+                </h3>
+
+                <p class="concept-description">
+                    Também é possível criar um contexto específico para
+                    testes de API utilizando <strong>request.newContext()</strong>.
+                    Isso permite configurar uma <strong>baseURL</strong> e
+                    outras opções para as requisições.
+                </p>
+
+                <pre class="concept-code"><code>import {
 test,
 expect,
 request
@@ -380,64 +598,422 @@ const apiContext =
 const response =
     await apiContext.get('/api/users');
 
-expect(response.ok()).toBeTruthy();
+expect(
+    response.ok()
+).toBeTruthy();
 
 await apiContext.dispose();
 
 });</code></pre>
 
+            </section>
+
             <!-- =========================
-             EXEMPLO PRÁTICO
-        ========================= -->
+             SERVERest
+        ========================== -->
 
-            <h3 class="concept-subtitle">
-                Exemplo prático
-            </h3>
+            <section class="concept-section">
 
-            <pre class="concept-code"><code>test('criar e validar usuário', async ({ request }) => {
+                <h3 class="concept-subtitle">
+                    API real — ServeRest
+                </h3>
 
-const createResponse =
-    await request.post('/api/users', {
+                <p class="concept-description">
+                    Para um cenário mais próximo de um teste real,
+                    podemos utilizar a API pública do
+                    <strong>ServeRest</strong>. O exemplo abaixo trabalha
+                    diretamente com usuários e utiliza os endpoints de
+                    cadastro, login, consulta, atualização e exclusão.
+                </p>
 
-        data: {
-            name: 'João',
-            email: 'joao@example.com'
-        }
+                <pre class="concept-code"><code>Base URL
 
-    });
+https://serverest.dev
 
-expect(
-    createResponse.status()
-).toBe(201);
+Endpoints utilizados
 
-const createdUser =
-    await createResponse.json();
+POST /usuarios
+POST /login
+GET /usuarios/:id
+PUT /usuarios/:id
+DELETE /usuarios/:id</code></pre>
 
-expect(
-    createdUser.name
-).toBe('João');
+            </section>
 
-const getResponse =
-    await request.get(
-        `/api/users/${createdUser.id}`
+            <!-- =========================
+             FLUXO CRUD
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Fluxo CRUD
+                </h3>
+
+                <div class="mermaid-wrapper">
+
+                    <div class="mermaid">
+
+                        flowchart LR
+
+                        A["CREATE<br>POST /usuarios"]
+                        B["Usuário criado<br>_id"]
+
+                        C["LOGIN<br>POST /login"]
+                        D["Bearer Token"]
+
+                        E["READ<br>GET /usuarios/:id"]
+                        F["Dados do usuário"]
+
+                        G["UPDATE<br>PUT /usuarios/:id"]
+                        H["Usuário atualizado"]
+
+                        I["DELETE<br>DELETE /usuarios/:id"]
+                        J["Usuário removido"]
+
+                        A --> B
+                        B --> C
+                        C --> D
+                        D --> E
+                        E --> F
+                        F --> G
+                        G --> H
+                        H --> I
+                        I --> J
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- =========================
+             CRUD COMPLETO
+        ========================== -->
+
+            <section class="concept-example">
+
+                <h3 class="concept-example-title">
+                    Exemplo completo — CRUD
+                </h3>
+
+                <p class="concept-description">
+                    Neste exemplo, o teste executa um fluxo completo de API:
+                    cria um usuário, realiza login, consulta o registro,
+                    atualiza seus dados e finalmente exclui o usuário.
+
+                    O <strong>userId</strong> é obtido dinamicamente durante
+                    o cadastro e o token retornado pelo login é utilizado
+                    nas operações protegidas.
+                </p>
+
+                <pre class="concept-code"><code>import { test, expect } from '@playwright/test';
+
+test.describe('CRUD - Usuário ServeRest', () => {
+
+test(
+    'Create → Login → Read → Update → Delete',
+    async ({ request }) =&gt; {
+
+    // ==========================================
+    // CREATE - Cadastrando usuário
+    // ==========================================
+
+    const email =
+        `horadoqa${Date.now()}@example.com`;
+
+    const cadastroResponse =
+        await request.post(
+            'https://serverest.dev/usuarios',
+            {
+                data: {
+                    nome: 'Hora do QA',
+                    email,
+                    password: '1q2w3e4r',
+                    administrador: 'true'
+                }
+            }
+        );
+
+    expect(
+        cadastroResponse.status()
+    ).toBe(201);
+
+    const cadastroBody =
+        await cadastroResponse.json();
+
+    expect(
+        cadastroBody
+    ).toEqual(
+        expect.objectContaining({
+            message:
+                'Cadastro realizado com sucesso',
+
+            _id:
+                expect.any(String)
+        })
     );
 
-expect(
-    getResponse.status()
-).toBe(200);
+    const userId =
+        cadastroBody._id;
 
-const user =
-    await getResponse.json();
+    console.log(
+        'CREATE: Usuário criado com sucesso'
+    );
 
-expect(
-    user.email
-).toBe('joao@example.com');
+    // ==========================================
+    // LOGIN - Realizando login
+    // ==========================================
+
+    const loginResponse =
+        await request.post(
+            'https://serverest.dev/login',
+            {
+                data: {
+                    email,
+                    password: '1q2w3e4r'
+                }
+            }
+        );
+
+    expect(
+        loginResponse.status()
+    ).toBe(200);
+
+    const loginBody =
+        await loginResponse.json();
+
+    expect(
+        loginBody
+    ).toEqual(
+        expect.objectContaining({
+            message:
+                'Login realizado com sucesso',
+
+            authorization:
+                expect.stringContaining('Bearer ')
+        })
+    );
+
+    const token =
+        loginBody.authorization;
+
+    console.log(
+        'LOGIN: Login realizado com sucesso'
+    );
+
+    // ==========================================
+    // READ - Consultando usuário
+    // ==========================================
+
+    const readResponse =
+        await request.get(
+            `https://serverest.dev/usuarios/${userId}`,
+            {
+                headers: {
+                    Authorization: token
+                }
+            }
+        );
+
+    expect(
+        readResponse.status()
+    ).toBe(200);
+
+    const readBody =
+        await readResponse.json();
+
+    expect(
+        readBody
+    ).toEqual(
+        expect.objectContaining({
+            _id: userId,
+            nome: 'Hora do QA',
+            email,
+            administrador: 'true'
+        })
+    );
+
+    console.log(
+        'READ: Usuário consultado com sucesso'
+    );
+
+    // ==========================================
+    // UPDATE - Atualizando usuário
+    // ==========================================
+
+    const updateResponse =
+        await request.put(
+            `https://serverest.dev/usuarios/${userId}`,
+            {
+                headers: {
+                    Authorization: token
+                },
+
+                data: {
+                    nome:
+                        'Hora do QA - Atualizado',
+
+                    email,
+
+                    password:
+                        '1q2w3e4r',
+
+                    administrador:
+                        'true'
+                }
+            }
+        );
+
+    expect(
+        updateResponse.status()
+    ).toBe(200);
+
+    const updateBody =
+        await updateResponse.json();
+
+    expect(
+        updateBody.message
+    ).toBe(
+        'Registro alterado com sucesso'
+    );
+
+    console.log(
+        'UPDATE: Usuário atualizado com sucesso'
+    );
+
+    // ==========================================
+    // DELETE - Excluindo usuário
+    // ==========================================
+
+    const deleteResponse =
+        await request.delete(
+            `https://serverest.dev/usuarios/${userId}`,
+            {
+                headers: {
+                    Authorization: token
+                }
+            }
+        );
+
+    expect(
+        deleteResponse.status()
+    ).toBe(200);
+
+    const deleteBody =
+        await deleteResponse.json();
+
+    expect(
+        deleteBody.message
+    ).toBe(
+        'Registro excluído com sucesso'
+    );
+
+    console.log(
+        'DELETE: Usuário excluído com sucesso'
+    );
+
+});
 
 });</code></pre>
 
+            </section>
+
+            <!-- =========================
+             CRUD RESUMIDO
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Resumo do fluxo
+                </h3>
+
+                <pre class="concept-code"><code>CREATE
+
+POST /usuarios
+
+↓
+
+_id
+
+↓
+
+LOGIN
+
+POST /login
+
+↓
+
+Bearer Token
+
+↓
+
+READ
+
+GET /usuarios/:id
+
+↓
+
+UPDATE
+
+PUT /usuarios/:id
+
+↓
+
+DELETE
+
+DELETE /usuarios/:id
+
+↓
+
+CRUD concluído</code></pre>
+
+            </section>
+
+            <!-- =========================
+             BOAS PRÁTICAS
+        ========================== -->
+
+            <section class="concept-section">
+
+                <h3 class="concept-subtitle">
+                    Boas práticas em testes de API
+                </h3>
+
+                <p class="concept-description">
+                    Um teste de API deve validar mais do que apenas o status
+                    HTTP. Sempre que fizer sentido, valide também o conteúdo
+                    retornado, headers, identificadores, mensagens e regras
+                    importantes do contrato da API.
+                </p>
+
+                <pre class="concept-code"><code>STATUS
+
+↓
+
+BODY
+
+↓
+
+HEADERS
+
+↓
+
+CONTRATO
+
+↓
+
+REGRA DE NEGÓCIO
+
+↓
+
+RESULTADO ESPERADO</code></pre>
+
+            </section>
+
             <!-- =========================
              NOTA
-        ========================= -->
+        ========================== -->
 
             <div class="note">
 
@@ -447,22 +1023,37 @@ expect(
 
                 <p>
                     O objeto <strong>request</strong> permite testar APIs sem
-                    precisar abrir uma página no navegador. Utilize
-                    <strong>GET</strong> para consultas, <strong>POST</strong>
-                    para criação, <strong>PUT/PATCH</strong> para atualizações e
-                    <strong>DELETE</strong> para remoção. Valide não apenas o
-                    status HTTP, mas também o corpo da resposta, headers e os
-                    dados retornados pela API.
+                    precisar abrir uma página no navegador.
+
+                    Utilize <strong>GET</strong> para consultas,
+                    <strong>POST</strong> para criação,
+                    <strong>PUT/PATCH</strong> para atualizações
+                    e <strong>DELETE</strong> para remoção.
+
+                    Em fluxos autenticados, capture o token retornado pelo
+                    login e utilize-o no header
+                    <strong>Authorization</strong> das chamadas protegidas.
+
+                    No exemplo com o <strong>ServeRest</strong>, o teste utiliza
+                    um e-mail único baseado em <strong>Date.now()</strong>,
+                    evitando colisões com usuários criados em execuções anteriores.
+
+                    O fluxo completo executa:
+
+                    CREATE → LOGIN → READ → UPDATE → DELETE.
+
+                    Valide não apenas o status HTTP, mas também o corpo da
+                    resposta, headers, mensagens, identificadores e os dados
+                    retornados pela API.
                 </p>
 
             </div>
 
         </article>
 
-
         <!-- =========================
          FOOTER
-    ========================= -->
+    ========================== -->
 
         <footer>
 
@@ -489,6 +1080,97 @@ expect(
         </footer>
 
     </main>
+
+    <!-- =========================
+     MERMAID
+========================== -->
+
+    <script type="module">
+
+        import mermaid from
+            'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+        mermaid.initialize({
+
+            startOnLoad: true,
+
+            theme: 'base',
+
+            themeVariables: {
+
+                background: '#102D23',
+
+                primaryColor: '#0F3D2E',
+
+                primaryTextColor: '#F3EFE6',
+
+                primaryBorderColor: '#8FE3B0',
+
+                lineColor: '#8FE3B0',
+
+                secondaryColor: '#124A38',
+
+                tertiaryColor: '#102D23',
+
+                fontFamily: 'Manrope, sans-serif'
+
+            }
+
+        });
+
+    </script>
+
+    <!-- =========================
+     CODE LINE NUMBERS
+========================== -->
+
+    <script>
+
+        document.addEventListener(
+            'DOMContentLoaded',
+            () => {
+
+                const codeBlocks =
+                    document.querySelectorAll(
+                        '.concept pre.concept-code code'
+                    );
+
+                codeBlocks.forEach((code) => {
+
+                    const text =
+                        code.textContent.replace(/\r\n/g, '\n');
+
+                    const lines =
+                        text.split('\n');
+
+                    code.replaceChildren();
+
+                    lines.forEach((line, index) => {
+
+                        const lineElement =
+                            document.createElement('span');
+
+                        lineElement.className =
+                            'code-line';
+
+                        lineElement.dataset.line =
+                            String(index + 1);
+
+                        lineElement.textContent =
+                            line || ' ';
+
+                        code.appendChild(
+                            lineElement
+                        );
+
+                    });
+
+                });
+
+            }
+        );
+
+    </script>
 
 </body>
 
